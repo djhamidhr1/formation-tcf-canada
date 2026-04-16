@@ -2,3 +2,18 @@ node_modules
 dist
 .env
 .env.local
+
+# Fichiers sensibles avec credentials
+CLAUDE.md
+PROMPT_CLAUDE_CODE_COMPLET.md
+create_db_tables.mjs
+migration_tables.mjs
+migration_finale.mjs
+migration_tcf.js
+setup-folders.js
+setup-storage.js
+finish-storage.js
+create_folders.js
+deploy.bat
+.claude/
+"Nouveau Document texte (9).txt"
