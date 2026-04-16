@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../../services/supabase'
 import { useAuth } from '../../contexts/AuthContext'
 import LoadingSpinner from '../../components/ui/LoadingSpinner'
@@ -9,7 +9,29 @@ export default function CESeriesPage() {
   const [results, setResults] = useState([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
+  const [loadingResult, setLoadingResult] = useState(null)
   const { user } = useAuth()
+  const navigate = useNavigate()
+
+  const handleViewResult = async (s, res) => {
+    setLoadingResult(s.id)
+    const { data: questions } = await supabase
+      .from('questions_ce')
+      .select('*')
+      .eq('series_id', s.id)
+      .order('order_index')
+    setLoadingResult(null)
+    navigate(`/epreuve/comprehension-ecrite/resultats/${res.id}`, {
+      state: {
+        score: res.score,
+        total: res.total ?? 699,
+        questions: questions || [],
+        answers: res.answers || [],
+        seriesTitle: s.title || s.slug,
+        seriesSlug: s.slug,
+      },
+    })
+  }
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -73,10 +95,26 @@ export default function CESeriesPage() {
                   <span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">Score: {res.score} pts</span>
                 </div>
               )}
-              <Link to={`/epreuve/comprehension-ecrite/entrainement/${s.slug}`}
-                className="block w-full bg-[#1E8449] hover:bg-[#196A3A] text-white text-center py-2.5 rounded-lg text-sm font-bold no-underline transition-colors mt-3">
-                {res ? 'Refaire →' : 'Commencer →'}
-              </Link>
+              {res ? (
+                <div className="flex gap-2 mt-3">
+                  <button
+                    onClick={() => handleViewResult(s, res)}
+                    disabled={loadingResult === s.id}
+                    className="flex-1 bg-white border-2 border-[#1E8449] text-[#1E8449] hover:bg-green-50 text-center py-2.5 rounded-lg text-xs font-bold transition-colors disabled:opacity-60"
+                  >
+                    {loadingResult === s.id ? '⏳' : '📊 Résultats'}
+                  </button>
+                  <Link to={`/epreuve/comprehension-ecrite/entrainement/${s.slug}`}
+                    className="flex-1 bg-[#1E8449] hover:bg-[#196A3A] text-white text-center py-2.5 rounded-lg text-xs font-bold no-underline transition-colors">
+                    🔄 Refaire
+                  </Link>
+                </div>
+              ) : (
+                <Link to={`/epreuve/comprehension-ecrite/entrainement/${s.slug}`}
+                  className="block w-full bg-[#1E8449] hover:bg-[#196A3A] text-white text-center py-2.5 rounded-lg text-sm font-bold no-underline transition-colors mt-3">
+                  Commencer →
+                </Link>
+              )}
             </div>
           )
         })}
