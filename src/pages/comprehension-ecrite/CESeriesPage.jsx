@@ -80,7 +80,7 @@ export default function CESeriesPage() {
           return (
             <div key={s.id} className={`bg-white rounded-xl border-2 p-5 ${res ? 'border-green-300' : 'border-gray-200'} hover:shadow-md transition-all`}>
               <div className="flex justify-between items-start mb-3">
-                <span className="text-sm font-bold text-gray-600">Série {i + 1}</span>
+                <span className="text-sm font-bold text-gray-600">Série {s.order_index}</span>
                 {res ? (
                   <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">
                     ✓ {res.score}/{res.total}

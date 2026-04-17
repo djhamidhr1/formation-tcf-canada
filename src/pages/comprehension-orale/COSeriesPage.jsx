@@ -114,7 +114,7 @@ export default function COSeriesPage() {
                 } hover:shadow-md transition-all`}
               >
                 <div className="flex justify-between items-start mb-3">
-                  <span className="text-sm font-bold text-gray-600">Série {i + 1}</span>
+                  <span className="text-sm font-bold text-gray-600">Série {s.order_index}</span>
                   {res ? (
                     <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full">
                       ✓ {res.score}/{res.total}

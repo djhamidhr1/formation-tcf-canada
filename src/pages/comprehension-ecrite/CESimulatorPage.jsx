@@ -26,7 +26,10 @@ export default function CESimulatorPage() {
   const [submitting, setSubmitting] = useState(false)
   const [started, setStarted] = useState(false)
 
-  // Ref to always point to the latest handleSubmit
+  // Correction mode
+  const [isCorrectionMode, setIsCorrectionMode] = useState(false)
+  const [preAutoFillAnswers, setPreAutoFillAnswers] = useState(null)
+
   const submitRef = useRef(null)
   const { seconds, start, pause } = useTimer(60 * 60, () => submitRef.current?.())
 
@@ -81,7 +84,7 @@ export default function CESimulatorPage() {
         .single()
       if (result) resultId = result.id
     } catch {
-      // Sans auth, l'insert peut échouer — on continue quand même
+      // Sans auth, continue anyway
     }
 
     navigate(`/epreuve/comprehension-ecrite/resultats/${resultId}`, {
@@ -91,26 +94,44 @@ export default function CESimulatorPage() {
         questions,
         answers,
         seriesTitle: series?.title || slug,
+        seriesSlug: series?.slug,
         timeUsed: 3600 - seconds,
       },
     })
   }, [submitting, questions, answers, series, seconds, pause, navigate, slug])
 
-  // Keep ref up to date
   useEffect(() => {
     submitRef.current = handleSubmit
   }, [handleSubmit])
 
   const handleAnswer = (optionIdx) => {
+    if (isCorrectionMode) return
     setAnswers(prev => {
       const next = [...prev]
       next[qIdx] = optionIdx
       return next
     })
-    // Auto-advance to next unanswered question
     const nextUnanswered = answers.findIndex((a, i) => i > qIdx && a === null)
     if (nextUnanswered !== -1) {
       setTimeout(() => setQIdx(nextUnanswered), 300)
+    }
+  }
+
+  // Auto-fill with correct answers → enters correction mode
+  const handleAutoFillAndCorrect = () => {
+    setPreAutoFillAnswers([...answers])
+    const correctAnswers = questions.map(q => q.correct_answer_index)
+    setAnswers(correctAnswers)
+    setIsCorrectionMode(true)
+    pause()
+    toast.success('Mode correction activé — toutes les bonnes réponses affichées')
+  }
+
+  const exitCorrectionMode = () => {
+    setIsCorrectionMode(false)
+    if (preAutoFillAnswers) {
+      setAnswers(preAutoFillAnswers)
+      setPreAutoFillAnswers(null)
     }
   }
 
@@ -120,13 +141,12 @@ export default function CESimulatorPage() {
     return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
   }
 
-  const handleAutoFill = () => {
-    setAnswers(questions.map(q => q.correct_answer_index))
-  }
-
   const answeredCount = answers.filter(a => a !== null).length
   const question = questions[qIdx]
   const options = question?.options || []
+
+  // Correction mode score
+  const correctionScore = isCorrectionMode ? calculateCEScore(questions, answers) : null
 
   if (loading) {
     return (
@@ -139,7 +159,6 @@ export default function CESimulatorPage() {
     )
   }
 
-  // Écran de démarrage
   if (!started) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
@@ -170,12 +189,23 @@ export default function CESimulatorPage() {
           </ul>
         </div>
 
-        <button
-          onClick={() => { setStarted(true); start() }}
-          className="bg-[#1E8449] hover:bg-[#196A3A] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
-        >
-          Commencer l'entraînement →
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            onClick={() => { setStarted(true); start() }}
+            className="bg-[#1E8449] hover:bg-[#196A3A] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+          >
+            Commencer l'entraînement →
+          </button>
+          <button
+            onClick={() => {
+              setStarted(true)
+              handleAutoFillAndCorrect()
+            }}
+            className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
+          >
+            🔍 Voir le corrigé directement
+          </button>
+        </div>
         <button
           onClick={() => navigate('/epreuve/comprehension-ecrite/series')}
           className="block mx-auto mt-4 text-gray-500 hover:text-gray-700 text-sm"
@@ -188,81 +218,140 @@ export default function CESimulatorPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-4">
-      {/* Header barre d'examen */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-4 flex flex-wrap items-center justify-between gap-3 sticky top-[64px] z-40">
-        <div>
-          <h2 className="font-bold text-gray-900 text-sm">{series?.title}</h2>
-          <div className="flex items-center gap-3 mt-0.5">
-            <div className="w-32 bg-gray-200 rounded-full h-1.5">
-              <div
-                className="bg-[#1E8449] h-1.5 rounded-full transition-all"
-                style={{ width: `${(answeredCount / questions.length) * 100}%` }}
-              />
+
+      {/* Bandeau correction mode */}
+      {isCorrectionMode && (
+        <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🔍</span>
+            <div>
+              <p className="font-extrabold text-lg">Mode Correction</p>
+              <p className="text-amber-100 text-xs">Les bonnes réponses sont affichées en vert · Navigation libre entre les questions</p>
             </div>
-            <span className="text-xs text-gray-500">{answeredCount}/{questions.length} réponses</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="bg-white/20 rounded-xl px-4 py-2 text-center">
+              <div className="text-xl font-extrabold">{correctionScore} <span className="text-sm font-normal opacity-80">/ 699 pts</span></div>
+              <div className="text-xs opacity-80">{questions.length}/{questions.length} réponses</div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={exitCorrectionMode}
+                className="bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg text-xs font-bold transition-colors"
+              >
+                ← Reprendre le test
+              </button>
+              <button
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="bg-white text-orange-600 hover:bg-amber-50 px-4 py-2 rounded-lg text-xs font-bold transition-colors disabled:opacity-60"
+              >
+                {submitting ? '⏳' : '📊 Résultats complets'}
+              </button>
+            </div>
           </div>
         </div>
+      )}
 
-        <div className={`text-xl font-bold font-mono px-4 py-2 rounded-xl ${seconds < 300 ? 'bg-red-100 text-red-700 animate-pulse' : seconds < 600 ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-800'}`}>
-          ⏱ {formatTime(seconds)}
-        </div>
+      {/* Header barre d'examen */}
+      {!isCorrectionMode && (
+        <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-4 flex flex-wrap items-center justify-between gap-3 sticky top-[64px] z-40">
+          <div>
+            <h2 className="font-bold text-gray-900 text-sm">{series?.title}</h2>
+            <div className="flex items-center gap-3 mt-0.5">
+              <div className="w-32 bg-gray-200 rounded-full h-1.5">
+                <div
+                  className="bg-[#1E8449] h-1.5 rounded-full transition-all"
+                  style={{ width: `${(answeredCount / questions.length) * 100}%` }}
+                />
+              </div>
+              <span className="text-xs text-gray-500">{answeredCount}/{questions.length} réponses</span>
+            </div>
+          </div>
 
-        <div className="flex items-center gap-2">
-          {process.env.NODE_ENV === 'development' && (
-            <button onClick={handleAutoFill}
-              className="px-3 py-1.5 bg-gray-200 text-gray-600 rounded-lg text-xs font-medium hover:bg-gray-300 transition-colors">
-              Dev: Remplir
+          <div className={`text-xl font-bold font-mono px-4 py-2 rounded-xl ${seconds < 300 ? 'bg-red-100 text-red-700 animate-pulse' : seconds < 600 ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-800'}`}>
+            ⏱ {formatTime(seconds)}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleAutoFillAndCorrect}
+              className="px-3 py-1.5 bg-amber-100 text-amber-700 border border-amber-300 rounded-lg text-xs font-bold hover:bg-amber-200 transition-colors"
+            >
+              🔍 Corrigé
             </button>
-          )}
-          <button
-            onClick={handleSubmit}
-            disabled={submitting}
-            className={`px-5 py-2 rounded-xl font-bold text-sm transition-colors ${
-              answeredCount === questions.length
-                ? 'bg-[#1E8449] text-white hover:bg-[#196A3A]'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-            }`}
-          >
-            {submitting ? '⏳ Envoi...' : answeredCount === questions.length ? '✓ Terminer' : `Terminer (${answeredCount}/${questions.length})`}
-          </button>
+            <button
+              onClick={handleSubmit}
+              disabled={submitting}
+              className={`px-5 py-2 rounded-xl font-bold text-sm transition-colors ${
+                answeredCount === questions.length
+                  ? 'bg-[#1E8449] text-white hover:bg-[#196A3A]'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {submitting ? '⏳ Envoi...' : answeredCount === questions.length ? '✓ Terminer' : `Terminer (${answeredCount}/${questions.length})`}
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-4">
         {/* Navigation pastilles */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 h-fit lg:sticky lg:top-[140px]">
           <p className="text-xs font-bold text-gray-500 uppercase mb-3 tracking-wider">Questions</p>
           <div className="grid grid-cols-7 lg:grid-cols-5 gap-1">
-            {questions.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setQIdx(i)}
-                className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
-                  i === qIdx
-                    ? 'bg-[#1E8449] text-white shadow-md scale-110'
-                    : answers[i] !== null
-                    ? 'bg-green-100 text-green-700 border border-green-200'
-                    : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
+            {questions.map((q, i) => {
+              const isCorrect = isCorrectionMode && answers[i] === q.correct_answer_index
+              const wasWrong = isCorrectionMode && preAutoFillAnswers && preAutoFillAnswers[i] !== null && preAutoFillAnswers[i] !== q.correct_answer_index
+              return (
+                <button
+                  key={i}
+                  onClick={() => setQIdx(i)}
+                  className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
+                    i === qIdx
+                      ? 'bg-[#1E8449] text-white shadow-md scale-110'
+                      : isCorrectionMode
+                      ? wasWrong
+                        ? 'bg-red-100 text-red-700 border border-red-300'
+                        : 'bg-green-100 text-green-700 border border-green-300'
+                      : answers[i] !== null
+                      ? 'bg-green-100 text-green-700 border border-green-200'
+                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                  }`}
+                >
+                  {isCorrectionMode ? (wasWrong ? '✗' : '✓') : i + 1}
+                </button>
+              )
+            })}
           </div>
-          <div className="mt-3 space-y-1.5 text-xs text-gray-400">
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-[#1E8449]"></div>
-              <span>Actuelle</span>
+          {!isCorrectionMode && (
+            <div className="mt-3 space-y-1.5 text-xs text-gray-400">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-[#1E8449]"></div>
+                <span>Actuelle</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-green-100 border border-green-200"></div>
+                <span>Répondu</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-gray-100"></div>
+                <span>Non répondu</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-green-100 border border-green-200"></div>
-              <span>Répondu</span>
+          )}
+          {isCorrectionMode && (
+            <div className="mt-3 space-y-1.5 text-xs text-gray-400">
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-green-100 border border-green-300 flex items-center justify-center text-green-700 font-bold text-[10px]">✓</div>
+                <span>Correct</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 rounded bg-red-100 border border-red-300 flex items-center justify-center text-red-700 font-bold text-[10px]">✗</div>
+                <span>Erreur avant corrigé</span>
+              </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded bg-gray-100"></div>
-              <span>Non répondu</span>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Zone de question */}
@@ -278,7 +367,6 @@ export default function CESimulatorPage() {
             )}
           </div>
 
-          {/* Contenu de la question */}
           {question?.image_url && (
             <img
               src={question.image_url}
@@ -307,8 +395,37 @@ export default function CESimulatorPage() {
           {/* Options */}
           <div className="space-y-2.5">
             {options.map((opt, i) => {
-              const chosen = answers[qIdx] === i
               const optText = typeof opt === 'object' ? (opt.text || opt.label || JSON.stringify(opt)) : opt
+              const isCorrectOpt = i === question?.correct_answer_index
+              const wasUserWrong = preAutoFillAnswers && preAutoFillAnswers[qIdx] !== null && preAutoFillAnswers[qIdx] !== question?.correct_answer_index && preAutoFillAnswers[qIdx] === i
+
+              if (isCorrectionMode) {
+                return (
+                  <div
+                    key={i}
+                    className={`w-full text-left px-4 py-3.5 rounded-xl border-2 text-sm font-medium ${
+                      isCorrectOpt
+                        ? 'border-green-500 bg-green-50 text-green-900'
+                        : wasUserWrong
+                        ? 'border-red-300 bg-red-50 text-red-700'
+                        : 'border-gray-200 bg-white text-gray-500'
+                    }`}
+                  >
+                    <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-2 ${
+                      isCorrectOpt ? 'bg-green-500 text-white'
+                      : wasUserWrong ? 'bg-red-400 text-white'
+                      : 'bg-gray-100 text-gray-500'
+                    }`}>
+                      {String.fromCharCode(65 + i)}
+                    </span>
+                    {optText}
+                    {isCorrectOpt && <span className="ml-2 text-green-600 font-bold">✓ Bonne réponse</span>}
+                    {wasUserWrong && <span className="ml-2 text-red-500 font-bold">✗ Votre choix</span>}
+                  </div>
+                )
+              }
+
+              const chosen = answers[qIdx] === i
               return (
                 <button
                   key={i}
@@ -330,6 +447,14 @@ export default function CESimulatorPage() {
             })}
           </div>
 
+          {/* Explication en mode correction */}
+          {isCorrectionMode && question?.explanation && (
+            <div className="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800">
+              <p className="font-semibold mb-1">💡 Explication</p>
+              <p>{question.explanation}</p>
+            </div>
+          )}
+
           {/* Navigation */}
           <div className="flex justify-between mt-6 pt-4 border-t border-gray-100">
             <button
@@ -341,7 +466,7 @@ export default function CESimulatorPage() {
             </button>
 
             <span className="text-xs text-gray-400 self-center">
-              {answeredCount} / {questions.length} répondues
+              {isCorrectionMode ? `Mode Correction · Q${qIdx + 1}/${questions.length}` : `${answeredCount} / ${questions.length} répondues`}
             </span>
 
             <button
