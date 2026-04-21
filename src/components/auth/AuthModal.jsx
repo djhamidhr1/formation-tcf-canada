@@ -225,9 +225,9 @@ export default function AuthModal() {
               {/* Legal */}
               <p className="text-center text-xs text-gray-400 pt-2 leading-relaxed">
                 En continuant, vous acceptez nos{' '}
-                <span className="underline cursor-pointer">Conditions d'utilisation</span>
+                <Link to="/conditions" onClick={closeModal} className="underline text-gray-500 hover:text-gray-800 transition-colors no-underline" style={{textDecoration:'underline'}}>Conditions d'utilisation</Link>
                 {' '}et notre{' '}
-                <span className="underline cursor-pointer">Politique de confidentialité</span>.
+                <Link to="/confidentialite" onClick={closeModal} className="underline text-gray-500 hover:text-gray-800 transition-colors no-underline" style={{textDecoration:'underline'}}>Politique de confidentialité</Link>.
               </p>
             </>
           )}
