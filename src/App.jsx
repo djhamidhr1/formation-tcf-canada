@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
+import { AuthModalProvider } from './contexts/AuthModalContext'
+import AuthModal from './components/auth/AuthModal'
 import Layout from './components/layout/Layout'
 import HomePage from './pages/HomePage'
 
@@ -54,8 +56,10 @@ function ComingSoon({ title }) {
 export default function App() {
   return (
     <AuthProvider>
-      <Layout>
-        <Routes>
+      <AuthModalProvider>
+        <AuthModal />
+        <Layout>
+          <Routes>
           <Route path="/" element={<HomePage />} />
 
           {/* CE */}
@@ -99,8 +103,9 @@ export default function App() {
           <Route path="/admin" element={<AdminDashboard />} />
 
           <Route path="*" element={<ComingSoon title="Page introuvable (404)" />} />
-        </Routes>
-      </Layout>
+          </Routes>
+        </Layout>
+      </AuthModalProvider>
     </AuthProvider>
   )
 }

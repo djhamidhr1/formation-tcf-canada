@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import { useAuthModal } from '../../contexts/AuthModalContext'
 import { Menu, X, BookOpen, Headphones, PenTool, Mic, Crown, LogOut, User } from 'lucide-react'
 
 const epreuves = [
@@ -12,6 +13,7 @@ const epreuves = [
 
 export default function Navbar() {
   const { user, profile, signOut, isAdmin } = useAuth()
+  const { openModal } = useAuthModal()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
@@ -60,10 +62,10 @@ export default function Navbar() {
             </div>
           ) : (
             <div className="hidden md:flex items-center gap-2">
-              <Link to="/connexion" className="text-blue-200 hover:text-white px-3 py-1.5 text-sm font-medium no-underline transition-colors">Connexion</Link>
-              <Link to="/inscription" className="bg-white text-[#1A5276] hover:bg-blue-50 px-4 py-1.5 rounded-lg text-sm font-bold no-underline transition-colors">
+              <button onClick={() => openModal('login')} className="text-blue-200 hover:text-white px-3 py-1.5 text-sm font-medium transition-colors">Connexion</button>
+              <button onClick={() => openModal('signup')} className="bg-white text-[#1A5276] hover:bg-blue-50 px-4 py-1.5 rounded-lg text-sm font-bold transition-colors">
                 Commencer
-              </Link>
+              </button>
             </div>
           )}
           {/* Hamburger */}
@@ -127,10 +129,10 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link to="/connexion" onClick={() => setMobileOpen(false)} className="text-blue-200 text-sm no-underline">Connexion</Link>
-                <Link to="/inscription" onClick={() => setMobileOpen(false)} className="bg-white text-[#1A5276] px-4 py-2 rounded-lg text-sm font-bold no-underline text-center">
+                <button onClick={() => { openModal('login'); setMobileOpen(false) }} className="text-blue-200 text-sm text-left">Connexion</button>
+                <button onClick={() => { openModal('signup'); setMobileOpen(false) }} className="bg-white text-[#1A5276] px-4 py-2 rounded-lg text-sm font-bold text-center">
                   Commencer
-                </Link>
+                </button>
               </>
             )}
           </div>
