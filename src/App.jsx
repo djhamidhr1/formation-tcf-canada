@@ -39,6 +39,7 @@ import PricingPage from './pages/pricing/PricingPage'
 import FormationsPage from './pages/pricing/FormationsPage'
 import AccountPage from './pages/account/AccountPage'
 import NclcCalculatorPage from './pages/nclc/NclcCalculatorPage'
+import AdminDashboard from './pages/admin/AdminDashboard'
 
 function ComingSoon({ title }) {
   return (
@@ -95,7 +96,7 @@ export default function App() {
           <Route path="/connexion" element={<LoginPage />} />
           <Route path="/inscription" element={<RegisterPage />} />
           <Route path="/mon-compte" element={<AccountPage />} />
-          <Route path="/admin" element={<ComingSoon title="Admin — bientôt disponible" />} />
+          <Route path="/admin" element={<AdminDashboard />} />
 
           <Route path="*" element={<ComingSoon title="Page introuvable (404)" />} />
         </Routes>

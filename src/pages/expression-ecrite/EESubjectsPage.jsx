@@ -1,22 +1,19 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../services/supabase'
-import { FileText, Filter, ChevronDown, Search, Loader2 } from 'lucide-react'
+import { FileText, Filter, ChevronDown, ChevronUp, Search, Loader2, Eye, EyeOff } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const PAGE_SIZE = 20
 
-// Extract year from month_slug like "2024-01" or "janvier-2025"
 function extractYear(monthSlug) {
   if (!monthSlug) return null
   const match = monthSlug.match(/(\d{4})/)
   return match ? match[1] : null
 }
 
-// Format month slug for display
 function formatMonthSlug(slug) {
   if (!slug) return slug
-  // If it looks like "2024-03" format
   const isoMatch = slug.match(/^(\d{4})-(\d{2})$/)
   if (isoMatch) {
     const months = [
@@ -26,9 +23,37 @@ function formatMonthSlug(slug) {
     const monthIdx = parseInt(isoMatch[2], 10) - 1
     return `${months[monthIdx] || isoMatch[2]} ${isoMatch[1]}`
   }
-  return slug
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase())
+  return slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
+}
+
+const TACHE_META = [
+  { label: 'Tâche 1', type: 'Message court', detail: '60–120 mots · 10 min', color: 'blue' },
+  { label: 'Tâche 2', type: 'Narration', detail: '120–150 mots · 20 min', color: 'green' },
+  { label: 'Tâche 3', type: 'Synthèse / Rapport', detail: '150–200 mots · 30 min', color: 'orange' },
+]
+
+const COLOR_MAP = {
+  blue: {
+    badge: 'bg-blue-100 text-blue-700',
+    border: 'border-blue-300',
+    header: 'bg-blue-50',
+    corrBtn: 'text-blue-600 border-blue-300 hover:bg-blue-50',
+    corrBox: 'bg-blue-50 border-blue-200',
+  },
+  green: {
+    badge: 'bg-green-100 text-green-700',
+    border: 'border-green-300',
+    header: 'bg-green-50',
+    corrBtn: 'text-green-600 border-green-300 hover:bg-green-50',
+    corrBox: 'bg-green-50 border-green-200',
+  },
+  orange: {
+    badge: 'bg-orange-100 text-orange-700',
+    border: 'border-orange-300',
+    header: 'bg-orange-50',
+    corrBtn: 'text-orange-600 border-orange-300 hover:bg-orange-50',
+    corrBox: 'bg-orange-50 border-orange-200',
+  },
 }
 
 export default function EESubjectsPage() {
@@ -43,7 +68,7 @@ export default function EESubjectsPage() {
       setLoading(true)
       const { data, error } = await supabase
         .from('combinaisons_ee')
-        .select('id, month_slug, tache1_sujet, tache2_sujet, tache3_titre')
+        .select('id, month_slug, tache1_sujet, tache1_correction, tache2_sujet, tache2_correction, tache3_titre, tache3_document1, tache3_document2, tache3_correction')
         .order('month_slug', { ascending: false })
 
       if (error) {
@@ -64,11 +89,9 @@ export default function EESubjectsPage() {
 
   const filtered = useMemo(() => {
     let result = combinaisons
-
     if (yearFilter !== 'all') {
       result = result.filter(c => extractYear(c.month_slug) === yearFilter)
     }
-
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase()
       result = result.filter(c =>
@@ -78,26 +101,10 @@ export default function EESubjectsPage() {
         c.month_slug?.toLowerCase().includes(q)
       )
     }
-
     return result
   }, [combinaisons, yearFilter, searchQuery])
 
-  // Group by month
-  const grouped = useMemo(() => {
-    const groups = {}
-    filtered.forEach(c => {
-      const key = c.month_slug || 'Inconnu'
-      if (!groups[key]) groups[key] = []
-      groups[key].push(c)
-    })
-    return groups
-  }, [filtered])
-
-  const allMonths = Object.keys(grouped).sort((a, b) => b.localeCompare(a))
-  const visibleCount = page * PAGE_SIZE
-
-  // Flatten to paginate while grouping
-  const allItems = filtered.slice(0, visibleCount)
+  const allItems = filtered.slice(0, page * PAGE_SIZE)
   const groupedVisible = useMemo(() => {
     const groups = {}
     allItems.forEach(c => {
@@ -109,17 +116,10 @@ export default function EESubjectsPage() {
   }, [allItems])
 
   const visibleMonths = Object.keys(groupedVisible).sort((a, b) => b.localeCompare(a))
-  const hasMore = filtered.length > visibleCount
+  const hasMore = filtered.length > page * PAGE_SIZE
 
-  const handleYearChange = (year) => {
-    setYearFilter(year)
-    setPage(1)
-  }
-
-  const handleSearch = (e) => {
-    setSearchQuery(e.target.value)
-    setPage(1)
-  }
+  const handleYearChange = (year) => { setYearFilter(year); setPage(1) }
+  const handleSearch = (e) => { setSearchQuery(e.target.value); setPage(1) }
 
   return (
     <div>
@@ -147,7 +147,6 @@ export default function EESubjectsPage() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         {/* Filters */}
         <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100 mb-6 flex flex-wrap items-center gap-3">
-          {/* Search */}
           <div className="relative flex-1 min-w-[200px]">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
@@ -158,18 +157,12 @@ export default function EESubjectsPage() {
               className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent"
             />
           </div>
-
-          {/* Year filter */}
           <div className="flex items-center gap-2">
             <Filter size={15} className="text-gray-400" />
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => handleYearChange('all')}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                  yearFilter === 'all'
-                    ? 'bg-[#7D3C98] text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${yearFilter === 'all' ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
               >
                 Toutes années
               </button>
@@ -177,18 +170,13 @@ export default function EESubjectsPage() {
                 <button
                   key={year}
                   onClick={() => handleYearChange(year)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                    yearFilter === year
-                      ? 'bg-[#7D3C98] text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${yearFilter === year ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                 >
                   {year}
                 </button>
               ))}
             </div>
           </div>
-
           <span className="text-gray-400 text-sm ml-auto shrink-0">
             {filtered.length} résultat{filtered.length !== 1 ? 's' : ''}
           </span>
@@ -217,28 +205,27 @@ export default function EESubjectsPage() {
         ) : (
           <>
             {visibleMonths.map(monthSlug => (
-              <div key={monthSlug} className="mb-8">
+              <div key={monthSlug} className="mb-10">
                 {/* Month header */}
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3 mb-5">
                   <h2 className="text-lg font-extrabold text-gray-900">
                     {formatMonthSlug(monthSlug)}
                   </h2>
                   <span className="bg-purple-100 text-[#7D3C98] text-xs font-bold px-2.5 py-1 rounded-full">
-                    {groupedVisible[monthSlug].length} sujet{groupedVisible[monthSlug].length !== 1 ? 's' : ''}
+                    {groupedVisible[monthSlug].length} combinaison{groupedVisible[monthSlug].length !== 1 ? 's' : ''}
                   </span>
                   <div className="flex-1 h-px bg-gray-200" />
                 </div>
 
                 {/* Cards grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {groupedVisible[monthSlug].map(combi => (
-                    <CombiCard key={combi.id} combi={combi} />
+                  {groupedVisible[monthSlug].map((combi, idx) => (
+                    <CombiCard key={combi.id} combi={combi} number={idx + 1} monthLabel={formatMonthSlug(monthSlug)} />
                   ))}
                 </div>
               </div>
             ))}
 
-            {/* Load more */}
             {hasMore && (
               <div className="text-center mt-6">
                 <button
@@ -246,7 +233,7 @@ export default function EESubjectsPage() {
                   className="inline-flex items-center gap-2 bg-white border-2 border-[#7D3C98] text-[#7D3C98] hover:bg-purple-50 font-bold px-8 py-3 rounded-xl text-sm transition-colors"
                 >
                   <ChevronDown size={16} />
-                  Charger plus ({filtered.length - visibleCount} restants)
+                  Charger plus ({filtered.length - page * PAGE_SIZE} restants)
                 </button>
               </div>
             )}
@@ -257,56 +244,141 @@ export default function EESubjectsPage() {
   )
 }
 
-function CombiCard({ combi }) {
-  const preview = combi.tache1_sujet
-    ? combi.tache1_sujet.substring(0, 100) + (combi.tache1_sujet.length > 100 ? '...' : '')
-    : 'Sujet non disponible'
+function CombiCard({ combi, number, monthLabel }) {
+  const [expanded, setExpanded] = useState(false)
+  const [showCorr, setShowCorr] = useState([false, false, false])
+
+  const toggleCorr = (idx) => {
+    setShowCorr(prev => prev.map((v, i) => i === idx ? !v : v))
+  }
+
+  const taches = [
+    { sujet: combi.tache1_sujet, correction: combi.tache1_correction },
+    { sujet: combi.tache2_sujet, correction: combi.tache2_correction },
+    {
+      sujet: combi.tache3_titre,
+      correction: combi.tache3_correction,
+      doc1: combi.tache3_document1,
+      doc2: combi.tache3_document2,
+    },
+  ]
 
   return (
-    <div className="bg-white rounded-2xl border border-purple-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all overflow-hidden group">
-      {/* Card header */}
-      <div className="bg-gradient-to-r from-purple-50 to-purple-100/50 px-4 pt-4 pb-3 border-b border-purple-100">
-        <div className="flex items-center justify-between">
-          <span className="bg-[#7D3C98] text-white text-xs font-bold px-2.5 py-1 rounded-full">
-            {formatMonthSlug(combi.month_slug)}
-          </span>
-          <div className="flex gap-1">
+    <div className="bg-white rounded-2xl border border-purple-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+      {/* Card header — click to expand/collapse */}
+      <button
+        onClick={() => setExpanded(e => !e)}
+        className="w-full text-left focus:outline-none"
+      >
+        <div className="bg-gradient-to-r from-[#7D3C98] to-[#8E44AD] px-4 py-3 flex items-center justify-between">
+          <div>
+            <span className="text-white font-extrabold text-base">Combinaison {number}</span>
+            <span className="text-purple-200 text-xs ml-2 block sm:inline">{monthLabel}</span>
+          </div>
+          <div className="flex items-center gap-1.5 shrink-0">
             {['T1', 'T2', 'T3'].map(t => (
-              <span
-                key={t}
-                className="bg-purple-100 text-[#7D3C98] text-xs font-bold px-1.5 py-0.5 rounded"
-              >
+              <span key={t} className="bg-white/25 text-white text-xs font-bold px-1.5 py-0.5 rounded">
                 {t}
               </span>
             ))}
+            {expanded
+              ? <ChevronUp size={16} className="text-white ml-1" />
+              : <ChevronDown size={16} className="text-white ml-1" />
+            }
           </div>
         </div>
-      </div>
+      </button>
 
-      {/* Card body */}
-      <div className="px-4 py-4">
-        <p className="text-gray-600 text-xs leading-relaxed mb-4 line-clamp-3">
-          <span className="font-semibold text-[#7D3C98]">T1 : </span>
-          {preview}
-        </p>
-
-        {combi.tache3_titre && (
-          <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2">
-            <span className="font-semibold text-purple-500">T3 : </span>
-            {combi.tache3_titre}
+      {/* Collapsed preview */}
+      {!expanded && (
+        <div className="px-4 py-4 flex flex-col gap-3 flex-1">
+          <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
+            <span className="font-semibold text-purple-700">T1 : </span>
+            {combi.tache1_sujet
+              ? combi.tache1_sujet.substring(0, 130) + (combi.tache1_sujet.length > 130 ? '…' : '')
+              : 'Sujet non disponible'}
           </p>
-        )}
-      </div>
+          <Link
+            to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
+            className="mt-auto w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
+          >
+            ✍️ S'entraîner
+          </Link>
+        </div>
+      )}
 
-      {/* Card footer */}
-      <div className="px-4 pb-4">
-        <Link
-          to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
-          className="w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors group-hover:shadow-md"
-        >
-          ✍️ S'entraîner
-        </Link>
-      </div>
+      {/* Expanded — full tasks */}
+      {expanded && (
+        <div className="flex flex-col flex-1">
+          <div className="divide-y divide-gray-100">
+            {taches.map((tache, idx) => {
+              const meta = TACHE_META[idx]
+              const c = COLOR_MAP[meta.color]
+              return (
+                <div key={idx} className={`border-l-4 ${c.border}`}>
+                  {/* Task header */}
+                  <div className={`${c.header} px-4 py-2 flex flex-wrap items-center gap-2`}>
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${c.badge}`}>
+                      {meta.label}
+                    </span>
+                    <span className="text-gray-600 text-xs font-semibold">{meta.type}</span>
+                    <span className="text-gray-400 text-xs ml-auto">{meta.detail}</span>
+                  </div>
+
+                  {/* Task body */}
+                  <div className="px-4 py-3">
+                    <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
+                      {tache.sujet || 'Sujet non disponible'}
+                    </p>
+
+                    {/* Documents for T3 */}
+                    {idx === 2 && tache.doc1 && (
+                      <div className="mt-2 p-2.5 bg-gray-50 rounded-lg border border-gray-200 text-xs text-gray-600 leading-relaxed whitespace-pre-line">
+                        <span className="font-semibold text-gray-800">Document 1 :</span>
+                        <br />{tache.doc1}
+                      </div>
+                    )}
+                    {idx === 2 && tache.doc2 && (
+                      <div className="mt-2 p-2.5 bg-gray-50 rounded-lg border border-gray-200 text-xs text-gray-600 leading-relaxed whitespace-pre-line">
+                        <span className="font-semibold text-gray-800">Document 2 :</span>
+                        <br />{tache.doc2}
+                      </div>
+                    )}
+
+                    {/* Correction toggle */}
+                    {tache.correction && (
+                      <button
+                        onClick={() => toggleCorr(idx)}
+                        className={`mt-3 inline-flex items-center gap-1.5 text-xs font-semibold border rounded-lg px-3 py-1.5 transition-colors ${c.corrBtn}`}
+                      >
+                        {showCorr[idx] ? <EyeOff size={12} /> : <Eye size={12} />}
+                        {showCorr[idx] ? 'Masquer la correction' : 'Voir la correction'}
+                      </button>
+                    )}
+
+                    {showCorr[idx] && tache.correction && (
+                      <div className={`mt-2 p-3 rounded-xl border text-xs text-gray-700 leading-relaxed whitespace-pre-line ${c.corrBox}`}>
+                        <span className="font-bold text-green-700 block mb-1">✅ Correction :</span>
+                        {tache.correction}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* S'entraîner button */}
+          <div className="px-4 py-4 mt-auto">
+            <Link
+              to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
+            >
+              ✍️ S'entraîner
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
