@@ -54,7 +54,7 @@ export default function LoginPage() {
         </form>
         <p className="text-center text-sm text-gray-500 mt-6">
           Pas de compte ?{' '}
-          <Link to="/inscription" className="text-[#1A5276] font-semibold no-underline hover:underline">S'inscrire gratuitement</Link>
+          <Link to="/inscription" className="text-[#1A5276] font-semibold no-underline hover:underline">S'inscrire</Link>
         </p>
       </div>
     </div>

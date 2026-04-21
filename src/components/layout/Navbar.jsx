@@ -1,19 +1,20 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { Menu, X, BookOpen, Headphones, PenTool, Mic, Crown, LogOut, User } from 'lucide-react'
 
 const epreuves = [
-  { path: '/epreuve/comprehension-ecrite', label: 'Comp. Écrite', icon: <BookOpen size={16} /> },
-  { path: '/epreuve/comprehension-orale', label: 'Comp. Orale', icon: <Headphones size={16} /> },
-  { path: '/epreuve/expression-ecrite', label: 'Expr. Écrite', icon: <PenTool size={16} /> },
-  { path: '/epreuve/expression-orale', label: 'Expr. Orale', icon: <Mic size={16} /> },
+  { path: '/epreuve/comprehension-ecrite', label: 'Compréhension Écrite', icon: <BookOpen size={16} /> },
+  { path: '/epreuve/comprehension-orale', label: 'Compréhension Orale', icon: <Headphones size={16} /> },
+  { path: '/epreuve/expression-ecrite', label: 'Expression Écrite', icon: <PenTool size={16} /> },
+  { path: '/epreuve/expression-orale', label: 'Expression Orale', icon: <Mic size={16} /> },
 ]
 
 export default function Navbar() {
   const { user, profile, signOut, isAdmin } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSignOut = async () => {
     await signOut()
@@ -35,7 +36,7 @@ export default function Navbar() {
           <Link to="/formations" className="text-blue-200 hover:text-white px-3 py-2 text-sm font-medium no-underline transition-colors">Formations</Link>
           <Link to="/tarifs" className="text-blue-200 hover:text-white px-3 py-2 text-sm font-medium no-underline transition-colors">Tarifs</Link>
           <Link to="/calculateur-nclc" className="text-blue-200 hover:text-white px-3 py-2 text-sm font-medium no-underline transition-colors">Calculateur NCLC</Link>
-          <a href="https://wa.me/15062536067" target="_blank" rel="noreferrer"
+          <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer"
             className="text-green-300 hover:text-green-100 px-3 py-2 text-sm font-medium no-underline transition-colors">
             WhatsApp
           </a>
@@ -72,6 +73,39 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* Barre épreuves — desktop */}
+      <div className="hidden md:block bg-[#154360] border-t border-[#2E86C1]/40">
+        <div className="max-w-7xl mx-auto px-4 flex items-center gap-1">
+          <Link
+            to="/"
+            className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium no-underline transition-colors border-b-2 ${
+              location.hash === '' || location.hash === '#/'
+                ? 'border-white text-white'
+                : 'border-transparent text-blue-200 hover:text-white hover:border-blue-300'
+            }`}
+          >
+            🏠 Accueil
+          </Link>
+          <span className="text-white/20 text-lg">|</span>
+          {epreuves.map(e => {
+            const active = location.hash.startsWith('#' + e.path)
+            return (
+              <Link
+                key={e.path}
+                to={e.path}
+                className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium no-underline transition-colors border-b-2 ${
+                  active
+                    ? 'border-white text-white'
+                    : 'border-transparent text-blue-200 hover:text-white hover:border-blue-300'
+                }`}
+              >
+                {e.icon} {e.label}
+              </Link>
+            )
+          })}
+        </div>
+      </div>
+
       {/* Menu mobile */}
       {mobileOpen && (
         <div className="md:hidden bg-[#154360] border-t border-[#2E86C1] px-4 py-3">
@@ -95,7 +129,7 @@ export default function Navbar() {
               <>
                 <Link to="/connexion" onClick={() => setMobileOpen(false)} className="text-blue-200 text-sm no-underline">Connexion</Link>
                 <Link to="/inscription" onClick={() => setMobileOpen(false)} className="bg-white text-[#1A5276] px-4 py-2 rounded-lg text-sm font-bold no-underline text-center">
-                  Commencer gratuitement
+                  Commencer
                 </Link>
               </>
             )}

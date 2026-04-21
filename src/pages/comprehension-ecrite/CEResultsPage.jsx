@@ -52,7 +52,6 @@ export default function CEResultsPage() {
   const { state } = useLocation()
   const navigate = useNavigate()
   const [openReview, setOpenReview] = useState(false)
-  const [expandedQ, setExpandedQ] = useState(null)
 
   if (!state) {
     return (
@@ -192,70 +191,61 @@ export default function CEResultsPage() {
               const userAnswer = answers[i]
               const isCorrect = userAnswer === q.correct_answer_index
               const options = q.options || []
-              const isExpanded = expandedQ === i
+              const correctOpt = options[q.correct_answer_index]
+              const correctText = correctOpt
+                ? (typeof correctOpt === 'object' ? (correctOpt.text || correctOpt.label || '') : correctOpt)
+                : ''
+              const correctLetter = String.fromCharCode(65 + q.correct_answer_index)
+              const userOpt = userAnswer != null ? options[userAnswer] : null
+              const userText = userOpt
+                ? (typeof userOpt === 'object' ? (userOpt.text || userOpt.label || '') : userOpt)
+                : null
+              const userLetter = userAnswer != null ? String.fromCharCode(65 + userAnswer) : null
 
               return (
-                <div key={i} className={`${isCorrect ? 'bg-green-50/30' : 'bg-red-50/30'}`}>
-                  <button
-                    className="w-full flex items-start gap-3 p-4 text-left hover:bg-white/50 transition-colors"
-                    onClick={() => setExpandedQ(isExpanded ? null : i)}
-                  >
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                      {isCorrect ? '✓' : '✗'}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className="text-xs text-gray-500 font-medium">Q{i + 1}</span>
-                        {q.level && (
-                          <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${LEVEL_COLORS[q.level]}`}>
-                            {q.level}
-                          </span>
-                        )}
-                        <span className={`text-xs font-semibold ${isCorrect ? 'text-green-600' : 'text-red-600'}`}>
-                          {isCorrect ? `+${POINT_SCALE[q.level] || 0} pts` : '0 pt'}
-                        </span>
-                      </div>
-                      {q.question_text && (
-                        <p className="text-sm text-gray-700 line-clamp-2">{q.question_text}</p>
-                      )}
-                    </div>
-                    <span className="text-gray-400 text-sm shrink-0">{isExpanded ? '▲' : '▼'}</span>
-                  </button>
+                <div key={i} className={`flex items-start gap-3 px-4 py-3 ${isCorrect ? 'bg-green-50/40' : 'bg-red-50/40'}`}>
+                  {/* Badge ✓/✗ */}
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    {isCorrect ? '✓' : '✗'}
+                  </div>
 
-                  {isExpanded && (
-                    <div className="px-4 pb-4 pl-14">
-                      {q.content_html && (
-                        <div
-                          className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-3 text-xs leading-relaxed prose prose-xs max-w-none"
-                          dangerouslySetInnerHTML={{ __html: q.content_html }}
-                        />
+                  {/* Contenu */}
+                  <div className="flex-1 min-w-0">
+                    {/* Ligne 1 : numéro + niveau + points + question */}
+                    <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                      <span className="text-xs font-bold text-gray-500">Q{i + 1}</span>
+                      {q.level && (
+                        <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${LEVEL_COLORS[q.level]}`}>
+                          {q.level}
+                        </span>
                       )}
-                      <div className="space-y-1.5">
-                        {options.map((opt, oi) => {
-                          const optText = typeof opt === 'object' ? (opt.text || opt.label || JSON.stringify(opt)) : opt
-                          const isCorrectOpt = oi === q.correct_answer_index
-                          const isUserOpt = oi === userAnswer
-                          return (
-                            <div key={oi} className={`flex items-start gap-2 px-3 py-2 rounded-lg text-sm ${
-                              isCorrectOpt ? 'bg-green-100 text-green-800 font-medium'
-                              : isUserOpt ? 'bg-red-100 text-red-800'
-                              : 'text-gray-600'
-                            }`}>
-                              <span className="font-bold shrink-0">{String.fromCharCode(65 + oi)}.</span>
-                              <span>{optText}</span>
-                              {isCorrectOpt && <span className="ml-auto shrink-0">✓</span>}
-                              {isUserOpt && !isCorrectOpt && <span className="ml-auto shrink-0">✗</span>}
-                            </div>
-                          )
-                        })}
-                      </div>
-                      {q.explanation && (
-                        <div className="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
-                          <span className="font-semibold">Explication : </span>{q.explanation}
-                        </div>
+                      <span className={`text-xs font-semibold ${isCorrect ? 'text-green-600' : 'text-red-500'}`}>
+                        {isCorrect ? `+${POINT_SCALE[q.level] || 0} pts` : '0 pt'}
+                      </span>
+                    </div>
+                    {q.question_text && (
+                      <p className="text-sm text-gray-800 font-medium mb-1">{q.question_text}</p>
+                    )}
+
+                    {/* Ligne 2 : bonne réponse */}
+                    <div className="flex items-center gap-2 flex-wrap text-xs">
+                      <span className="inline-flex items-center gap-1 bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-md">
+                        ✓ {correctLetter} — {correctText}
+                      </span>
+                      {!isCorrect && userText && (
+                        <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2 py-0.5 rounded-md">
+                          ✗ {userLetter} — {userText}
+                        </span>
                       )}
                     </div>
-                  )}
+
+                    {/* Explication si dispo */}
+                    {q.explanation && (
+                      <div className="mt-1.5 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-1">
+                        💡 {q.explanation}
+                      </div>
+                    )}
+                  </div>
                 </div>
               )
             })}

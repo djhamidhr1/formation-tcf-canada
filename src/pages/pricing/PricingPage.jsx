@@ -145,7 +145,7 @@ function PlanCard({ plan, color = '#1A5276', showCredits = true }) {
       </ul>
 
       <a
-        href={`https://wa.me/15062536067?text=Bonjour%2C+je+souhaite+souscrire+au+Pack+${encodeURIComponent(plan.name)}`}
+        href={`https://wa.me/15147467431?text=Bonjour%2C+je+souhaite+souscrire+au+Pack+${encodeURIComponent(plan.name)}`}
         target="_blank" rel="noreferrer"
         className="block w-full bg-[#1A5276] hover:bg-[#154360] text-white text-center py-3 rounded-xl font-bold text-sm no-underline transition-colors"
       >
@@ -164,12 +164,9 @@ export default function PricingPage() {
       {/* Hero */}
       <section className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] text-white py-16 px-4 text-center">
         <h1 className="text-4xl font-extrabold mb-3">Nos Forfaits</h1>
-        <p className="text-blue-100 text-lg max-w-xl mx-auto">
-          Commencez gratuitement. Upgradez quand vous le souhaitez. Annulez à tout moment.
+        <p className="text-blue-100 text-lg max-w-xl mx-auto text-center">
+          Choisissez le forfait adapté à vos objectifs. Annulez à tout moment.
         </p>
-        <div className="mt-6 inline-flex items-center gap-2 bg-green-500/20 border border-green-400/30 rounded-full px-4 py-1.5 text-sm">
-          ✅ Accès gratuit aux séries CE/CO et aux sujets EO
-        </div>
       </section>
 
       {/* Tabs */}
@@ -214,7 +211,7 @@ export default function PricingPage() {
                   <li className="flex items-center gap-2"><Check size={15} className="text-green-500" /> Feedback détaillé par tâche</li>
                   <li className="flex items-center gap-2"><Check size={15} className="text-green-500" /> Note /20 + NCLC estimé</li>
                 </ul>
-                <a href={`https://wa.me/15062536067?text=Pack+${encodeURIComponent(p.name)}`} target="_blank" rel="noreferrer"
+                <a href={`https://wa.me/15147467431?text=Pack+${encodeURIComponent(p.name)}`} target="_blank" rel="noreferrer"
                   className="block w-full bg-purple-600 hover:bg-purple-700 text-white text-center py-3 rounded-xl font-bold text-sm no-underline transition-colors">
                   Choisir {p.name} →
                 </a>
@@ -235,7 +232,7 @@ export default function PricingPage() {
                 <div className="font-bold text-gray-900 mb-1">{m.country}</div>
                 <div className="text-sm text-gray-500 mb-4">{m.methods}</div>
                 <a
-                  href={`https://wa.me/15062536067?text=Bonjour%2C+je+souhaite+payer+le+${encodeURIComponent(m.msg)}`}
+                  href={`https://wa.me/15147467431?text=Bonjour%2C+je+souhaite+payer+le+${encodeURIComponent(m.msg)}`}
                   target="_blank" rel="noreferrer"
                   className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-2.5 rounded-xl font-bold text-sm no-underline transition-colors"
                 >
@@ -272,12 +269,12 @@ export default function PricingPage() {
       {/* CTA final */}
       <section className="bg-[#1A5276] text-white py-14 px-4 text-center">
         <h2 className="text-2xl font-extrabold mb-3">Prêt à commencer ?</h2>
-        <p className="text-blue-200 mb-6">L'accès aux séries CE/CO et sujets EO est totalement gratuit</p>
+        <p className="text-blue-200 mb-6">Choisissez votre forfait et commencez dès aujourd'hui</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link to="/inscription" className="bg-white text-[#1A5276] hover:bg-blue-50 font-bold px-8 py-3.5 rounded-xl no-underline transition-colors">
-            Commencer gratuitement →
+            Choisir un forfait →
           </Link>
-          <a href="https://wa.me/15062536067" target="_blank" rel="noreferrer"
+          <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer"
             className="border-2 border-white/50 text-white hover:bg-white/10 font-bold px-8 py-3.5 rounded-xl no-underline transition-colors">
             💬 Contacter via WhatsApp
           </a>

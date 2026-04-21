@@ -90,8 +90,8 @@ export default function HomePage() {
               Plateforme spécialisée dans la préparation au TCF Canada. Tests en conditions réelles avec correction IA.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mb-12">
-              <Link to="/inscription" className="bg-white text-[#1A5276] hover:bg-blue-50 font-bold px-8 py-3.5 rounded-xl text-lg no-underline transition-colors shadow-lg">
-                Commencer gratuitement →
+              <Link to="/tarifs" className="bg-white text-[#1A5276] hover:bg-blue-50 font-bold px-8 py-3.5 rounded-xl text-lg no-underline transition-colors shadow-lg">
+                Choisir un forfait →
               </Link>
               <Link to="/tarifs" className="border-2 border-white/50 text-white hover:bg-white/10 font-bold px-8 py-3.5 rounded-xl text-lg no-underline transition-colors">
                 Voir les tarifs
@@ -158,7 +158,7 @@ export default function HomePage() {
       <section className="max-w-4xl mx-auto px-4 py-16 text-center">
         <div className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] rounded-2xl p-10 text-white">
           <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">👨‍🏫</div>
-          <h3 className="text-2xl font-extrabold mb-2">Ayoub — Fondateur</h3>
+          <h3 className="text-2xl font-extrabold mb-2">Hamid — Fondateur</h3>
           <p className="text-blue-100 text-lg mb-6">Expert TCF Canada depuis 2019</p>
           <div className="grid grid-cols-3 gap-4">
             {[['5+', 'Ans d\'expérience'], ['25 000+', 'Candidats aidés'], ['95%', 'Taux de réussite']].map(([v, l]) => (
@@ -175,7 +175,7 @@ export default function HomePage() {
       <section className="bg-gray-100 py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-3">Nos Forfaits</h2>
-          <p className="text-center text-gray-500 mb-10">Commencez gratuitement, upgradez quand vous le souhaitez</p>
+          <p className="text-center text-gray-500 mb-10">Choisissez le forfait adapté à vos objectifs</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {PRICING.map(p => (
               <div key={p.name} className={`bg-white rounded-2xl p-6 shadow-sm relative ${p.popular ? 'ring-2 ring-[#1A5276]' : ''}`}>
@@ -268,20 +268,20 @@ export default function HomePage() {
         <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-10">Contactez-nous</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-4">
-            <a href="https://wa.me/15062536067" target="_blank" rel="noreferrer"
+            <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer"
               className="flex items-center gap-4 bg-green-600 hover:bg-green-700 text-white p-5 rounded-xl no-underline transition-colors">
               <span className="text-3xl">💬</span>
               <div>
                 <div className="font-bold text-lg">WhatsApp</div>
-                <div className="text-green-100 text-sm">+1 506 253 6067</div>
+                <div className="text-green-100 text-sm">+1 514 746 7431</div>
               </div>
             </a>
-            <a href="mailto:ayoub@tcfcanada.com"
+            <a href="mailto:hamid@formation-tcf.com"
               className="flex items-center gap-4 bg-[#1A5276] hover:bg-[#154360] text-white p-5 rounded-xl no-underline transition-colors">
               <span className="text-3xl">✉️</span>
               <div>
                 <div className="font-bold text-lg">Email</div>
-                <div className="text-blue-200 text-sm">ayoub@tcfcanada.com</div>
+                <div className="text-blue-200 text-sm">hamid@formation-tcf.com</div>
               </div>
             </a>
           </div>

@@ -58,7 +58,7 @@ const STEPS = [
 
 function getWhatsAppUrl(plan) {
   const text = encodeURIComponent(`Bonjour, je souhaite m'inscrire à la formation ${plan} TCF Canada`)
-  return `https://wa.me/15062536067?text=${text}`
+  return `https://wa.me/15147467431?text=${text}`
 }
 
 export default function FormationsPage() {
@@ -161,10 +161,10 @@ export default function FormationsPage() {
       {/* Instructor profile */}
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 text-white mb-12 flex flex-col md:flex-row items-center gap-8">
         <div className="w-24 h-24 rounded-2xl bg-white/20 flex items-center justify-center text-4xl shrink-0 font-bold">
-          A
+          H
         </div>
         <div>
-          <h3 className="text-xl font-extrabold mb-1">Ayoub</h3>
+          <h3 className="text-xl font-extrabold mb-1">Hamid</h3>
           <p className="text-slate-300 text-sm mb-4">Formateur certifié TCF Canada</p>
           <div className="grid grid-cols-3 gap-4">
             {[
@@ -186,12 +186,12 @@ export default function FormationsPage() {
         <h2 className="text-xl font-bold text-gray-900 mb-2">Une question ? Contactez-nous directement</h2>
         <p className="text-gray-500 text-sm mb-5">Réponse garantie sous 24h</p>
         <a
-          href="https://wa.me/15062536067?text=Bonjour%2C+j%27ai+une+question+sur+les+formations+TCF+Canada"
+          href="https://wa.me/15147467431?text=Bonjour%2C+j%27ai+une+question+sur+les+formations+TCF+Canada"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3.5 rounded-xl no-underline transition-colors shadow-md"
         >
-          💬 WhatsApp — +1 506 253-6067
+          💬 WhatsApp — +1 514 746-7431
         </a>
       </div>
     </div>

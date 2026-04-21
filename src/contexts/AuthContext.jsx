@@ -10,9 +10,15 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   const loadProfile = async (userId) => {
-    const { data: prof } = await supabase.from('profiles').select('*').eq('id', userId).single()
+    const { data: prof } = await supabase.from('profiles').select('*').eq('id', userId).maybeSingle()
     setProfile(prof)
-    const { data: sub } = await supabase.from('user_subscriptions').select('*').eq('user_id', userId).single()
+    const { data: sub } = await supabase
+      .from('user_subscriptions')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .maybeSingle()
     setSubscription(sub)
   }
 

@@ -16,8 +16,8 @@ export default function Footer() {
             </p>
             <div className="mt-3 text-sm space-y-1">
               <div>📍 Montréal, QC, Canada</div>
-              <div>✉️ <a href="mailto:ayoub@tcfcanada.com" className="text-blue-300 hover:text-white no-underline">ayoub@tcfcanada.com</a></div>
-              <div>📞 <a href="tel:+15062536067" className="text-blue-300 hover:text-white no-underline">+1 506 253 6067</a></div>
+              <div>✉️ <a href="mailto:hamid@formation-tcf.com" className="text-blue-300 hover:text-white no-underline">hamid@formation-tcf.com</a></div>
+              <div>📞 <a href="tel:+15147467431" className="text-blue-300 hover:text-white no-underline">+1 514 746 7431</a></div>
             </div>
           </div>
 
@@ -56,7 +56,7 @@ export default function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-3">Nous suivre</h4>
             <div className="flex flex-col gap-2 text-sm">
-              <a href="https://wa.me/15062536067" target="_blank" rel="noreferrer"
+              <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer"
                 className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-lg no-underline transition-colors">
                 💬 WhatsApp
               </a>
