@@ -42,6 +42,9 @@ import FormationsPage from './pages/pricing/FormationsPage'
 import AccountPage from './pages/account/AccountPage'
 import NclcCalculatorPage from './pages/nclc/NclcCalculatorPage'
 import AdminDashboard from './pages/admin/AdminDashboard'
+import ConfidentialitePage from './pages/legal/ConfidentialitePage'
+import ConditionsPage from './pages/legal/ConditionsPage'
+import FAQPage from './pages/legal/FAQPage'
 
 function ComingSoon({ title }) {
   return (
@@ -101,6 +104,9 @@ export default function App() {
           <Route path="/inscription" element={<RegisterPage />} />
           <Route path="/mon-compte" element={<AccountPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/confidentialite" element={<ConfidentialitePage />} />
+          <Route path="/conditions" element={<ConditionsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
 
           <Route path="*" element={<ComingSoon title="Page introuvable (404)" />} />
           </Routes>

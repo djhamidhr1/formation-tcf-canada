@@ -71,9 +71,9 @@ export default function Footer() {
         <div className="border-t border-white/20 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-blue-400">
           <p>© 2026 Formation TCF Canada. Tous droits réservés.</p>
           <div className="flex gap-4">
-            <Link to="#" className="text-blue-400 hover:text-white no-underline">Confidentialité</Link>
-            <Link to="#" className="text-blue-400 hover:text-white no-underline">Conditions</Link>
-            <Link to="#" className="text-blue-400 hover:text-white no-underline">FAQ</Link>
+            <Link to="/confidentialite" className="text-blue-400 hover:text-white no-underline transition-colors">Confidentialité</Link>
+            <Link to="/conditions" className="text-blue-400 hover:text-white no-underline transition-colors">Conditions</Link>
+            <Link to="/faq" className="text-blue-400 hover:text-white no-underline transition-colors">FAQ</Link>
           </div>
         </div>
       </div>
