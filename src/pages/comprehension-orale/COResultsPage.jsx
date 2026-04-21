@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import { useParams, useLocation, useNavigate, Link } from 'react-router-dom'
 import { POINT_SCALE } from '../../utils/scoring'
 import { getNclcCeCo } from '../../utils/nclc'
 
@@ -50,6 +50,7 @@ function getLevel(score) {
 export default function COResultsPage() {
   const { resultId } = useParams()
   const { state } = useLocation()
+  const navigate = useNavigate()
   const [openReview, setOpenReview] = useState(false)
 
   if (!state) {
@@ -197,25 +198,30 @@ export default function COResultsPage() {
               const userAnswer = answers[i]
               const isCorrect = userAnswer === q.correct_answer_index
               const options = q.options || []
-              const correctOpt = options[q.correct_answer_index]
-              const correctText = correctOpt
-                ? (typeof correctOpt === 'object' ? (correctOpt.text || correctOpt.label || '') : correctOpt)
-                : ''
+              const getOptText = (opt) => {
+                if (!opt) return ''
+                if (typeof opt === 'object') return opt.text || opt.label || ''
+                return String(opt).trim()
+              }
+              const correctText = getOptText(options[q.correct_answer_index])
               const correctLetter = String.fromCharCode(65 + q.correct_answer_index)
               const userOpt = userAnswer != null ? options[userAnswer] : null
-              const userText = userOpt
-                ? (typeof userOpt === 'object' ? (userOpt.text || userOpt.label || '') : userOpt)
-                : null
+              const userText = userAnswer != null ? getOptText(userOpt) : null
               const userLetter = userAnswer != null ? String.fromCharCode(65 + userAnswer) : null
+              const displayText = q.prompt || q.question_text || ''
 
               return (
                 <div key={i} className={`flex items-start gap-3 px-4 py-3 ${isCorrect ? 'bg-green-50/40' : 'bg-red-50/40'}`}>
+                  {/* Badge ✓/✗ */}
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${
                     isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
                   }`}>
                     {isCorrect ? '✓' : '✗'}
                   </div>
+
+                  {/* Contenu */}
                   <div className="flex-1 min-w-0">
+                    {/* Ligne 1 : numéro + niveau + points + audio */}
                     <div className="flex items-center gap-2 flex-wrap mb-0.5">
                       <span className="text-xs font-bold text-gray-500">Q{i + 1}</span>
                       {q.level && (
@@ -226,20 +232,37 @@ export default function COResultsPage() {
                       <span className={`text-xs font-semibold ${isCorrect ? 'text-green-600' : 'text-red-500'}`}>
                         {isCorrect ? `+${POINT_SCALE[q.level] || 0} pts` : '0 pt'}
                       </span>
+                      {q.audio_url && (
+                        <span className="text-xs text-blue-500 font-medium">🎧 Audio</span>
+                      )}
+                      {q.image_url && (
+                        <span className="text-xs text-purple-500 font-medium">🖼️ Image</span>
+                      )}
                     </div>
-                    {q.question_text && (
-                      <p className="text-sm text-gray-800 font-medium mb-1">{q.question_text}</p>
+
+                    {/* Prompt / question text */}
+                    {displayText && (
+                      <p className="text-sm text-gray-800 font-medium mb-1">{displayText}</p>
                     )}
+
+                    {/* Bonne réponse + réponse utilisateur */}
                     <div className="flex items-center gap-2 flex-wrap text-xs">
                       <span className="inline-flex items-center gap-1 bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-md">
-                        ✓ {correctLetter} — {correctText}
+                        ✓ {correctLetter}{correctText ? ` — ${correctText}` : ''}
                       </span>
-                      {!isCorrect && userText && (
+                      {!isCorrect && userAnswer != null && (
                         <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2 py-0.5 rounded-md">
-                          ✗ {userLetter} — {userText}
+                          ✗ {userLetter}{userText ? ` — ${userText}` : ''}
+                        </span>
+                      )}
+                      {userAnswer == null && (
+                        <span className="inline-flex items-center gap-1 bg-gray-100 text-gray-500 px-2 py-0.5 rounded-md">
+                          — Sans réponse
                         </span>
                       )}
                     </div>
+
+                    {/* Explication si dispo */}
                     {q.explanation && (
                       <div className="mt-1.5 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-1">
                         💡 {q.explanation}
@@ -256,16 +279,16 @@ export default function COResultsPage() {
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
+          to="/epreuve/comprehension-orale/series"
+          className="flex-1 bg-[#1A5276] hover:bg-[#154360] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+        >
+          Choisir une autre série
+        </Link>
+        <Link
           to={`/epreuve/comprehension-orale/entrainement/${seriesSlug || ''}`}
           className="flex-1 bg-white border-2 border-[#1A5276] text-[#1A5276] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Refaire cette série
-        </Link>
-        <Link
-          to="/epreuve/comprehension-orale/series"
-          className="flex-1 bg-[#1A5276] hover:bg-[#154360] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
-        >
-          Choisir une série
         </Link>
       </div>
     </div>
