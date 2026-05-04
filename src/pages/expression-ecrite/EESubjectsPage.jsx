@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../services/supabase'
-import { FileText, Filter, ChevronDown, ChevronUp, Search, Loader2, Eye, EyeOff } from 'lucide-react'
+import { FileText, Filter, ChevronDown, ChevronUp, Search, Loader2, Eye, EyeOff, PenTool, Check } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const PAGE_SIZE = 20
@@ -41,18 +41,18 @@ const COLOR_MAP = {
     corrBox: 'bg-blue-50 border-blue-200',
   },
   green: {
-    badge: 'bg-green-100 text-green-700',
-    border: 'border-green-300',
-    header: 'bg-green-50',
-    corrBtn: 'text-green-600 border-green-300 hover:bg-green-50',
-    corrBox: 'bg-green-50 border-green-200',
+    badge: 'bg-blue-100 text-blue-700',
+    border: 'border-blue-300',
+    header: 'bg-blue-50',
+    corrBtn: 'text-blue-600 border-blue-300 hover:bg-blue-50',
+    corrBox: 'bg-blue-50 border-blue-200',
   },
   orange: {
-    badge: 'bg-orange-100 text-orange-700',
+    badge: 'bg-blue-100 text-blue-700',
     border: 'border-orange-300',
     header: 'bg-orange-50',
-    corrBtn: 'text-orange-600 border-orange-300 hover:bg-orange-50',
-    corrBox: 'bg-orange-50 border-orange-200',
+    corrBtn: 'text-blue-600 border-orange-300 hover:bg-orange-50',
+    corrBox: 'bg-orange-50 border-blue-200',
   },
 }
 
@@ -190,7 +190,7 @@ export default function EESubjectsPage() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="text-5xl mb-4">🔍</div>
+            <div className="text-5xl mb-4"><Search size={48} className="text-gray-400 mx-auto" /></div>
             <h3 className="text-xl font-bold text-gray-700 mb-2">Aucun résultat</h3>
             <p className="text-gray-500 text-sm mb-4">
               Essayez d'autres termes de recherche ou changez le filtre d'année
@@ -211,7 +211,7 @@ export default function EESubjectsPage() {
                   <h2 className="text-lg font-extrabold text-gray-900">
                     {formatMonthSlug(monthSlug)}
                   </h2>
-                  <span className="bg-purple-100 text-[#7D3C98] text-xs font-bold px-2.5 py-1 rounded-full">
+                  <span className="bg-blue-100 text-[#7D3C98] text-xs font-bold px-2.5 py-1 rounded-full">
                     {groupedVisible[monthSlug].length} combinaison{groupedVisible[monthSlug].length !== 1 ? 's' : ''}
                   </span>
                   <div className="flex-1 h-px bg-gray-200" />
@@ -293,7 +293,7 @@ function CombiCard({ combi, number, monthLabel }) {
       {!expanded && (
         <div className="px-4 py-4 flex flex-col gap-3 flex-1">
           <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
-            <span className="font-semibold text-purple-700">T1 : </span>
+            <span className="font-semibold text-blue-700">T1 : </span>
             {combi.tache1_sujet
               ? combi.tache1_sujet.substring(0, 130) + (combi.tache1_sujet.length > 130 ? '…' : '')
               : 'Sujet non disponible'}
@@ -302,7 +302,7 @@ function CombiCard({ combi, number, monthLabel }) {
             to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
             className="mt-auto w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
           >
-            ✍️ S'entraîner
+            <PenTool size={14} className="inline mr-1" /> S'entraîner
           </Link>
         </div>
       )}
@@ -358,7 +358,7 @@ function CombiCard({ combi, number, monthLabel }) {
 
                     {showCorr[idx] && tache.correction && (
                       <div className={`mt-2 p-3 rounded-xl border text-xs text-gray-700 leading-relaxed whitespace-pre-line ${c.corrBox}`}>
-                        <span className="font-bold text-green-700 block mb-1">✅ Correction :</span>
+                        <span className="font-bold text-blue-700 block mb-1"><Check size={14} className="inline mr-1" /> Correction :</span>
                         {tache.correction}
                       </div>
                     )}
@@ -374,7 +374,7 @@ function CombiCard({ combi, number, monthLabel }) {
               to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
               className="w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
             >
-              ✍️ S'entraîner
+              <PenTool size={14} className="inline mr-1" /> S'entraîner
             </Link>
           </div>
         </div>

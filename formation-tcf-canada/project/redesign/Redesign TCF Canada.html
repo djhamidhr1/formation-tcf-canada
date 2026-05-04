@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation TCF Canada — Redesign Premium</title>
+  <link rel="stylesheet" href="tokens.css" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 3px oklch(65% 0.18 55 / 0.3); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px oklch(65% 0.18 55 / 0.1); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page-enter { animation: fadeUp 0.3s cubic-bezier(.4,0,.2,1) both; }
+    html { scroll-behavior: smooth; }
+    #root { min-height: 100vh; display: flex; flex-direction: column; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="SharedComponents.jsx"></script>
+  <script type="text/babel" src="HomePage.jsx"></script>
+  <script type="text/babel" src="InnerPages.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "primaryColor": "#0D3558",
+      "accentColor": "#2E86C1",
+      "fontScale": 1,
+      "darkHero": true,
+      "roundedCards": true,
+      "showBadges": true
+    }/*EDITMODE-END*/;
+
+    function App() {
+      const [page, setPage] = useState('home');
+      const [prevPage, setPrevPage] = useState(null);
+      const tweaks = useTweaks(TWEAK_DEFAULTS);
+
+      const navigate = (p) => {
+        if (!p) return;
+        setPrevPage(page);
+        setPage(p);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      };
+
+      const renderPage = () => {
+        switch (page) {
+          case 'home':         return <HomePage onNavigate={navigate} />;
+          case 'comprehension-ecrite': return <EpreuvePage epreuve="comprehension-ecrite" onNavigate={navigate} />;
+          case 'comprehension-orale':  return <EpreuvePage epreuve="comprehension-orale" onNavigate={navigate} />;
+          case 'expression-ecrite':    return <EpreuvePage epreuve="expression-ecrite" onNavigate={navigate} />;
+          case 'expression-orale':     return <EpreuvePage epreuve="expression-orale" onNavigate={navigate} />;
+          case 'ce-series':    return <SeriesPage type="ce" onNavigate={navigate} />;
+          case 'co-series':    return <SeriesPage type="co" onNavigate={navigate} />;
+          case 'ce-simulator': return <SimulatorPage onNavigate={navigate} />;
+          case 'pricing':      return <PricingPage onNavigate={navigate} />;
+          case 'account':      return <AccountPage onNavigate={navigate} />;
+          case 'login':        return <LoginPage onNavigate={navigate} mode="login" />;
+          case 'register':     return <LoginPage onNavigate={navigate} mode="signup" />;
+          case 'formations':   return <FormationsPage onNavigate={navigate} />;
+          case 'nclc':         return <NclcPage onNavigate={navigate} />;
+          default:             return <HomePage onNavigate={navigate} />;
+        }
+      };
+
+      const isSimulator = page === 'ce-simulator';
+
+      return (
+        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontSize: `${tweaks.fontScale}rem` }}>
+          <Navbar currentPage={page} onNavigate={navigate} />
+          <main key={page} className="page-enter" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            {renderPage()}
+          </main>
+          {!isSimulator && <Footer onNavigate={navigate} />}
+
+          {/* Tweaks Panel */}
+          <TweaksPanel tweaks={tweaks}>
+            <TweakSection title="Apparence">
+              <TweakColor id="primaryColor" label="Couleur principale" tweaks={tweaks} />
+              <TweakColor id="accentColor" label="Couleur accentuée" tweaks={tweaks} />
+              <TweakSlider id="fontScale" label="Taille de police" min={0.85} max={1.15} step={0.05} tweaks={tweaks} />
+            </TweakSection>
+            <TweakSection title="Mise en page">
+              <TweakToggle id="roundedCards" label="Cards arrondies" tweaks={tweaks} />
+              <TweakToggle id="showBadges" label="Afficher badges" tweaks={tweaks} />
+              <TweakToggle id="darkHero" label="Hero sombre" tweaks={tweaks} />
+            </TweakSection>
+            <TweakSection title="Navigation rapide">
+              <TweakButton label="→ HomePage" onClick={() => navigate('home')} />
+              <TweakButton label="→ Séries CE" onClick={() => navigate('ce-series')} />
+              <TweakButton label="→ Simulateur" onClick={() => navigate('ce-simulator')} />
+              <TweakButton label="→ Tarifs" onClick={() => navigate('pricing')} />
+              <TweakButton label="→ Compte" onClick={() => navigate('account')} />
+              <TweakButton label="→ Connexion" onClick={() => navigate('login')} />
+              <TweakButton label="→ Compréhension Orale" onClick={() => navigate('comprehension-orale')} />
+              <TweakButton label="→ Expression Écrite" onClick={() => navigate('expression-ecrite')} />
+            </TweakSection>
+          </TweaksPanel>
+        </div>
+      );
+    }
+
+    // ── FORMATIONS PAGE ───────────────────────────────────────────────────────
+    function FormationsPage({ onNavigate }) {
+      return (
+        <div>
+          <div style={{ background: 'linear-gradient(145deg, var(--navy), var(--navy-mid))', padding: '64px 24px 48px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: 48, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', marginBottom: 12 }}>Formations Zoom</h1>
+            <p style={{ fontSize: 17, color: 'oklch(72% 0.04 240)', maxWidth: 520, margin: '0 auto' }}>Préparez le TCF Canada avec un formateur certifié FLE en séances Zoom privées ou en groupe.</p>
+          </div>
+          <Section>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, maxWidth: 900, margin: '0 auto' }}>
+              <Card style={{ padding: 32 }}>
+                <div style={{ fontSize: 36, marginBottom: 16 }}>👨‍🏫</div>
+                <h3 style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.02em', marginBottom: 8 }}>Hamid — Formateur Expert</h3>
+                <p style={{ fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, marginBottom: 20 }}>Certifié FLE (Français Langue Étrangère), spécialiste TCF Canada depuis 2019. Plus de 25 000 candidats accompagnés avec un taux de réussite de 95%.</p>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                  {[['🎓', 'Certifié FLE'], ['🍁', 'TCF Canada'], ['🧠', 'IA & Pédagogie'], ['💬', 'Bilingue']].map(([icon, label]) => (
+                    <div key={label} style={{ background: 'var(--blue-pale)', borderRadius: 10, padding: '8px 12px', fontSize: 13, fontWeight: 600, color: 'var(--navy)', display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span>{icon}</span>{label}
+                    </div>
+                  ))}
+                </div>
+              </Card>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {[
+                  { name: 'Standard', price: '149,99', sessions: 6, days: 15 },
+                  { name: 'Premium', price: '199,99', sessions: 8, days: 30 },
+                  { name: 'VIP', price: '249,99', sessions: 12, days: 60 },
+                ].map(f => (
+                  <Card key={f.name} style={{ padding: 20 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <div>
+                        <div style={{ fontWeight: 800, fontSize: 16 }}>{f.name}</div>
+                        <div style={{ fontSize: 13, color: 'var(--text-3)' }}>{f.sessions} séances · {f.days} jours</div>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <div style={{ fontSize: 22, fontWeight: 900, color: 'var(--navy)' }}>${f.price}</div>
+                        <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{ fontSize: 12, fontWeight: 700, color: 'var(--ce-main)' }}>Choisir →</a>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+                <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
+                  display: 'flex', alignItems: 'center', gap: 14, background: 'oklch(46% 0.14 145)',
+                  color: 'white', padding: '16px 20px', borderRadius: 14, textDecoration: 'none',
+                  fontWeight: 700, fontSize: 15,
+                }}>💬 Contacter sur WhatsApp →</a>
+              </div>
+            </div>
+          </Section>
+        </div>
+      );
+    }
+
+    // ── NCLC CALCULATOR PAGE ──────────────────────────────────────────────────
+    function NclcPage({ onNavigate }) {
+      const [scores, setScores] = useState({ ce: '', co: '', ee: '', eo: '' });
+      const getNclcCeCo = s => { if(s>=549) return '10+'; if(s>=499) return '9'; if(s>=453) return '8'; if(s>=406) return '7'; if(s>=375) return '6'; if(s>=342) return '5'; if(s>=226) return '4'; return '3'; };
+      const getNclcEeEo = s => { if(s>=18) return '10+'; if(s>=16) return '10'; if(s>=14) return '9'; if(s>=12) return '8'; if(s>=10) return '7'; if(s>=7) return '6'; if(s>=4) return '5'; return '4'; };
+      const results = {
+        ce: scores.ce ? getNclcCeCo(+scores.ce) : null,
+        co: scores.co ? getNclcCeCo(+scores.co) : null,
+        ee: scores.ee ? getNclcEeEo(+scores.ee) : null,
+        eo: scores.eo ? getNclcEeEo(+scores.eo) : null,
+      };
+      const mins = Object.values(results).filter(Boolean).map(v => v === '10+' ? 11 : +v);
+      const minNclc = mins.length > 0 ? (Math.min(...mins) === 11 ? '10+' : String(Math.min(...mins))) : null;
+
+      const fields = [
+        { key: 'ce', label: 'Compréhension Écrite', max: 699, ekey: 'ce' },
+        { key: 'co', label: 'Compréhension Orale', max: 699, ekey: 'co' },
+        { key: 'ee', label: 'Expression Écrite', max: 20, ekey: 'ee' },
+        { key: 'eo', label: 'Expression Orale', max: 20, ekey: 'eo' },
+      ];
+      const eColors = { ce: { main: 'var(--ce-main)', light: 'var(--ce-light)', text: 'var(--ce-text)' }, co: { main: 'var(--co-main)', light: 'var(--co-light)', text: 'var(--co-text)' }, ee: { main: 'var(--ee-main)', light: 'var(--ee-light)', text: 'var(--ee-text)' }, eo: { main: 'var(--eo-main)', light: 'var(--eo-light)', text: 'var(--eo-text)' } };
+
+      return (
+        <div>
+          <div style={{ background: 'linear-gradient(145deg, var(--navy), var(--navy-mid))', padding: '64px 24px 48px', textAlign: 'center' }}>
+            <h1 style={{ fontSize: 48, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', marginBottom: 12 }}>Calculateur NCLC</h1>
+            <p style={{ fontSize: 17, color: 'oklch(72% 0.04 240)', maxWidth: 500, margin: '0 auto' }}>Estimez votre niveau linguistique canadien (NCLC) selon vos scores aux 4 épreuves TCF.</p>
+          </div>
+          <Section>
+            <div style={{ maxWidth: 820, margin: '0 auto' }}>
+              {minNclc && (
+                <div style={{ background: 'var(--navy)', borderRadius: 20, padding: '28px 32px', textAlign: 'center', marginBottom: 32, color: 'white' }}>
+                  <div style={{ fontSize: 14, color: 'oklch(72% 0.04 240)', marginBottom: 6 }}>Votre niveau NCLC minimum</div>
+                  <div style={{ fontSize: 64, fontWeight: 900, letterSpacing: '-0.04em' }}>NCLC {minNclc}</div>
+                  <div style={{ fontSize: 13, color: 'oklch(60% 0.04 240)', marginTop: 6 }}>Niveau le plus bas des 4 compétences</div>
+                </div>
+              )}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginBottom: 32 }}>
+                {fields.map(f => {
+                  const c = eColors[f.ekey];
+                  const result = results[f.key];
+                  return (
+                    <Card key={f.key} style={{ padding: 24 }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: c.text, marginBottom: 4 }}>{f.label}</div>
+                          <div style={{ fontSize: 12, color: 'var(--text-3)' }}>Score sur {f.max}</div>
+                        </div>
+                        {result && (
+                          <div style={{ background: c.main, color: 'white', fontWeight: 900, fontSize: 20, padding: '6px 14px', borderRadius: 10, letterSpacing: '-0.02em' }}>
+                            NCLC {result}
+                          </div>
+                        )}
+                      </div>
+                      <input type="number" min="0" max={f.max} placeholder={`0 – ${f.max}`}
+                        value={scores[f.key]} onChange={e => setScores(p => ({ ...p, [f.key]: e.target.value }))}
+                        style={{
+                          width: '100%', padding: '12px', fontSize: 18, fontWeight: 800,
+                          border: `2px solid ${result ? c.main : 'var(--border-med)'}`,
+                          borderRadius: 10, outline: 'none', textAlign: 'center', fontFamily: 'var(--font)',
+                          color: result ? c.text : 'var(--text-1)', background: result ? c.light : 'var(--white)',
+                          transition: 'all 0.2s',
+                        }} />
+                      {result && <ProgressBar value={+scores[f.key]} max={f.max} color={c.main} height={4} style={{ marginTop: 10 }} />}
+                    </Card>
+                  );
+                })}
+              </div>
+
+              {/* Reference table */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+                <Card style={{ padding: 24 }}>
+                  <h4 style={{ fontWeight: 700, fontSize: 15, marginBottom: 16 }}>CE / CO — Score /699</h4>
+                  {[['549–699','10+'],['499–548','9'],['453–498','8'],['406–452','7'],['375–405','6'],['342–374','5'],['226–341','4'],['<226','3']].map(([r,n]) => (
+                    <div key={r} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 10px', borderRadius: 6, background: 'var(--surface)', marginBottom: 4 }}>
+                      <span style={{ fontSize: 13, color: 'var(--text-2)' }}>{r} pts</span>
+                      <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--navy)' }}>NCLC {n}</span>
+                    </div>
+                  ))}
+                </Card>
+                <Card style={{ padding: 24 }}>
+                  <h4 style={{ fontWeight: 700, fontSize: 15, marginBottom: 16 }}>EE / EO — Score /20</h4>
+                  {[['18–20','10+'],['16–17','10'],['14–15','9'],['12–13','8'],['10–11','7'],['7–9','6'],['4–6','5'],['<4','4']].map(([r,n]) => (
+                    <div key={r} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 10px', borderRadius: 6, background: 'var(--surface)', marginBottom: 4 }}>
+                      <span style={{ fontSize: 13, color: 'var(--text-2)' }}>{r} pts</span>
+                      <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--navy)' }}>NCLC {n}</span>
+                    </div>
+                  ))}
+                </Card>
+              </div>
+            </div>
+          </Section>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Mic } from 'lucide-react'
 import { supabase } from '../../services/supabase'
 
 const C = { bg: '#FEF9E7', border: '#D4AC0D', btn: '#B7950B', text: '#9A7D0A', light: '#FCF3CF' }
@@ -65,7 +66,7 @@ export default function ExpressionOralePage() {
             ← Retour
           </button>
           <div className="flex items-center gap-4">
-            <span className="text-5xl">🎤</span>
+            <Mic className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-extrabold m-0 mb-1.5 text-white">Expression Orale</h1>
               <p className="m-0 text-yellow-200">
@@ -159,7 +160,7 @@ export default function ExpressionOralePage() {
                   <div className="flex-1">
                     <p className="m-0 text-sm text-gray-700 leading-relaxed">{s.title}</p>
                     {s.correction_exemple && (
-                      <span className="text-xs text-green-600 font-semibold mt-1 block">Correction disponible</span>
+                      <span className="text-xs text-blue-600 font-semibold mt-1 block">Correction disponible</span>
                     )}
                   </div>
                   <span className="text-gray-300 text-base">→</span>

@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { HelpCircle, ChevronDown, ChevronUp, Search, MessageCircle } from 'lucide-react'
+import { HelpCircle, ChevronDown, ChevronUp, Search, MessageCircle, Leaf, Monitor, CreditCard, Bot, Settings, Mail } from 'lucide-react'
 
 const CATEGORIES = [
   {
     label: 'Le TCF Canada',
-    emoji: '🍁',
+    Icon: Leaf,
     color: 'red',
     questions: [
       {
@@ -28,7 +28,7 @@ const CATEGORIES = [
   },
   {
     label: 'Notre plateforme',
-    emoji: '💻',
+    Icon: Monitor,
     color: 'blue',
     questions: [
       {
@@ -51,7 +51,7 @@ const CATEGORIES = [
   },
   {
     label: 'Abonnements & paiements',
-    emoji: '💳',
+    Icon: CreditCard,
     color: 'purple',
     questions: [
       {
@@ -74,7 +74,7 @@ const CATEGORIES = [
   },
   {
     label: 'Expression Écrite (IA)',
-    emoji: '🤖',
+    Icon: Bot,
     color: 'green',
     questions: [
       {
@@ -89,7 +89,7 @@ const CATEGORIES = [
   },
   {
     label: 'Compte & technique',
-    emoji: '⚙️',
+    Icon: Settings,
     color: 'gray',
     questions: [
       {
@@ -185,13 +185,13 @@ export default function FAQPage() {
         )}
 
         {/* Categories */}
-        {!search && CATEGORIES.map(({ label, emoji, color, questions }) => {
+        {!search && CATEGORIES.map(({ label, Icon: CatIcon, color, questions }) => {
           const styles = COLOR_STYLES[color]
           return (
             <div key={label} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               {/* Category header */}
               <div className="px-6 py-4 border-b border-gray-100 flex items-center gap-3">
-                <span className="text-xl">{emoji}</span>
+                <CatIcon size={20} className="text-gray-600 shrink-0" />
                 <h2 className="font-extrabold text-gray-900">{label}</h2>
                 <span className={`ml-auto text-xs font-bold px-2 py-0.5 rounded-full ${styles.badge}`}>
                   {questions.length} question{questions.length !== 1 ? 's' : ''}
@@ -214,11 +214,11 @@ export default function FAQPage() {
             <a href="https://wa.me/15147467431?text=Bonjour, j'ai une question sur la formation TCF Canada"
               target="_blank" rel="noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-green-500 hover:bg-green-400 text-white font-bold px-5 py-2.5 rounded-xl text-sm no-underline transition-colors">
-              💬 WhatsApp
+              <MessageCircle size={16} /> WhatsApp
             </a>
             <a href="mailto:hamid@formation-tcf.com?subject=Question sur la plateforme TCF Canada"
               className="inline-flex items-center justify-center gap-2 bg-white text-[#1A5276] font-bold px-5 py-2.5 rounded-xl text-sm no-underline hover:bg-blue-50 transition-colors">
-              ✉️ Email
+              <Mail size={16} /> Email
             </a>
           </div>
         </div>

@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* ── Brand Blues ── */
+  --navy:       oklch(24% 0.08 240);
+  --navy-mid:   oklch(32% 0.10 240);
+  --blue:       oklch(44% 0.14 240);
+  --blue-light: oklch(58% 0.14 240);
+  --blue-pale:  oklch(94% 0.04 240);
+  --blue-ghost: oklch(97% 0.02 240);
+
+  /* ── Épreuve Colors ── */
+  --ce-main:   oklch(46% 0.14 145);  /* Vert  */
+  --ce-light:  oklch(94% 0.05 145);
+  --ce-text:   oklch(30% 0.12 145);
+
+  --co-main:   oklch(50% 0.15 220);  /* Bleu clair */
+  --co-light:  oklch(94% 0.05 220);
+  --co-text:   oklch(32% 0.12 220);
+
+  --ee-main:   oklch(46% 0.16 290);  /* Violet */
+  --ee-light:  oklch(95% 0.04 290);
+  --ee-text:   oklch(30% 0.14 290);
+
+  --eo-main:   oklch(62% 0.17 55);   /* Amber */
+  --eo-light:  oklch(96% 0.05 55);
+  --eo-text:   oklch(36% 0.14 55);
+
+  /* ── Neutrals ── */
+  --white:      #ffffff;
+  --surface:    oklch(98.5% 0.005 240);
+  --surface-2:  oklch(96% 0.008 240);
+  --border:     oklch(90% 0.01 240);
+  --border-med: oklch(83% 0.02 240);
+  --text-1:     oklch(18% 0.03 240);
+  --text-2:     oklch(40% 0.03 240);
+  --text-3:     oklch(60% 0.02 240);
+  --text-4:     oklch(72% 0.015 240);
+
+  /* ── Semantic ── */
+  --success:     oklch(50% 0.14 145);
+  --warning:     oklch(62% 0.18 55);
+  --error:       oklch(52% 0.20 25);
+
+  /* ── Spacing ── */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 999px;
+
+  /* ── Shadows ── */
+  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 0.05);
+  --shadow-sm: 0 2px 8px -1px oklch(0% 0 0 / 0.08), 0 1px 2px -1px oklch(0% 0 0 / 0.04);
+  --shadow-md: 0 4px 16px -2px oklch(0% 0 0 / 0.10), 0 2px 4px -2px oklch(0% 0 0 / 0.05);
+  --shadow-lg: 0 8px 32px -4px oklch(0% 0 0 / 0.12), 0 4px 8px -4px oklch(0% 0 0 / 0.06);
+  --shadow-xl: 0 16px 48px -8px oklch(0% 0 0 / 0.14), 0 6px 12px -6px oklch(0% 0 0 / 0.08);
+
+  /* ── Typography ── */
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: var(--font);
+  background: var(--surface);
+  color: var(--text-1);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: var(--font); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-med); border-radius: 999px; }

@@ -5,7 +5,7 @@ import {
   BookOpen, Mic, FileText, Volume2, Plus, Edit2, Trash2, ChevronRight,
   ChevronLeft, Save, X, Upload, CheckCircle, RefreshCw, Search,
   Bold, Italic, List, Hash, AlignLeft, Type, Heading,
-  ArrowUpDown, Eye, ChevronDown, ChevronUp,
+  ArrowUpDown, Eye, ChevronDown, ChevronUp, Calendar,
 } from 'lucide-react'
 
 /* ── helpers ── */
@@ -230,7 +230,7 @@ function SeriesSection({ type }) {
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="px-5 py-3 border-b border-gray-100 flex items-center gap-3 flex-wrap">
           <h3 className="font-extrabold text-gray-800 text-sm">
-            {isCO ? '🎧 Compréhension Orale' : '📖 Compréhension Écrite'} — {series.length} séries
+            {isCO ? <><Mic size={14} className="inline -mt-0.5 mr-1" />Compréhension Orale</> : <><BookOpen size={14} className="inline -mt-0.5 mr-1" />Compréhension Écrite</>} — {series.length} séries
           </h3>
           <div className="flex-1 min-w-[180px]"><SearchBox value={search} onChange={setSearch}/></div>
           <button onClick={()=>loadSeries()} className="p-2 rounded-xl border border-gray-200 hover:bg-gray-50 text-gray-400"><RefreshCw size={13}/></button>
@@ -557,7 +557,7 @@ function EESection() {
     <div className="space-y-4">
       {/* Toolbar */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-wrap gap-3 items-center">
-        <h3 className="font-extrabold text-gray-800 text-sm">✍️ Expression Écrite — {items.length} combinaisons</h3>
+        <h3 className="font-extrabold text-gray-800 text-sm flex items-center gap-1.5"><FileText size={14} className="shrink-0" /> Expression Écrite — {items.length} combinaisons</h3>
         <div className="flex-1 min-w-[180px]"><SearchBox value={search} onChange={setSearch}/></div>
         <select value={yearFilter} onChange={e=>setYearFilter(e.target.value)}
           className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
@@ -574,7 +574,7 @@ function EESection() {
         Object.keys(byYear).sort().map(year => (
           <div key={year} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="px-5 py-2.5 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
-              <span className="font-extrabold text-gray-700 text-sm">📅 {year}</span>
+              <span className="font-extrabold text-gray-700 text-sm flex items-center gap-1"><Calendar size={13} className="shrink-0" /> {year}</span>
               <span className="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">{byYear[year].length} combinaison{byYear[year].length!==1?'s':''}</span>
             </div>
             <div className="overflow-x-auto">
@@ -711,7 +711,7 @@ function EOSection() {
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-wrap gap-3 items-center">
-        <h3 className="font-extrabold text-gray-800 text-sm">🗣️ Expression Orale — {items.length} sujets</h3>
+        <h3 className="font-extrabold text-gray-800 text-sm flex items-center gap-1.5"><Volume2 size={14} className="shrink-0" /> Expression Orale — {items.length} sujets</h3>
         <div className="flex-1 min-w-[160px]"><SearchBox value={search} onChange={setSearch}/></div>
         <select value={yearFilter} onChange={e=>setYearFilter(e.target.value)}
           className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none">
@@ -735,7 +735,7 @@ function EOSection() {
         Object.keys(byYear).sort().map(year => (
           <div key={year} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="px-5 py-2.5 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
-              <span className="font-extrabold text-gray-700 text-sm">📅 {year}</span>
+              <span className="font-extrabold text-gray-700 text-sm flex items-center gap-1"><Calendar size={13} className="shrink-0" /> {year}</span>
               <span className="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-0.5 rounded-full">{byYear[year].length} sujet{byYear[year].length!==1?'s':''}</span>
             </div>
             <div className="overflow-x-auto">

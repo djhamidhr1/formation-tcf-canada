@@ -1,188 +1,109 @@
 import { useState } from 'react'
-import { scoreToNclc, scoreEEToNclc } from '../../utils/scoring'
-import { NCLC_TABLE_CE_CO } from '../../utils/nclc'
 
-const NCLC_COLORS = {
-  10: 'bg-emerald-500 text-white',
-  9: 'bg-green-500 text-white',
-  8: 'bg-lime-500 text-white',
-  7: 'bg-yellow-400 text-yellow-900',
-  6: 'bg-amber-400 text-amber-900',
-  5: 'bg-orange-400 text-white',
-  4: 'bg-red-400 text-white',
-  3: 'bg-red-600 text-white',
+const eColors = {
+  ce: { main: 'var(--ce-main)', light: 'var(--ce-light)', text: 'var(--ce-text)' },
+  co: { main: 'var(--co-main)', light: 'var(--co-light)', text: 'var(--co-text)' },
+  ee: { main: 'var(--ee-main)', light: 'var(--ee-light)', text: 'var(--ee-text)' },
+  eo: { main: 'var(--eo-main)', light: 'var(--eo-light)', text: 'var(--eo-text)' },
 }
 
-const COMPETENCES = [
-  { key: 'ce', label: 'Compréhension Écrite', short: 'CE', max: 699, type: 'ceco', icon: '📖' },
-  { key: 'co', label: 'Compréhension Orale', short: 'CO', max: 699, type: 'ceco', icon: '🎧' },
-  { key: 'ee', label: 'Expression Écrite', short: 'EE', max: 20, type: 'ee', icon: '✍️' },
-  { key: 'eo', label: 'Expression Orale', short: 'EO', max: 20, type: 'ee', icon: '🎤' },
+const fields = [
+  { key: 'ce', label: 'Comprehension Ecrite', max: 699, ekey: 'ce' },
+  { key: 'co', label: 'Comprehension Orale', max: 699, ekey: 'co' },
+  { key: 'ee', label: 'Expression Ecrite', max: 20, ekey: 'ee' },
+  { key: 'eo', label: 'Expression Orale', max: 20, ekey: 'eo' },
 ]
 
-const NCLC_CE_CO_TABLE = [
-  { range: '549–699', nclc: '10+' },
-  { range: '499–548', nclc: '9' },
-  { range: '453–498', nclc: '8' },
-  { range: '406–452', nclc: '7' },
-  { range: '375–405', nclc: '6' },
-  { range: '342–374', nclc: '5' },
-  { range: '226–341', nclc: '4' },
-  { range: '< 226', nclc: '3' },
-]
-
-const NCLC_EE_EO_TABLE = [
-  { range: '18–20', nclc: '10' },
-  { range: '16–17', nclc: '10' },
-  { range: '14–15', nclc: '9' },
-  { range: '12–13', nclc: '8' },
-  { range: '10–11', nclc: '7' },
-  { range: '7–9', nclc: '6' },
-  { range: '4–6', nclc: '5' },
-  { range: '< 4', nclc: '4' },
-]
-
-function getNclc(score, type) {
-  if (score === '' || score === null) return null
-  const n = Number(score)
-  if (isNaN(n)) return null
-  return type === 'ceco' ? scoreToNclc(n) : scoreEEToNclc(n)
-}
+const getNclcCeCo = s => { if (s >= 549) return '10+'; if (s >= 499) return '9'; if (s >= 453) return '8'; if (s >= 406) return '7'; if (s >= 375) return '6'; if (s >= 342) return '5'; if (s >= 226) return '4'; return '3' }
+const getNclcEeEo = s => { if (s >= 18) return '10+'; if (s >= 16) return '10'; if (s >= 14) return '9'; if (s >= 12) return '8'; if (s >= 10) return '7'; if (s >= 7) return '6'; if (s >= 4) return '5'; return '4' }
 
 export default function NclcCalculatorPage() {
   const [scores, setScores] = useState({ ce: '', co: '', ee: '', eo: '' })
 
-  const nclcs = {}
-  COMPETENCES.forEach(c => {
-    nclcs[c.key] = getNclc(scores[c.key], c.type)
-  })
-
-  const allNclcs = Object.values(nclcs).filter(n => n !== null)
-  const avgNclc = allNclcs.length > 0 ? Math.round(allNclcs.reduce((a, b) => a + b, 0) / allNclcs.length) : null
+  const results = {
+    ce: scores.ce ? getNclcCeCo(+scores.ce) : null,
+    co: scores.co ? getNclcCeCo(+scores.co) : null,
+    ee: scores.ee ? getNclcEeEo(+scores.ee) : null,
+    eo: scores.eo ? getNclcEeEo(+scores.eo) : null,
+  }
+  const mins = Object.values(results).filter(Boolean).map(v => v === '10+' ? 11 : +v)
+  const minNclc = mins.length > 0 ? (Math.min(...mins) === 11 ? '10+' : String(Math.min(...mins))) : null
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      {/* Hero */}
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Calculateur NCLC</h1>
-        <p className="text-gray-500">Entrez vos scores TCF Canada pour connaître votre niveau NCLC</p>
+    <div>
+      <div style={{ background: 'linear-gradient(145deg, var(--navy), var(--navy-mid))', padding: '64px 24px 48px', textAlign: 'center' }}>
+        <h1 style={{ fontSize: 48, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', marginBottom: 12, margin: '0 0 12px' }}>Calculateur NCLC</h1>
+        <p style={{ fontSize: 17, color: 'oklch(72% 0.04 240)', maxWidth: 500, margin: '0 auto' }}>Estimez votre niveau linguistique canadien (NCLC) selon vos scores aux 4 epreuves TCF.</p>
       </div>
 
-      {/* Score inputs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-        {COMPETENCES.map(comp => {
-          const nclc = nclcs[comp.key]
-          return (
-            <div key={comp.key} className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">{comp.icon}</span>
-                  <div>
-                    <div className="font-semibold text-gray-900 text-sm">{comp.label}</div>
-                    <div className="text-xs text-gray-400">0 – {comp.max} pts</div>
-                  </div>
-                </div>
-                {nclc !== null && (
-                  <div className={`px-3 py-1.5 rounded-lg text-sm font-extrabold ${NCLC_COLORS[nclc] || 'bg-gray-200'}`}>
-                    NCLC {nclc}
-                  </div>
-                )}
-              </div>
-              <input
-                type="number"
-                min={0}
-                max={comp.max}
-                value={scores[comp.key]}
-                onChange={e => setScores(prev => ({ ...prev, [comp.key]: e.target.value }))}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 text-lg font-bold text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder={`Score ${comp.short} (/  ${comp.max})`}
-              />
+      <section style={{ padding: '72px 24px' }}>
+        <div style={{ maxWidth: 820, margin: '0 auto' }}>
+          {minNclc && (
+            <div style={{ background: 'var(--navy)', borderRadius: 20, padding: '28px 32px', textAlign: 'center', marginBottom: 32, color: 'white' }}>
+              <div style={{ fontSize: 14, color: 'oklch(72% 0.04 240)', marginBottom: 6 }}>Votre niveau NCLC minimum</div>
+              <div style={{ fontSize: 64, fontWeight: 900, letterSpacing: '-0.04em' }}>NCLC {minNclc}</div>
+              <div style={{ fontSize: 13, color: 'oklch(60% 0.04 240)', marginTop: 6 }}>Niveau le plus bas des 4 competences</div>
             </div>
-          )
-        })}
-      </div>
+          )}
 
-      {/* Average NCLC */}
-      {avgNclc !== null && (
-        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 text-white text-center mb-8">
-          <div className="text-sm text-slate-300 mb-1">NCLC moyen (sur {allNclcs.length} compétence{allNclcs.length !== 1 ? 's' : ''})</div>
-          <div className={`text-5xl font-extrabold mb-2`}>NCLC {avgNclc}</div>
-          <div className="text-slate-400 text-sm">
-            {avgNclc >= 7 ? '✅ Niveau requis pour la plupart des programmes d\'immigration' : '💪 Continuez à vous entraîner pour atteindre NCLC 7+'}
-          </div>
-
-          {/* Per-competence badges */}
-          <div className="grid grid-cols-4 gap-3 mt-5">
-            {COMPETENCES.map(comp => (
-              <div key={comp.key} className="bg-white/10 rounded-xl py-2.5">
-                <div className="text-xs text-slate-400">{comp.short}</div>
-                <div className="text-lg font-extrabold">
-                  {nclcs[comp.key] !== null ? nclcs[comp.key] : '—'}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16, marginBottom: 32 }}>
+            {fields.map(f => {
+              const c = eColors[f.ekey]
+              const result = results[f.key]
+              return (
+                <div key={f.key} style={{ background: 'var(--white)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', padding: 24 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 14 }}>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: c.text, marginBottom: 4 }}>{f.label}</div>
+                      <div style={{ fontSize: 12, color: 'var(--text-3)' }}>Score sur {f.max}</div>
+                    </div>
+                    {result && (
+                      <div style={{ background: c.main, color: 'white', fontWeight: 900, fontSize: 20, padding: '6px 14px', borderRadius: 10, letterSpacing: '-0.02em' }}>
+                        NCLC {result}
+                      </div>
+                    )}
+                  </div>
+                  <input type="number" min="0" max={f.max} placeholder={`0 \u2013 ${f.max}`}
+                    value={scores[f.key]} onChange={e => setScores(p => ({ ...p, [f.key]: e.target.value }))}
+                    style={{
+                      width: '100%', padding: 12, fontSize: 18, fontWeight: 800,
+                      border: `2px solid ${result ? c.main : 'var(--border-med)'}`,
+                      borderRadius: 10, outline: 'none', textAlign: 'center', fontFamily: 'var(--font)',
+                      color: result ? c.text : 'var(--text-1)', background: result ? c.light : 'var(--white)',
+                      transition: 'all 0.2s',
+                    }} />
+                  {result && (
+                    <div style={{ background: 'var(--surface-2)', borderRadius: 999, height: 4, overflow: 'hidden', marginTop: 10 }}>
+                      <div style={{ width: `${Math.min(100, (+scores[f.key] / f.max) * 100)}%`, height: '100%', background: c.main, borderRadius: 999, transition: 'width 0.4s' }} />
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              )
+            })}
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            <div style={{ background: 'var(--white)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', padding: 24 }}>
+              <h4 style={{ fontWeight: 700, fontSize: 15, marginBottom: 16, margin: '0 0 16px' }}>CE / CO — Score /699</h4>
+              {[['549\u2013699', '10+'], ['499\u2013548', '9'], ['453\u2013498', '8'], ['406\u2013452', '7'], ['375\u2013405', '6'], ['342\u2013374', '5'], ['226\u2013341', '4'], ['<226', '3']].map(([r, n]) => (
+                <div key={r} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 10px', borderRadius: 6, background: 'var(--surface)', marginBottom: 4 }}>
+                  <span style={{ fontSize: 13, color: 'var(--text-2)' }}>{r} pts</span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--navy)' }}>NCLC {n}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ background: 'var(--white)', borderRadius: 'var(--radius-lg)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-sm)', padding: 24 }}>
+              <h4 style={{ fontWeight: 700, fontSize: 15, marginBottom: 16, margin: '0 0 16px' }}>EE / EO — Score /20</h4>
+              {[['18\u201320', '10+'], ['16\u201317', '10'], ['14\u201315', '9'], ['12\u201313', '8'], ['10\u201311', '7'], ['7\u20139', '6'], ['4\u20136', '5'], ['<4', '4']].map(([r, n]) => (
+                <div key={r} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 10px', borderRadius: 6, background: 'var(--surface)', marginBottom: 4 }}>
+                  <span style={{ fontSize: 13, color: 'var(--text-2)' }}>{r} pts</span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'var(--navy)' }}>NCLC {n}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      )}
-
-      {/* Reference tables */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* CE/CO table */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-          <h2 className="font-bold text-gray-900 mb-4 text-sm">📖🎧 Barème CE / CO (/699)</h2>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-1.5 px-2 text-gray-500 font-medium text-xs">Score</th>
-                <th className="text-right py-1.5 px-2 text-gray-500 font-medium text-xs">NCLC</th>
-              </tr>
-            </thead>
-            <tbody>
-              {NCLC_CE_CO_TABLE.map(row => (
-                <tr key={row.range} className="border-b border-gray-50 hover:bg-gray-50">
-                  <td className="py-2 px-2 text-gray-700">{row.range}</td>
-                  <td className="py-2 px-2 text-right">
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${NCLC_COLORS[parseInt(row.nclc)] || 'bg-gray-100 text-gray-600'}`}>
-                      NCLC {row.nclc}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* EE/EO table */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-5 shadow-sm">
-          <h2 className="font-bold text-gray-900 mb-4 text-sm">✍️🎤 Barème EE / EO (/20)</h2>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-1.5 px-2 text-gray-500 font-medium text-xs">Score</th>
-                <th className="text-right py-1.5 px-2 text-gray-500 font-medium text-xs">NCLC</th>
-              </tr>
-            </thead>
-            <tbody>
-              {NCLC_EE_EO_TABLE.map((row, i) => (
-                <tr key={i} className="border-b border-gray-50 hover:bg-gray-50">
-                  <td className="py-2 px-2 text-gray-700">{row.range}</td>
-                  <td className="py-2 px-2 text-right">
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${NCLC_COLORS[parseInt(row.nclc)] || 'bg-gray-100 text-gray-600'}`}>
-                      NCLC {row.nclc}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Info */}
-      <div className="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-4 text-sm text-blue-800">
-        <p className="font-semibold mb-1">ℹ️ À savoir</p>
-        <p>Pour la plupart des programmes d'immigration canadienne (ex. Entrée Express, PEQ), un <strong>NCLC 7</strong> est requis pour les 4 compétences. Le NCLC est calculé séparément pour chaque compétence.</p>
-      </div>
+      </section>
     </div>
   )
 }

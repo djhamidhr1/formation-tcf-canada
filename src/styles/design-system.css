@@ -1,396 +1,105 @@
 /**
- * 🎨 FORMATION TCF CANADA — DESIGN SYSTEM PREMIUM v2.0
- *
- * Système de design complet avec gradients modernes, animations,
- * et variables CSS pour un redesign de niveau 50 000 CAD
+ * Formation TCF Canada — Design System v3 (Premium Redesign)
+ * oklch-based color tokens, Plus Jakarta Sans, modern shadows
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  /* ========================================
-     COULEURS PRINCIPALES
-     ======================================== */
+  /* -- Brand Blues -- */
+  --navy:       oklch(24% 0.08 240);
+  --navy-mid:   oklch(32% 0.10 240);
+  --blue:       oklch(44% 0.14 240);
+  --blue-light: oklch(58% 0.14 240);
+  --blue-pale:  oklch(94% 0.04 240);
+  --blue-ghost: oklch(97% 0.02 240);
 
-  /* Bleus Premium (palette principale) */
-  --primary-deep: #0A1128;        /* Bleu nuit profond */
-  --primary-royal: #1E3A8A;       /* Bleu royal */
-  --primary-electric: #3B82F6;    /* Bleu électrique */
-  --primary-sky: #60A5FA;         /* Bleu ciel */
-  --primary-light: #DBEAFE;       /* Bleu très clair */
+  /* -- Epreuve Colors (palette bleue unifiee) -- */
+  --ce-main:   oklch(48% 0.12 235);
+  --ce-light:  oklch(95% 0.03 235);
+  --ce-text:   oklch(26% 0.08 235);
 
-  /* Accents Premium */
-  --accent-crimson: #DC2626;      /* Rouge Canada */
-  --accent-gold: #F59E0B;         /* Or premium */
-  --accent-emerald: #10B981;      /* Émeraude succès */
-  --accent-violet: #8B5CF6;       /* Violet innovation */
-  --accent-orange: #F97316;       /* Orange énergie */
+  --co-main:   oklch(48% 0.12 235);
+  --co-light:  oklch(95% 0.03 235);
+  --co-text:   oklch(26% 0.08 235);
 
-  /* Neutres */
-  --neutral-50: #F9FAFB;
-  --neutral-100: #F3F4F6;
-  --neutral-200: #E5E7EB;
-  --neutral-300: #D1D5DB;
-  --neutral-400: #9CA3AF;
-  --neutral-500: #6B7280;
-  --neutral-600: #4B5563;
-  --neutral-700: #374151;
-  --neutral-800: #1F2937;
-  --neutral-900: #111827;
+  --ee-main:   oklch(48% 0.12 235);
+  --ee-light:  oklch(95% 0.03 235);
+  --ee-text:   oklch(26% 0.08 235);
 
-  /* Épreuves (couleurs spécifiques) */
-  --epreuve-ce: #10B981;          /* Vert CE */
-  --epreuve-co: #3B82F6;          /* Bleu CO */
-  --epreuve-ee: #8B5CF6;          /* Violet EE */
-  --epreuve-eo: #F59E0B;          /* Orange/Or EO */
+  --eo-main:   oklch(48% 0.12 235);
+  --eo-light:  oklch(95% 0.03 235);
+  --eo-text:   oklch(26% 0.08 235);
 
-  /* ========================================
-     GRADIENTS SIGNATURES
-     ======================================== */
+  /* -- Neutrals -- */
+  --white:      #ffffff;
+  --surface:    oklch(98.5% 0.005 240);
+  --surface-2:  oklch(96% 0.008 240);
+  --border:     oklch(90% 0.01 240);
+  --border-med: oklch(83% 0.02 240);
+  --text-1:     oklch(18% 0.03 240);
+  --text-2:     oklch(40% 0.03 240);
+  --text-3:     oklch(60% 0.02 240);
+  --text-4:     oklch(72% 0.015 240);
 
-  /* Hero Principal (Mesh Gradient) */
-  --gradient-hero-mesh:
-    radial-gradient(at 10% 20%, rgba(59, 130, 246, 0.6) 0px, transparent 50%),
-    radial-gradient(at 90% 10%, rgba(139, 92, 246, 0.5) 0px, transparent 50%),
-    radial-gradient(at 50% 80%, rgba(220, 38, 38, 0.4) 0px, transparent 50%),
-    linear-gradient(135deg, #0A1128 0%, #1E3A8A 100%);
+  /* -- Semantic -- */
+  --success:     oklch(50% 0.14 145);
+  --warning:     oklch(62% 0.18 55);
+  --error:       oklch(52% 0.20 25);
 
-  /* Gradient Hero Classique */
-  --gradient-hero: linear-gradient(135deg, #0A1128 0%, #1E3A8A 40%, #3B82F6 100%);
+  /* -- Spacing / Radius -- */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 999px;
 
-  /* Gradient Glassmorphism */
-  --gradient-glass: linear-gradient(135deg,
-    rgba(59, 130, 246, 0.1) 0%,
-    rgba(139, 92, 246, 0.1) 100%);
+  /* -- Shadows -- */
+  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 0.05);
+  --shadow-sm: 0 2px 8px -1px oklch(0% 0 0 / 0.08), 0 1px 2px -1px oklch(0% 0 0 / 0.04);
+  --shadow-md: 0 4px 16px -2px oklch(0% 0 0 / 0.10), 0 2px 4px -2px oklch(0% 0 0 / 0.05);
+  --shadow-lg: 0 8px 32px -4px oklch(0% 0 0 / 0.12), 0 4px 8px -4px oklch(0% 0 0 / 0.06);
+  --shadow-xl: 0 16px 48px -8px oklch(0% 0 0 / 0.14), 0 6px 12px -6px oklch(0% 0 0 / 0.08);
 
-  /* Gradients Boutons */
-  --gradient-btn-primary: linear-gradient(90deg, #DC2626 0%, #F59E0B 100%);
-  --gradient-btn-secondary: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
-  --gradient-btn-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
-
-  /* Gradients Épreuves */
-  --gradient-ce: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  --gradient-co: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-  --gradient-ee: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-  --gradient-eo: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-
-  /* Gradient Text */
-  --gradient-text: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #DC2626 100%);
-
-  /* ========================================
-     SHADOWS (3 niveaux)
-     ======================================== */
-
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15), 0 8px 10px rgba(0, 0, 0, 0.08);
-  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
-
-  /* Glow Shadows (pour boutons premium) */
-  --glow-blue: 0 10px 40px rgba(59, 130, 246, 0.4);
-  --glow-violet: 0 10px 40px rgba(139, 92, 246, 0.4);
-  --glow-crimson: 0 10px 40px rgba(220, 38, 38, 0.4);
-  --glow-gold: 0 10px 40px rgba(245, 158, 11, 0.4);
-
-  /* ========================================
-     SPACING (système 8px)
-     ======================================== */
-
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-5: 1.25rem;   /* 20px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-10: 2.5rem;   /* 40px */
-  --space-12: 3rem;     /* 48px */
-  --space-16: 4rem;     /* 64px */
-  --space-20: 5rem;     /* 80px */
-  --space-24: 6rem;     /* 96px */
-
-  /* ========================================
-     BORDER RADIUS
-     ======================================== */
-
-  --radius-sm: 0.375rem;   /* 6px */
-  --radius-md: 0.5rem;     /* 8px */
-  --radius-lg: 0.75rem;    /* 12px */
-  --radius-xl: 1rem;       /* 16px */
-  --radius-2xl: 1.5rem;    /* 24px */
-  --radius-full: 9999px;   /* Cercle */
-
-  /* ========================================
-     TYPOGRAPHY
-     ======================================== */
-
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-
-  /* Font Sizes */
-  --text-xs: 0.75rem;      /* 12px */
-  --text-sm: 0.875rem;     /* 14px */
-  --text-base: 1rem;       /* 16px */
-  --text-lg: 1.125rem;     /* 18px */
-  --text-xl: 1.25rem;      /* 20px */
-  --text-2xl: 1.5rem;      /* 24px */
-  --text-3xl: 1.875rem;    /* 30px */
-  --text-4xl: 2.25rem;     /* 36px */
-  --text-5xl: 3rem;        /* 48px */
-  --text-6xl: 3.75rem;     /* 60px */
-  --text-7xl: 4.5rem;      /* 72px */
-
-  /* Font Weights */
-  --font-light: 300;
-  --font-normal: 400;
-  --font-medium: 500;
-  --font-semibold: 600;
-  --font-bold: 700;
-  --font-extrabold: 800;
-  --font-black: 900;
-
-  /* Letter Spacing */
-  --tracking-tight: -0.03em;
-  --tracking-normal: 0;
-  --tracking-wide: 0.03em;
-
-  /* ========================================
-     TRANSITIONS
-     ======================================== */
-
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Custom Easing */
-  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  --ease-spring: cubic-bezier(0.6, -0.05, 0.01, 0.99);
-
-  /* ========================================
-     Z-INDEX SCALE
-     ======================================== */
-
-  --z-base: 0;
-  --z-dropdown: 1000;
-  --z-sticky: 1100;
-  --z-fixed: 1200;
-  --z-modal-backdrop: 1300;
-  --z-modal: 1400;
-  --z-popover: 1500;
-  --z-toast: 1600;
-  --z-tooltip: 1700;
+  /* -- Typography -- */
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-/* ========================================
-   DARK MODE (optionnel)
-   ======================================== */
+*, *::before, *::after { box-sizing: border-box; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --neutral-50: #111827;
-    --neutral-100: #1F2937;
-    /* ... inverser les neutres ... */
-  }
+body {
+  font-family: var(--font);
+  background: var(--surface);
+  color: var(--text-1);
+  line-height: 1.6;
+  overflow-x: hidden;
+  margin: 0;
 }
 
-/* ========================================
-   UTILITY CLASSES
-   ======================================== */
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font); cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: var(--font); }
 
-/* Gradient Text */
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-med); border-radius: 999px; }
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 3px oklch(65% 0.18 55 / 0.3); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px oklch(65% 0.18 55 / 0.1); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-enter { animation: fadeUp 0.3s cubic-bezier(.4,0,.2,1) both; }
+
+/* Utility */
 .gradient-text {
-  background: var(--gradient-text);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--ee-main) 50%, var(--error) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-/* Glassmorphism */
-.glass {
-  background: var(--gradient-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Glow Effect */
-.glow-blue {
-  box-shadow: var(--glow-blue);
-}
-
-.glow-violet {
-  box-shadow: var(--glow-violet);
-}
-
-.glow-crimson {
-  box-shadow: var(--glow-crimson);
-}
-
-.glow-gold {
-  box-shadow: var(--glow-gold);
-}
-
-/* Gradient Backgrounds */
-.bg-gradient-hero {
-  background: var(--gradient-hero);
-}
-
-.bg-gradient-hero-mesh {
-  background: var(--gradient-hero-mesh);
-}
-
-.bg-gradient-ce {
-  background: var(--gradient-ce);
-}
-
-.bg-gradient-co {
-  background: var(--gradient-co);
-}
-
-.bg-gradient-ee {
-  background: var(--gradient-ee);
-}
-
-.bg-gradient-eo {
-  background: var(--gradient-eo);
-}
-
-/* Animated Gradient Border */
-.gradient-border {
-  position: relative;
-  background: linear-gradient(90deg, #3B82F6, #8B5CF6, #DC2626);
-  background-size: 200% 100%;
-  animation: gradientShift 3s ease infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-/* Button Ripple Effect */
-.btn-ripple {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-ripple::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-  transform: scale(0);
-  transition: transform 0.6s;
-  pointer-events: none;
-}
-
-.btn-ripple:active::after {
-  transform: scale(4);
-}
-
-/* Floating Animation */
-@keyframes floating {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-.animate-floating {
-  animation: floating 3s ease-in-out infinite;
-}
-
-/* Pulse Glow */
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.8);
-  }
-}
-
-.animate-pulse-glow {
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-/* Shimmer Effect */
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  background-size: 1000px 100%;
-  animation: shimmer 2s infinite;
-}
-
-/* Gradient Border Animated */
-.animated-gradient-border {
-  position: relative;
-  background: var(--neutral-900);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-}
-
-.animated-gradient-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-xl);
-  padding: 2px;
-  background: linear-gradient(90deg, #3B82F6, #8B5CF6, #DC2626, #3B82F6);
-  background-size: 200% 100%;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: gradientShift 3s linear infinite;
-}
-
-/* Hover Lift Effect */
-.hover-lift {
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
-}
-
-/* 3D Tilt Effect (nécessite JavaScript pour mouse tracking) */
-.tilt-3d {
-  transform-style: preserve-3d;
-  transition: transform var(--transition-base);
-}
-
-.tilt-3d:hover {
-  transform: perspective(1000px) rotateX(-5deg) rotateY(5deg) scale(1.05);
-}
-
-/* ========================================
-   RESPONSIVE BREAKPOINTS (référence)
-   ======================================== */
-
-/*
-  Tailwind breakpoints :
-  sm:  640px
-  md:  768px
-  lg:  1024px
-  xl:  1280px
-  2xl: 1536px
-*/

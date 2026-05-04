@@ -78,7 +78,10 @@ fvhxptpzskvwpdtycklj n'est PAS listé dans mcp__claude_ai_Supabase__list_project
 
 ```
 Frontend    : React 19 + Vite 6 + JSX (pas TypeScript)
-Styling     : Tailwind CSS v4 (installé via @tailwindcss/vite)
+Styling     : Tailwind CSS v4 + inline styles avec CSS variables oklch
+Font        : Plus Jakarta Sans (remplace Inter depuis Phase 19)
+Icons       : Lucide React (remplace tous les emojis depuis Phase 19)
+Design      : Palette bleue unifiée oklch(48% 0.12 235) — une seule couleur CE/CO/EE/EO
 Routing     : react-router-dom v7 (HashRouter via main.jsx)
 Database    : Supabase PostgreSQL
 Auth        : Supabase Auth — pages créées, DB tables à créer
@@ -415,6 +418,7 @@ src/
 | **Phase 16** | **Panel Admin — 7 onglets + CRUD ExercisesTab + guard role='admin'** | ✅ **21/04/2026** |
 | **Phase 17** | **EESubjectsPage redesign — Combinaison N + expand/collapse + corrections** | ✅ **21/04/2026** |
 | **Phase 18** | **Footer — section "Nous acceptons" + logos paiement + bouton Cliquez ici** | ✅ **21/04/2026** |
+| **Phase 19** | **Redesign premium complet — design tokens oklch, Plus Jakarta Sans, Navbar/Footer/HomePage/inner pages réécrits, logo, icônes Lucide, palette bleue unifiée** | ✅ **04/05/2026** |
 
 ---
 

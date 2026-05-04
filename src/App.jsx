@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { AlertTriangle } from 'lucide-react'
 import { AuthProvider } from './contexts/AuthContext'
 import { AuthModalProvider } from './contexts/AuthModalContext'
 import AuthModal from './components/auth/AuthModal'
@@ -49,7 +50,7 @@ import FAQPage from './pages/legal/FAQPage'
 function ComingSoon({ title }) {
   return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-      <div className="text-6xl mb-4">🚧</div>
+      <div className="mb-4 text-gray-400"><AlertTriangle size={48} /></div>
       <h2 className="text-2xl font-bold text-gray-700 mb-2">{title || 'Page en construction'}</h2>
       <p className="text-gray-500">Cette section sera disponible très prochainement.</p>
     </div>

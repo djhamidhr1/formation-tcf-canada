@@ -2,14 +2,15 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useSearchParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../../services/supabase'
 import { useTimer } from '../../hooks/useTimer'
+import { PenTool, FileText, MessageSquare, Clock, AlertTriangle, ChevronUp, ChevronDown, Upload, Check, BarChart2 } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const EE_DURATION = 60 * 60 // 3600s
 
 const TASKS = [
-  { num: 1, label: 'Tâche 1', sublabel: 'Message court', min: 60, max: 120, guide: '60–120 mots', icon: '✉️', color: 'blue' },
-  { num: 2, label: 'Tâche 2', sublabel: 'Narration / Blog', min: 120, max: 150, guide: '120–150 mots', icon: '📝', color: 'purple' },
-  { num: 3, label: 'Tâche 3', sublabel: 'Argumentation', min: 120, max: 180, guide: '120–180 mots', icon: '💬', color: 'indigo' },
+  { num: 1, label: 'Tâche 1', sublabel: 'Message court', min: 60, max: 120, guide: '60–120 mots', Icon: FileText, color: 'blue' },
+  { num: 2, label: 'Tâche 2', sublabel: 'Narration / Blog', min: 120, max: 150, guide: '120–150 mots', Icon: FileText, color: 'blue' },
+  { num: 3, label: 'Tâche 3', sublabel: 'Argumentation', min: 120, max: 180, guide: '120–180 mots', Icon: MessageSquare, color: 'indigo' },
 ]
 
 const SPECIAL_CHARS = [
@@ -56,7 +57,7 @@ function CircularTimer({ seconds, total }) {
         <circle cx="50" cy="50" r={r} fill="none" stroke="#e5e7eb" strokeWidth="6" />
         <circle
           cx="50" cy="50" r={r} fill="none"
-          stroke={urgent ? '#ef4444' : warning ? '#f97316' : '#7C3AED'}
+          stroke={urgent ? '#ef4444' : warning ? '#f97316' : 'oklch(48% 0.12 235)'}
           strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={circ}
@@ -65,7 +66,7 @@ function CircularTimer({ seconds, total }) {
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`text-sm font-extrabold font-mono ${urgent ? 'text-red-600' : warning ? 'text-orange-500' : 'text-purple-700'}`}>
+        <span className={`text-sm font-extrabold font-mono ${urgent ? 'text-red-600' : warning ? 'text-orange-500' : 'text-blue-700'}`}>
           {formatTime(seconds)}
         </span>
       </div>
@@ -78,13 +79,13 @@ function WordBar({ count, min, max }) {
   const pct = Math.min(100, Math.round((count / max) * 100))
   const inRange = count >= min && count <= max
   const over = count > max
-  const barColor = count === 0 ? 'bg-gray-200' : inRange ? 'bg-green-500' : over ? 'bg-red-500' : 'bg-amber-400'
+  const barColor = count === 0 ? 'bg-gray-200' : inRange ? 'bg-blue-500' : over ? 'bg-red-500' : 'bg-amber-400'
 
   return (
     <div>
       <div className="flex items-center justify-between mb-1 text-xs">
-        <span className={`font-bold ${count === 0 ? 'text-gray-400' : inRange ? 'text-green-600' : over ? 'text-red-600' : 'text-amber-600'}`}>
-          {count} mots {count > 0 && (inRange ? '✓' : over ? '(trop long)' : '(trop court)')}
+        <span className={`font-bold ${count === 0 ? 'text-gray-400' : inRange ? 'text-blue-600' : over ? 'text-red-600' : 'text-amber-600'}`}>
+          {count} mots {count > 0 && (inRange ? <Check size={12} className="inline" /> : over ? '(trop long)' : '(trop court)')}
         </span>
         <span className="text-gray-400">{min}–{max} mots</span>
       </div>
@@ -205,11 +206,11 @@ export default function EESimulatorPage() {
   if (!id) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4">✍️</div>
+        <div className="text-5xl mb-4"><PenTool size={48} className="text-[oklch(48% 0.12 235)] mx-auto" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-2">Aucun sujet sélectionné</h2>
         <p className="text-gray-500 mb-6">Choisissez un sujet dans la liste pour commencer.</p>
         <Link to="/epreuve/expression-ecrite/sujets-actualites"
-          className="bg-[#7D3C98] hover:bg-[#6C3483] text-white px-6 py-3 rounded-xl font-bold no-underline">
+          className="bg-[oklch(48% 0.12 235)] hover:bg-[#6C3483] text-white px-6 py-3 rounded-xl font-bold no-underline">
           Voir les sujets →
         </Link>
       </div>
@@ -220,7 +221,7 @@ export default function EESimulatorPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-12 h-12 border-4 border-[#7D3C98] border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-[oklch(48% 0.12 235)] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -229,14 +230,14 @@ export default function EESimulatorPage() {
   if (!started) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-5xl mb-4">✍️</div>
+        <div className="text-5xl mb-4"><PenTool size={48} className="text-[oklch(48% 0.12 235)] mx-auto" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-1">Simulateur Expression Écrite</h1>
-        <p className="text-[#7D3C98] font-semibold text-lg mb-6">{formatMonthSlug(combinaison?.month_slug)}</p>
+        <p className="text-[oklch(48% 0.12 235)] font-semibold text-lg mb-6">{formatMonthSlug(combinaison?.month_slug)}</p>
 
         <div className="grid grid-cols-3 gap-3 mb-6">
-          {[['⏱️', '60 min', 'Durée'], ['📝', '3 tâches', 'À rédiger'], ['🤖', 'Correction IA', 'Résultat']].map(([icon, val, label]) => (
-            <div key={label} className="bg-purple-50 border border-purple-200 rounded-xl p-4">
-              <div className="text-2xl mb-1">{icon}</div>
+          {[['clock', '60 min', 'Durée'], ['filetext', '3 tâches', 'À rédiger'], ['bot', 'Correction IA', 'Résultat']].map(([iconKey, val, label]) => (
+            <div key={label} className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <div className="text-2xl mb-1">{iconKey === 'clock' ? <Clock size={24} className="text-[oklch(48% 0.12 235)]" /> : iconKey === 'filetext' ? <FileText size={24} className="text-[oklch(48% 0.12 235)]" /> : <BarChart2 size={24} className="text-[oklch(48% 0.12 235)]" />}</div>
               <div className="text-lg font-extrabold text-gray-900">{val}</div>
               <div className="text-xs text-gray-500 mt-0.5">{label}</div>
             </div>
@@ -246,7 +247,7 @@ export default function EESimulatorPage() {
         <div className="bg-white border border-gray-200 rounded-2xl p-5 mb-6 text-left space-y-2">
           {TASKS.map(t => (
             <div key={t.num} className="flex items-center gap-3 text-sm">
-              <span className="text-lg w-7">{t.icon}</span>
+              <span className="text-lg w-7"><t.Icon size={18} /></span>
               <div>
                 <span className="font-bold text-gray-800">{t.label} — {t.sublabel}</span>
                 <span className="text-gray-400 ml-2">{t.guide}</span>
@@ -255,13 +256,13 @@ export default function EESimulatorPage() {
           ))}
         </div>
 
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 text-sm text-amber-800 text-left">
-          ⚠️ <strong>Attention :</strong> toute tâche laissée vide entraîne une note éliminatoire (0/20) pour cette tâche.
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 text-sm text-blue-800 text-left">
+          <AlertTriangle size={16} className="inline mr-1" /> <strong>Attention :</strong> toute tâche laissée vide entraîne une note éliminatoire (0/20) pour cette tâche.
         </div>
 
         <button
           onClick={() => { setStarted(true); start() }}
-          className="bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors"
+          className="bg-[oklch(48% 0.12 235)] hover:bg-[#6C3483] text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors"
         >
           Commencer (60 min) →
         </button>
@@ -285,8 +286,8 @@ export default function EESimulatorPage() {
     return 'warn'
   }
 
-  const statusColor = { ok: 'text-green-600', warn: 'text-amber-500', empty: 'text-gray-300' }
-  const statusDot = { ok: 'bg-green-500', warn: 'bg-amber-400', empty: 'bg-gray-200' }
+  const statusColor = { ok: 'text-blue-600', warn: 'text-amber-500', empty: 'text-gray-300' }
+  const statusDot = { ok: 'bg-blue-500', warn: 'bg-amber-400', empty: 'bg-gray-200' }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -313,7 +314,7 @@ export default function EESimulatorPage() {
               return (
                 <button key={t.num} onClick={() => setActiveTask(t.num)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-                    activeTask === t.num ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    activeTask === t.num ? 'bg-[oklch(48% 0.12 235)] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}>
                   <span className={`w-2 h-2 rounded-full ${statusDot[st]}`} />
                   T{t.num}
@@ -342,22 +343,22 @@ export default function EESimulatorPage() {
                 <button key={t.num} onClick={() => setActiveTask(t.num)}
                   className={`w-full text-left p-3 rounded-xl border-2 transition-all ${
                     isActive
-                      ? 'border-[#7D3C98] bg-purple-50'
+                      ? 'border-[oklch(48% 0.12 235)] bg-blue-50'
                       : 'border-gray-100 hover:border-gray-300 hover:bg-gray-50'
                   }`}>
                   <div className="flex items-center justify-between mb-1">
                     <span className="flex items-center gap-1.5 text-sm font-bold text-gray-800">
-                      <span>{t.icon}</span> {t.label}
+                      <span><t.Icon size={16} /></span> {t.label}
                     </span>
                     <span className={`text-xs font-bold ${statusColor[st]}`}>
-                      {st === 'ok' ? '✓' : st === 'warn' ? '!' : '○'}
+                      {st === 'ok' ? <Check size={12} /> : st === 'warn' ? '!' : '○'}
                     </span>
                   </div>
                   <p className="text-xs text-gray-400 mb-2">{t.sublabel} · {t.guide}</p>
                   <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                     <div
                       className={`h-1.5 rounded-full transition-all ${
-                        st === 'ok' ? 'bg-green-500' : st === 'warn' ? 'bg-amber-400' : 'bg-gray-200'
+                        st === 'ok' ? 'bg-blue-500' : st === 'warn' ? 'bg-amber-400' : 'bg-gray-200'
                       }`}
                       style={{ width: `${pct}%` }}
                     />
@@ -371,9 +372,9 @@ export default function EESimulatorPage() {
           </div>
 
           {/* Warning box */}
-          <div className="mt-4 bg-orange-50 border border-orange-200 rounded-xl p-3">
-            <p className="text-xs font-bold text-orange-700 mb-1">⚠️ Rappel important</p>
-            <p className="text-xs text-orange-600 leading-relaxed">
+          <div className="mt-4 bg-orange-50 border border-blue-200 rounded-xl p-3">
+            <p className="text-xs font-bold text-blue-700 mb-1"><AlertTriangle size={14} className="inline mr-1" /> Rappel important</p>
+            <p className="text-xs text-blue-600 leading-relaxed">
               Toute tâche laissée vide entraîne une note <strong>éliminatoire (0/20)</strong> pour cette partie.
             </p>
           </div>
@@ -385,7 +386,7 @@ export default function EESimulatorPage() {
           {/* Task header */}
           <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100 bg-gray-50/60">
             <div className="flex items-center gap-2">
-              <span className="text-lg">{currentTask.icon}</span>
+              <span className="text-lg"><currentTask.Icon size={18} /></span>
               <div>
                 <h2 className="font-extrabold text-gray-900 text-sm">{currentTask.label} — {currentTask.sublabel}</h2>
                 <p className="text-xs text-gray-400">{currentTask.guide} recommandés</p>
@@ -393,9 +394,9 @@ export default function EESimulatorPage() {
             </div>
             <button
               onClick={() => setShowSubject(v => !v)}
-              className="text-xs text-[#7D3C98] font-semibold hover:underline flex-shrink-0"
+              className="text-xs text-[oklch(48% 0.12 235)] font-semibold hover:underline flex-shrink-0"
             >
-              {showSubject ? '🔼 Masquer sujet' : '🔽 Afficher sujet'}
+              {showSubject ? <><ChevronUp size={14} className="inline mr-1" /> Masquer sujet</> : <><ChevronDown size={14} className="inline mr-1" /> Afficher sujet</>}
             </button>
           </div>
 
@@ -413,7 +414,7 @@ export default function EESimulatorPage() {
           <div className="flex-1 p-5">
             <textarea
               ref={taRefs[activeTask]}
-              className="w-full min-h-[320px] h-full border border-gray-200 rounded-xl p-4 text-sm text-gray-800 leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[#7D3C98] focus:border-transparent font-sans"
+              className="w-full min-h-[320px] h-full border border-gray-200 rounded-xl p-4 text-sm text-gray-800 leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[oklch(48% 0.12 235)] focus:border-transparent font-sans"
               placeholder={`Rédigez votre texte ici… (${currentTask.guide})`}
               value={texts[activeTask]}
               onChange={e => setTexts(prev => ({ ...prev, [activeTask]: e.target.value }))}
@@ -459,7 +460,7 @@ export default function EESimulatorPage() {
                       key={char}
                       onClick={() => insertChar(char)}
                       title={char}
-                      className="flex-1 py-1.5 bg-gray-50 hover:bg-[#7D3C98] hover:text-white border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 transition-colors"
+                      className="flex-1 py-1.5 bg-gray-50 hover:bg-[oklch(48% 0.12 235)] hover:text-white border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 transition-colors"
                     >
                       {char}
                     </button>
@@ -487,7 +488,7 @@ export default function EESimulatorPage() {
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div
                         className={`h-1.5 rounded-full transition-all ${
-                          st === 'ok' ? 'bg-green-500' : st === 'warn' ? 'bg-amber-400' : 'bg-gray-200'
+                          st === 'ok' ? 'bg-blue-500' : st === 'warn' ? 'bg-amber-400' : 'bg-gray-200'
                         }`}
                         style={{ width: `${pct}%` }}
                       />
@@ -516,7 +517,7 @@ export default function EESimulatorPage() {
               </>
             ) : (
               <>
-                <span>📤</span> Terminer l'examen
+                <Upload size={16} /> Terminer l'examen
               </>
             )}
           </button>

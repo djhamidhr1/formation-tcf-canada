@@ -2,25 +2,26 @@ import { useState } from 'react'
 import { useParams, useLocation, useNavigate, Link } from 'react-router-dom'
 import { POINT_SCALE } from '../../utils/scoring'
 import { getNclcCeCo } from '../../utils/nclc'
+import { ClipboardList, Check, X, Zap, Headphones, Image } from 'lucide-react'
 
 const LEVEL_COLORS = {
-  A1: 'bg-green-100 text-green-800',
+  A1: 'bg-blue-50 text-blue-700',
   A2: 'bg-blue-100 text-blue-800',
-  B1: 'bg-yellow-100 text-yellow-800',
-  B2: 'bg-orange-100 text-orange-800',
-  C1: 'bg-red-100 text-red-800',
-  C2: 'bg-purple-100 text-purple-800',
+  B1: 'bg-blue-100 text-blue-800',
+  B2: 'bg-blue-200 text-blue-900',
+  C1: 'bg-blue-200 text-blue-900',
+  C2: 'bg-blue-300 text-blue-950',
 }
 
 const NCLC_COLORS = {
-  10: 'bg-emerald-600',
-  9: 'bg-green-500',
-  8: 'bg-lime-500',
-  7: 'bg-yellow-500',
-  6: 'bg-orange-400',
-  5: 'bg-orange-500',
-  4: 'bg-red-500',
-  3: 'bg-red-700',
+  10: 'bg-[oklch(48%_0.12_235)]',
+  9: 'bg-[oklch(50%_0.12_235)]',
+  8: 'bg-[oklch(53%_0.11_235)]',
+  7: 'bg-[oklch(56%_0.10_235)]',
+  6: 'bg-[oklch(59%_0.09_235)]',
+  5: 'bg-[oklch(62%_0.08_235)]',
+  4: 'bg-[oklch(65%_0.07_235)]',
+  3: 'bg-[oklch(68%_0.06_235)]',
 }
 
 const LEVEL_RANGES = [
@@ -56,7 +57,7 @@ export default function COResultsPage() {
   if (!state) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4">📋</div>
+        <div className="flex justify-center mb-4"><ClipboardList size={48} className="text-gray-400" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-4">Résultats non disponibles</h2>
         <Link
           to="/epreuve/comprehension-orale/series"
@@ -148,8 +149,8 @@ export default function COResultsPage() {
               <div className="text-sm text-gray-500">Niveau {level}</div>
               <div className="text-xs text-gray-400 mt-1">
                 {nclc >= 7
-                  ? '✅ Niveau requis pour la plupart des programmes d\'immigration'
-                  : '💪 Continuez à vous entraîner pour atteindre NCLC 7+'}
+                  ? <span className="inline-flex items-center gap-1"><Check size={12} /> Niveau requis pour la plupart des programmes d'immigration</span>
+                  : 'Continuez a vous entrainer pour atteindre NCLC 7+'}
               </div>
             </div>
           </div>
@@ -169,7 +170,7 @@ export default function COResultsPage() {
               <div className="flex-1 bg-gray-100 rounded-full h-2.5 overflow-hidden">
                 <div
                   className={`h-2.5 rounded-full transition-all ${
-                    b.correct === b.count ? 'bg-green-500' : b.correct === 0 ? 'bg-red-400' : 'bg-yellow-400'
+                    b.correct === b.count ? 'bg-blue-500' : b.correct === 0 ? 'bg-red-400' : 'bg-blue-400'
                   }`}
                   style={{ width: b.count > 0 ? `${(b.correct / b.count) * 100}%` : '0%' }}
                 />
@@ -188,7 +189,7 @@ export default function COResultsPage() {
           onClick={() => setOpenReview(!openReview)}
           className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
         >
-          <h3 className="font-bold text-gray-900">📋 Revue détaillée des questions</h3>
+          <h3 className="font-bold text-gray-900 flex items-center gap-2"><ClipboardList size={16} /> Revue detaillee des questions</h3>
           <span className="text-[#1A5276] text-xl">{openReview ? '−' : '+'}</span>
         </button>
 
@@ -211,12 +212,12 @@ export default function COResultsPage() {
               const displayText = q.prompt || q.question_text || ''
 
               return (
-                <div key={i} className={`flex items-start gap-3 px-4 py-3 ${isCorrect ? 'bg-green-50/40' : 'bg-red-50/40'}`}>
-                  {/* Badge ✓/✗ */}
+                <div key={i} className={`flex items-start gap-3 px-4 py-3 ${isCorrect ? 'bg-blue-50/40' : 'bg-red-50/40'}`}>
+                  {/* Badge Check/X */}
                   <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${
-                    isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                    isCorrect ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-700'
                   }`}>
-                    {isCorrect ? '✓' : '✗'}
+                    {isCorrect ? <Check size={12} /> : <X size={12} />}
                   </div>
 
                   {/* Contenu */}
@@ -229,14 +230,14 @@ export default function COResultsPage() {
                           {q.level}
                         </span>
                       )}
-                      <span className={`text-xs font-semibold ${isCorrect ? 'text-green-600' : 'text-red-500'}`}>
+                      <span className={`text-xs font-semibold ${isCorrect ? 'text-blue-600' : 'text-red-500'}`}>
                         {isCorrect ? `+${POINT_SCALE[q.level] || 0} pts` : '0 pt'}
                       </span>
                       {q.audio_url && (
-                        <span className="text-xs text-blue-500 font-medium">🎧 Audio</span>
+                        <span className="text-xs text-blue-500 font-medium inline-flex items-center gap-0.5"><Headphones size={12} /> Audio</span>
                       )}
                       {q.image_url && (
-                        <span className="text-xs text-purple-500 font-medium">🖼️ Image</span>
+                        <span className="text-xs text-purple-500 font-medium inline-flex items-center gap-0.5"><Image size={12} /> Image</span>
                       )}
                     </div>
 
@@ -247,12 +248,12 @@ export default function COResultsPage() {
 
                     {/* Bonne réponse + réponse utilisateur */}
                     <div className="flex items-center gap-2 flex-wrap text-xs">
-                      <span className="inline-flex items-center gap-1 bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-md">
-                        ✓ {correctLetter}{correctText ? ` — ${correctText}` : ''}
+                      <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-md">
+                        <Check size={12} /> {correctLetter}{correctText ? ` — ${correctText}` : ''}
                       </span>
                       {!isCorrect && userAnswer != null && (
                         <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2 py-0.5 rounded-md">
-                          ✗ {userLetter}{userText ? ` — ${userText}` : ''}
+                          <X size={12} /> {userLetter}{userText ? ` — ${userText}` : ''}
                         </span>
                       )}
                       {userAnswer == null && (
@@ -264,8 +265,8 @@ export default function COResultsPage() {
 
                     {/* Explication si dispo */}
                     {q.explanation && (
-                      <div className="mt-1.5 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-1">
-                        💡 {q.explanation}
+                      <div className="mt-1.5 text-xs text-blue-700 bg-blue-50 border border-blue-200 rounded px-2 py-1">
+                        <Zap size={12} className="inline -mt-0.5 shrink-0" /> {q.explanation}
                       </div>
                     )}
                   </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { supabase } from '../../services/supabase'
+import { Mic, Clock, Loader, Play, Trash2, Check, AlertTriangle, Zap, Trophy, Square } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const TASK_CONFIG = {
@@ -161,9 +162,9 @@ export default function EOSimulatorPage() {
   if (!mediaSupported) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-6">😕</div>
+        <div className="text-6xl mb-6"><AlertTriangle size={56} className="text-amber-500 mx-auto" /></div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Navigateur non compatible</h1>
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 text-amber-800 text-sm text-left">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 text-blue-800 text-sm text-left">
           <p className="font-semibold mb-2">Votre navigateur ne supporte pas l'enregistrement audio (MediaRecorder API).</p>
           <p>Essayez avec <strong>Chrome</strong>, <strong>Firefox</strong> ou <strong>Edge</strong> à jour.</p>
         </div>
@@ -175,25 +176,25 @@ export default function EOSimulatorPage() {
   if (phase === 'idle') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-6">🎤</div>
+        <div className="text-6xl mb-6"><Mic size={56} className="text-amber-500 mx-auto" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Simulateur Expression Orale</h1>
         <p className="text-gray-500 mb-8">Tâches 2 & 3 avec enregistrement audio</p>
 
         <div className="grid grid-cols-2 gap-4 mb-8">
           {Object.entries(TASK_CONFIG).map(([num, cfg]) => (
-            <div key={num} className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+            <div key={num} className="bg-blue-50 border border-blue-200 rounded-xl p-5">
               <div className="font-bold text-gray-900 mb-1">{cfg.label}</div>
               <div className="text-xs text-gray-500 mb-2">{cfg.desc}</div>
               {cfg.prep > 0 && (
-                <div className="text-xs text-amber-700">⏱ Préparation : {formatTime(cfg.prep)}</div>
+                <div className="text-xs text-blue-700 flex items-center gap-1"><Clock size={12} /> Préparation : {formatTime(cfg.prep)}</div>
               )}
-              <div className="text-xs text-amber-700">🎙 Enregistrement : {formatTime(cfg.record)}</div>
+              <div className="text-xs text-blue-700 flex items-center gap-1"><Mic size={12} /> Enregistrement : {formatTime(cfg.record)}</div>
             </div>
           ))}
         </div>
 
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8 text-left text-sm text-blue-800">
-          <p className="font-semibold mb-1">💡 Conseils :</p>
+          <p className="font-semibold mb-1"><Zap size={16} className="inline mr-1" /> Conseils :</p>
           <ul className="list-disc pl-4 space-y-1 text-blue-700">
             <li>Autorisez l'accès au microphone quand le navigateur vous le demande</li>
             <li>Parlez clairement et à un rythme naturel</li>
@@ -203,7 +204,7 @@ export default function EOSimulatorPage() {
 
         <button
           onClick={loadSubjects}
-          className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
         >
           Tirer un sujet aléatoire →
         </button>
@@ -227,17 +228,17 @@ export default function EOSimulatorPage() {
   if (phase === 'done') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-6">🎉</div>
+        <div className="text-6xl mb-6"><Trophy size={56} className="text-amber-500 mx-auto" /></div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Entraînement terminé !</h1>
         <p className="text-gray-500 mb-8">Vous avez complété les tâches 2 et 3. Continuez à pratiquer régulièrement.</p>
 
         <div className="grid grid-cols-2 gap-4 mb-8">
           {[2, 3].map(n => (
-            <div key={n} className={`rounded-xl p-4 border ${recordings[n] ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div key={n} className={`rounded-xl p-4 border ${recordings[n] ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'}`}>
               <div className="font-semibold mb-1">Tâche {n}</div>
               {recordings[n] ? (
                 <>
-                  <p className="text-xs text-green-700 mb-2">Enregistrement sauvegardé</p>
+                  <p className="text-xs text-blue-700 mb-2">Enregistrement sauvegardé</p>
                   <audio controls src={URL.createObjectURL(recordings[n])} className="w-full" />
                 </>
               ) : (
@@ -249,7 +250,7 @@ export default function EOSimulatorPage() {
 
         <button
           onClick={() => { setPhase('idle'); setRecordings({ 2: null, 3: null }); setAudioUrl(null) }}
-          className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-3 rounded-xl transition-colors"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-xl transition-colors"
         >
           Recommencer
         </button>
@@ -264,10 +265,10 @@ export default function EOSimulatorPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       {/* Task header */}
-      <div className="bg-gradient-to-br from-amber-500 to-yellow-400 rounded-3xl p-6 text-white text-center mb-6">
-        <div className="text-sm font-medium text-amber-100 mb-1">{config?.label}</div>
+      <div className="bg-gradient-to-br from-amber-500 to-blue-400 rounded-3xl p-6 text-white text-center mb-6">
+        <div className="text-sm font-medium text-blue-100 mb-1">{config?.label}</div>
         <h2 className="text-xl font-bold mb-1">{config?.desc}</h2>
-        <div className="text-amber-100 text-xs">
+        <div className="text-blue-100 text-xs">
           {phase === 'prep' && `Temps de préparation : ${formatTime(timeLeft)}`}
           {phase === 'recording' && `Temps d'enregistrement : ${formatTime(timeLeft)}`}
           {phase === 'review' && 'Enregistrement terminé'}
@@ -285,12 +286,12 @@ export default function EOSimulatorPage() {
 
       {/* Timer display */}
       {(phase === 'prep' || phase === 'recording') && (
-        <div className={`rounded-2xl p-8 text-center mb-6 ${phase === 'recording' ? 'bg-red-50 border-2 border-red-300' : 'bg-amber-50 border-2 border-amber-300'}`}>
-          <div className={`text-5xl font-mono font-bold mb-2 ${timeLeft < 30 ? 'text-red-600 animate-pulse' : phase === 'recording' ? 'text-red-700' : 'text-amber-700'}`}>
+        <div className={`rounded-2xl p-8 text-center mb-6 ${phase === 'recording' ? 'bg-red-50 border-2 border-red-300' : 'bg-blue-50 border-2 border-blue-300'}`}>
+          <div className={`text-5xl font-mono font-bold mb-2 ${timeLeft < 30 ? 'text-red-600 animate-pulse' : phase === 'recording' ? 'text-red-700' : 'text-blue-700'}`}>
             {formatTime(timeLeft)}
           </div>
           <p className="text-sm font-medium text-gray-600">
-            {phase === 'prep' ? '⏳ Temps de préparation — Enregistrement commence automatiquement' : '🎙 Enregistrement en cours...'}
+            {phase === 'prep' ? <><Loader size={14} className="inline mr-1" /> Temps de préparation — Enregistrement commence automatiquement</> : <><Mic size={14} className="inline mr-1" /> Enregistrement en cours...</>}
           </p>
         </div>
       )}
@@ -300,9 +301,9 @@ export default function EOSimulatorPage() {
         <div className="text-center">
           <button
             onClick={() => startPrep(currentTask)}
-            className="bg-amber-500 hover:bg-amber-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
-            {currentTask === 2 ? '▶ Commencer Tâche 2' : '▶ Commencer Tâche 3'}
+            {currentTask === 2 ? <><Play size={16} className="inline mr-1" /> Commencer Tâche 2</> : <><Play size={16} className="inline mr-1" /> Commencer Tâche 3</>}
           </button>
           {TASK_CONFIG[currentTask].prep > 0 && (
             <p className="text-xs text-gray-400 mt-2">
@@ -322,7 +323,7 @@ export default function EOSimulatorPage() {
             onClick={stopRecording}
             className="bg-red-500 hover:bg-red-600 text-white font-bold px-8 py-3 rounded-xl transition-colors"
           >
-            ⬛ Arrêter l'enregistrement
+            <Square size={16} className="inline mr-1" /> Arrêter l'enregistrement
           </button>
         </div>
       )}
@@ -336,13 +337,13 @@ export default function EOSimulatorPage() {
               onClick={discardRecording}
               className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 rounded-xl transition-colors"
             >
-              🗑 Recommencer
+              <Trash2 size={14} className="inline mr-1" /> Recommencer
             </button>
             <button
               onClick={confirmRecording}
-              className="flex-1 bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition-colors"
+              className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-colors"
             >
-              {currentTask === 2 ? 'Continuer → Tâche 3' : '✓ Terminer'}
+              {currentTask === 2 ? 'Continuer → Tâche 3' : <><Check size={14} className="inline mr-1" /> Terminer</>}
             </button>
           </div>
         </div>

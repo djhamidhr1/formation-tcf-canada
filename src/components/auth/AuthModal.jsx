@@ -4,7 +4,7 @@ import { supabase } from '../../services/supabase'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAuthModal } from '../../contexts/AuthModalContext'
 import toast from 'react-hot-toast'
-import { X, Mail, Eye, EyeOff, ArrowLeft, Loader2, CheckCircle } from 'lucide-react'
+import { X, Mail, Eye, EyeOff, ArrowLeft, Loader2, CheckCircle, Leaf } from 'lucide-react'
 import { FcGoogle } from 'react-icons/fc'
 import { FaFacebook, FaApple } from 'react-icons/fa'
 import { BsMicrosoft } from 'react-icons/bs'
@@ -187,7 +187,7 @@ export default function AuthModal() {
             <>
               {/* Logo */}
               <div className="flex flex-col items-center mb-2">
-                <span className="text-5xl mb-2">🍁</span>
+                <Leaf size={40} className="text-red-500 mb-2" />
                 <p className="text-xs text-gray-400 font-medium">Formation TCF Canada</p>
               </div>
 

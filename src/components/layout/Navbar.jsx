@@ -1,143 +1,282 @@
-import { useState } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import { useAuthModal } from '../../contexts/AuthModalContext'
-import { Menu, X, BookOpen, Headphones, PenTool, Mic, Crown, LogOut, User } from 'lucide-react'
+import { Crown, LogOut, User, BookOpen, Headphones, PenTool, Mic, Home, GraduationCap, DollarSign, Calculator, MessageCircle } from 'lucide-react'
 
 const epreuves = [
-  { path: '/epreuve/comprehension-ecrite', label: 'Compréhension Écrite', icon: <BookOpen size={16} /> },
-  { path: '/epreuve/comprehension-orale', label: 'Compréhension Orale', icon: <Headphones size={16} /> },
-  { path: '/epreuve/expression-ecrite', label: 'Expression Écrite', icon: <PenTool size={16} /> },
-  { path: '/epreuve/expression-orale', label: 'Expression Orale', icon: <Mic size={16} /> },
+  { path: '/epreuve/comprehension-ecrite', label: 'Comprehension Ecrite', color: 'var(--ce-main)', icon: BookOpen },
+  { path: '/epreuve/comprehension-orale', label: 'Comprehension Orale', color: 'var(--co-main)', icon: Headphones },
+  { path: '/epreuve/expression-ecrite', label: 'Expression Ecrite', color: 'var(--ee-main)', icon: PenTool },
+  { path: '/epreuve/expression-orale', label: 'Expression Orale', color: 'var(--eo-main)', icon: Mic },
 ]
 
 export default function Navbar() {
   const { user, profile, signOut, isAdmin } = useAuth()
   const { openModal } = useAuthModal()
+  const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
 
   const handleSignOut = async () => {
     await signOut()
     navigate('/')
   }
 
+  const nav = (path) => { navigate(path); setMobileOpen(false) }
+
+  const currentPath = location.pathname
+
   return (
-    <nav className="bg-[#1A5276] sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 no-underline">
-          <span className="text-2xl">🍁</span>
-          <span className="text-white font-bold text-lg hidden sm:block">Formation TCF Canada</span>
-          <span className="text-white font-bold text-lg sm:hidden">TCF Canada</span>
-        </Link>
+    <>
+      <style>{`
+        @media (max-width: 768px) {
+          .nav-desktop { display: none !important; }
+          .nav-mobile-toggle { display: flex !important; }
+          .nav-epreuves-bar { display: none !important; }
+        }
+        @media (min-width: 769px) {
+          .nav-mobile-toggle { display: none !important; }
+        }
+        .nav-mobile-drawer {
+          position: fixed; inset: 0; z-index: 200;
+          display: flex; flex-direction: column;
+          background: var(--navy);
+          transform: translateX(100%);
+          transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        .nav-mobile-drawer.open { transform: translateX(0); }
+        .epreuve-bar-btn:hover { color: white !important; }
+      `}</style>
 
-        {/* Menu desktop */}
-        <div className="hidden md:flex items-center gap-1">
-          <Link to="/formations" className="text-blue-200 hover:text-white px-3 py-2 text-sm font-medium no-underline transition-colors">Formations</Link>
-          <Link to="/tarifs" className="text-blue-200 hover:text-white px-3 py-2 text-sm font-medium no-underline transition-colors">Tarifs</Link>
-          <Link to="/calculateur-nclc" className="text-blue-200 hover:text-white px-3 py-2 text-sm font-medium no-underline transition-colors">Calculateur NCLC</Link>
-          <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer"
-            className="text-green-300 hover:text-green-100 px-3 py-2 text-sm font-medium no-underline transition-colors">
-            WhatsApp
-          </a>
-        </div>
-
-        {/* Actions */}
-        <div className="flex items-center gap-2">
-          {isAdmin && (
-            <Link to="/admin" className="bg-yellow-500 hover:bg-yellow-400 text-black px-3 py-1.5 rounded-lg text-xs font-bold no-underline transition-colors hidden md:flex items-center gap-1">
-              <Crown size={14} /> Admin
-            </Link>
-          )}
-          {user ? (
-            <div className="flex items-center gap-2">
-              <Link to="/mon-compte" className="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg text-sm font-medium no-underline transition-colors hidden md:flex items-center gap-1">
-                <User size={14} /> {profile?.full_name?.split(' ')[0] || 'Mon Compte'}
-              </Link>
-              <button onClick={handleSignOut} className="text-blue-200 hover:text-white p-2 rounded-lg transition-colors hidden md:block" title="Déconnexion">
-                <LogOut size={18} />
-              </button>
+      <nav style={{
+        position: 'sticky', top: 0, zIndex: 100,
+        background: scrolled ? 'oklch(24% 0.08 240 / 0.97)' : 'var(--navy)',
+        backdropFilter: scrolled ? 'blur(16px)' : 'none',
+        boxShadow: scrolled ? '0 1px 24px oklch(0% 0 0 / 0.18)' : 'none',
+        transition: 'all 0.3s ease',
+        borderBottom: '1px solid oklch(100% 0 0 / 0.08)',
+      }}>
+        {/* Primary Bar */}
+        <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Logo */}
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
+            <div style={{ background: 'white', borderRadius: 10, padding: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px oklch(0% 0 0 / 0.2)' }}>
+              <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="TCF Canada" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
             </div>
-          ) : (
-            <div className="hidden md:flex items-center gap-2">
-              <button onClick={() => openModal('login')} className="text-blue-200 hover:text-white px-3 py-1.5 text-sm font-medium transition-colors">Connexion</button>
-              <button onClick={() => openModal('signup')} className="bg-white text-[#1A5276] hover:bg-blue-50 px-4 py-1.5 rounded-lg text-sm font-bold transition-colors">
-                Commencer
-              </button>
-            </div>
-          )}
-          {/* Hamburger */}
-          <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-white p-2">
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Barre épreuves — desktop */}
-      <div className="hidden md:block bg-[#154360] border-t border-[#2E86C1]/40">
-        <div className="max-w-7xl mx-auto px-4 flex items-center gap-1">
-          <Link
-            to="/"
-            className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium no-underline transition-colors border-b-2 ${
-              location.hash === '' || location.hash === '#/'
-                ? 'border-white text-white'
-                : 'border-transparent text-blue-200 hover:text-white hover:border-blue-300'
-            }`}
-          >
-            🏠 Accueil
+            <span style={{ color: 'white', fontWeight: 800, fontSize: 16, letterSpacing: '-0.02em' }}>Formation TCF Canada</span>
           </Link>
-          <span className="text-white/20 text-lg">|</span>
-          {epreuves.map(e => {
-            const active = location.hash.startsWith('#' + e.path)
-            return (
-              <Link
-                key={e.path}
-                to={e.path}
-                className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium no-underline transition-colors border-b-2 ${
-                  active
-                    ? 'border-white text-white'
-                    : 'border-transparent text-blue-200 hover:text-white hover:border-blue-300'
-                }`}
-              >
-                {e.icon} {e.label}
-              </Link>
-            )
-          })}
-        </div>
-      </div>
 
-      {/* Menu mobile */}
-      {mobileOpen && (
-        <div className="md:hidden bg-[#154360] border-t border-[#2E86C1] px-4 py-3">
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            {epreuves.map(e => (
-              <Link key={e.path} to={e.path} onClick={() => setMobileOpen(false)}
-                className="flex items-center gap-2 bg-white/10 text-white px-3 py-2 rounded-lg text-sm font-medium no-underline hover:bg-white/20 transition-colors">
-                {e.icon} {e.label}
+          {/* Desktop Links */}
+          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            {[
+              ['/formations', 'Formations'],
+              ['/tarifs', 'Tarifs'],
+              ['/calculateur-nclc', 'Calculateur NCLC'],
+            ].map(([path, label]) => (
+              <Link key={path} to={path} style={{
+                color: currentPath === path ? 'white' : 'oklch(80% 0.04 240)',
+                background: currentPath === path ? 'oklch(100% 0 0 / 0.12)' : 'none',
+                padding: '8px 14px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+                transition: 'all 0.15s', textDecoration: 'none',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'white'; e.currentTarget.style.background = 'oklch(100% 0 0 / 0.1)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = currentPath === path ? 'white' : 'oklch(80% 0.04 240)'; e.currentTarget.style.background = currentPath === path ? 'oklch(100% 0 0 / 0.12)' : 'none' }}>
+                {label}
               </Link>
             ))}
+            <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
+              color: 'oklch(78% 0.18 145)', fontWeight: 700, fontSize: 14, padding: '8px 14px',
+              borderRadius: 8, transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 6,
+              textDecoration: 'none',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'oklch(100% 0 0 / 0.08)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'none' }}>
+              <MessageCircle size={14} /> WhatsApp
+            </a>
           </div>
-          <div className="border-t border-white/20 pt-3 flex flex-col gap-2">
-            <Link to="/tarifs" onClick={() => setMobileOpen(false)} className="text-blue-200 text-sm no-underline">Tarifs</Link>
-            <Link to="/formations" onClick={() => setMobileOpen(false)} className="text-blue-200 text-sm no-underline">Formations</Link>
+
+          {/* Desktop Actions */}
+          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {isAdmin && (
+              <Link to="/admin" style={{
+                background: 'var(--eo-main)', color: 'white', padding: '6px 12px',
+                borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: 'none',
+                display: 'flex', alignItems: 'center', gap: 4,
+              }}>
+                <Crown size={13} /> Admin
+              </Link>
+            )}
             {user ? (
-              <>
-                <Link to="/mon-compte" onClick={() => setMobileOpen(false)} className="text-blue-200 text-sm no-underline">Mon Compte</Link>
-                <button onClick={handleSignOut} className="text-red-300 text-sm text-left">Déconnexion</button>
-              </>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <Link to="/mon-compte" style={{
+                  background: 'oklch(100% 0 0 / 0.12)', color: 'white', padding: '8px 14px',
+                  borderRadius: 8, fontSize: 14, fontWeight: 600, textDecoration: 'none',
+                  display: 'flex', alignItems: 'center', gap: 6, transition: 'background 0.15s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.background = 'oklch(100% 0 0 / 0.18)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'oklch(100% 0 0 / 0.12)'}>
+                  <User size={14} /> {profile?.full_name?.split(' ')[0] || 'Mon Compte'}
+                </Link>
+                <button onClick={handleSignOut} style={{
+                  color: 'oklch(80% 0.04 240)', padding: 8, borderRadius: 8, transition: 'color 0.15s',
+                }} onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                   onMouseLeave={e => e.currentTarget.style.color = 'oklch(80% 0.04 240)'}>
+                  <LogOut size={18} />
+                </button>
+              </div>
             ) : (
               <>
-                <button onClick={() => { openModal('login'); setMobileOpen(false) }} className="text-blue-200 text-sm text-left">Connexion</button>
-                <button onClick={() => { openModal('signup'); setMobileOpen(false) }} className="bg-white text-[#1A5276] px-4 py-2 rounded-lg text-sm font-bold text-center">
-                  Commencer
+                <button onClick={() => openModal('login')} style={{
+                  color: 'oklch(80% 0.04 240)', fontSize: 14, fontWeight: 600, padding: '8px 12px',
+                  borderRadius: 8, transition: 'color 0.15s',
+                }}
+                onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                onMouseLeave={e => e.currentTarget.style.color = 'oklch(80% 0.04 240)'}>
+                  Connexion
+                </button>
+                <button onClick={() => openModal('signup')} style={{
+                  background: 'white', color: 'var(--navy)', padding: '9px 18px',
+                  borderRadius: 10, fontSize: 14, fontWeight: 700, transition: 'filter 0.15s',
+                  boxShadow: 'var(--shadow-sm)',
+                }}
+                onMouseEnter={e => e.currentTarget.style.filter = 'brightness(0.95)'}
+                onMouseLeave={e => e.currentTarget.style.filter = ''}>
+                  Commencer gratuitement
                 </button>
               </>
             )}
           </div>
+
+          {/* Mobile Hamburger */}
+          <button className="nav-mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)} style={{
+            display: 'flex', flexDirection: 'column', gap: 5, padding: 8, borderRadius: 8,
+          }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{
+                width: 22, height: 2, background: 'white', borderRadius: 2,
+                transition: 'all 0.25s',
+                transform: mobileOpen ? (i === 0 ? 'rotate(45deg) translate(5px, 5px)' : i === 2 ? 'rotate(-45deg) translate(5px, -5px)' : 'scaleX(0)') : 'none',
+                opacity: mobileOpen && i === 1 ? 0 : 1,
+              }} />
+            ))}
+          </button>
         </div>
-      )}
-    </nav>
+
+        {/* Epreuves Bar - desktop only */}
+        <div className="nav-epreuves-bar" style={{ borderTop: '1px solid oklch(100% 0 0 / 0.07)', background: 'oklch(20% 0.07 240 / 0.5)' }}>
+          <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Link to="/" className="epreuve-bar-btn" style={{
+              color: currentPath === '/' ? 'white' : 'oklch(72% 0.04 240)',
+              background: currentPath === '/' ? 'oklch(100% 0 0 / 0.1)' : 'none',
+              padding: '9px 14px', fontSize: 13, fontWeight: 600,
+              borderRadius: 6, transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 6,
+              textDecoration: 'none',
+            }}><Home size={14} /> Accueil</Link>
+            <div style={{ width: 1, height: 18, background: 'oklch(100% 0 0 / 0.15)', margin: '0 4px' }} />
+            {epreuves.map(ep => {
+              const active = currentPath.startsWith(ep.path)
+              return (
+                <Link key={ep.path} to={ep.path} className="epreuve-bar-btn" style={{
+                  color: active ? 'white' : 'oklch(72% 0.04 240)',
+                  background: active ? `color-mix(in srgb, ${ep.color} 20%, transparent)` : 'none',
+                  padding: '9px 14px', fontSize: 13, fontWeight: 600,
+                  borderRadius: 6, transition: 'all 0.15s', whiteSpace: 'nowrap',
+                  textDecoration: 'none',
+                }}>
+                  {ep.label}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile Drawer */}
+      <div className={`nav-mobile-drawer${mobileOpen ? ' open' : ''}`}>
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid oklch(100% 0 0 / 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ background: 'white', borderRadius: 8, padding: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="TCF Canada" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
+            </div>
+            <span style={{ color: 'white', fontWeight: 800, fontSize: 15 }}>Formation TCF Canada</span>
+          </div>
+          <button onClick={() => setMobileOpen(false)} style={{ background: 'oklch(100% 0 0 / 0.12)', color: 'white', width: 36, height: 36, borderRadius: 8, fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>&#x2715;</button>
+        </div>
+
+        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'oklch(55% 0.04 240)', textTransform: 'uppercase', marginBottom: 12 }}>Epreuves TCF</p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 28 }}>
+            {epreuves.map(ep => (
+              <button key={ep.path} onClick={() => nav(ep.path)} style={{
+                background: currentPath.startsWith(ep.path) ? `color-mix(in srgb, ${ep.color} 15%, transparent)` : 'oklch(100% 0 0 / 0.06)',
+                border: `1px solid ${currentPath.startsWith(ep.path) ? `color-mix(in srgb, ${ep.color} 30%, transparent)` : 'oklch(100% 0 0 / 0.1)'}`,
+                borderRadius: 14, padding: '14px 12px', textAlign: 'left',
+              }}>
+                <div style={{ marginBottom: 6 }}><ep.icon size={22} style={{ color: 'white' }} /></div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: 'white', lineHeight: 1.3 }}>{ep.label}</div>
+              </button>
+            ))}
+          </div>
+
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'oklch(55% 0.04 240)', textTransform: 'uppercase', marginBottom: 12 }}>Navigation</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 28 }}>
+            {[['/', Home, 'Accueil'], ['/formations', GraduationCap, 'Formations Zoom'], ['/tarifs', DollarSign, 'Tarifs'], ['/calculateur-nclc', Calculator, 'Calculateur NCLC']].map(([path, Icon, label]) => (
+              <button key={path} onClick={() => nav(path)} style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                background: currentPath === path ? 'oklch(100% 0 0 / 0.1)' : 'none',
+                padding: '12px 16px', borderRadius: 12,
+                color: 'white', fontSize: 15, fontWeight: 600, textAlign: 'left',
+              }}>
+                <Icon size={18} />{label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {user ? (
+              <>
+                <button onClick={() => nav('/mon-compte')} style={{
+                  background: 'oklch(100% 0 0 / 0.1)', border: '1px solid oklch(100% 0 0 / 0.2)',
+                  color: 'white', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
+                }}>Mon Compte</button>
+                <button onClick={() => { handleSignOut(); setMobileOpen(false) }} style={{
+                  background: 'oklch(52% 0.20 25 / 0.2)', border: '1px solid oklch(52% 0.20 25 / 0.3)',
+                  color: 'oklch(80% 0.10 25)', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
+                }}>Deconnexion</button>
+              </>
+            ) : (
+              <>
+                <button onClick={() => { openModal('login'); setMobileOpen(false) }} style={{
+                  background: 'oklch(100% 0 0 / 0.1)', border: '1px solid oklch(100% 0 0 / 0.2)',
+                  color: 'white', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
+                }}>Se connecter</button>
+                <button onClick={() => { openModal('signup'); setMobileOpen(false) }} style={{
+                  background: 'white', color: 'var(--navy)',
+                  padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
+                }}>Commencer gratuitement</button>
+              </>
+            )}
+            <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+              background: 'oklch(46% 0.17 145)', color: 'white',
+              padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none',
+            }}><MessageCircle size={16} /> WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </>
   )
 }

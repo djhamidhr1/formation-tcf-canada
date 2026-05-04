@@ -1,106 +1,129 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { MapPin, Mail, Phone, BookOpen, Headphones, PenTool, Mic, MessageCircle, Play } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A5276] text-blue-200 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 py-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
-
-          {/* Info */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-2xl">🍁</span>
-              <span className="text-white font-bold text-lg">TCF Canada</span>
+    <footer style={{ background: 'var(--navy)', color: 'oklch(78% 0.04 240)', marginTop: 'auto' }}>
+      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '64px 24px 32px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 40, marginBottom: 48 }}>
+          {/* Brand */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
+              <div style={{ background: 'white', borderRadius: 8, padding: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="TCF Canada" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
+              </div>
+              <span style={{ color: 'white', fontWeight: 800, fontSize: 15 }}>TCF Canada</span>
             </div>
-            <p className="text-sm text-blue-300 leading-relaxed">
-              Plateforme spécialisée dans la préparation au TCF Canada et TCF Québec.
+            <p style={{ fontSize: 13, lineHeight: 1.7, marginBottom: 16, color: 'oklch(68% 0.04 240)' }}>
+              Plateforme specialisee dans la preparation au TCF Canada et TCF Quebec.
             </p>
-            <div className="mt-3 text-sm space-y-1">
-              <div>📍 Montréal, QC, Canada</div>
-              <div>✉️ <a href="mailto:hamid@formation-tcf.com" className="text-blue-300 hover:text-white no-underline">hamid@formation-tcf.com</a></div>
-              <div>📞 <a href="tel:+15147467431" className="text-blue-300 hover:text-white no-underline">+1 514 746 7431</a></div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6, fontSize: 13, color: 'oklch(65% 0.04 240)' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}><MapPin size={13} /> Montreal, QC, Canada</span>
+              <a href="mailto:hamid@formation-tcf.com" style={{ color: 'oklch(65% 0.04 240)', textDecoration: 'none', transition: 'color 0.15s', display: 'flex', alignItems: 'center', gap: 6 }}
+                onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                onMouseLeave={e => e.currentTarget.style.color = 'oklch(65% 0.04 240)'}>
+                <Mail size={13} style={{ flexShrink: 0 }} /> hamid@formation-tcf.com
+              </a>
+              <a href="tel:+15147467431" style={{ color: 'oklch(65% 0.04 240)', textDecoration: 'none', transition: 'color 0.15s', display: 'flex', alignItems: 'center', gap: 6 }}
+                onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                onMouseLeave={e => e.currentTarget.style.color = 'oklch(65% 0.04 240)'}>
+                <Phone size={13} style={{ flexShrink: 0 }} /> +1 514 746 7431
+              </a>
             </div>
           </div>
 
-          {/* Épreuves */}
-          <div className="md:col-span-1">
-            <h4 className="text-white font-semibold mb-3">Épreuves TCF</h4>
-            <ul className="space-y-1.5 text-sm">
+          {/* Epreuves */}
+          <div>
+            <h4 style={{ color: 'white', fontWeight: 700, fontSize: 13, marginBottom: 16, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Epreuves TCF</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
-                ['/epreuve/comprehension-ecrite', '📖 Compréhension Écrite'],
-                ['/epreuve/comprehension-orale', '🎧 Compréhension Orale'],
-                ['/epreuve/expression-ecrite', '✍️ Expression Écrite'],
-                ['/epreuve/expression-orale', '🎤 Expression Orale'],
-              ].map(([path, label]) => (
-                <li key={path}><Link to={path} className="text-blue-300 hover:text-white no-underline transition-colors">{label}</Link></li>
+                ['/epreuve/comprehension-ecrite', BookOpen, 'Comprehension Ecrite'],
+                ['/epreuve/comprehension-orale', Headphones, 'Comprehension Orale'],
+                ['/epreuve/expression-ecrite', PenTool, 'Expression Ecrite'],
+                ['/epreuve/expression-orale', Mic, 'Expression Orale'],
+              ].map(([path, Icon, label]) => (
+                <Link key={path} to={path} style={{ color: 'oklch(68% 0.04 240)', fontSize: 13, fontWeight: 500, transition: 'color 0.15s', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6 }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'oklch(68% 0.04 240)'}><Icon size={13} /> {label}</Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Liens rapides */}
-          <div className="md:col-span-1">
-            <h4 className="text-white font-semibold mb-3">Liens rapides</h4>
-            <ul className="space-y-1.5 text-sm">
+          <div>
+            <h4 style={{ color: 'white', fontWeight: 700, fontSize: 13, marginBottom: 16, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Liens rapides</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
                 ['/tarifs', 'Tarification'],
                 ['/formations', 'Formations Zoom'],
                 ['/calculateur-nclc', 'Calculateur NCLC'],
                 ['/connexion', 'Se connecter'],
                 ['/inscription', "S'inscrire"],
+                ['/faq', 'FAQ'],
+                ['/conditions', 'Conditions'],
               ].map(([path, label]) => (
-                <li key={path}><Link to={path} className="text-blue-300 hover:text-white no-underline transition-colors">{label}</Link></li>
+                <Link key={path} to={path} style={{ color: 'oklch(68% 0.04 240)', fontSize: 13, fontWeight: 500, transition: 'color 0.15s', textDecoration: 'none' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'oklch(68% 0.04 240)'}>{label}</Link>
               ))}
-            </ul>
+            </div>
           </div>
 
-          {/* Réseaux sociaux */}
-          <div className="md:col-span-1">
-            <h4 className="text-white font-semibold mb-3">Nous suivre</h4>
-            <div className="flex flex-col gap-2 text-sm">
-              <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white px-3 py-2 rounded-lg no-underline transition-colors">
-                💬 WhatsApp
+          {/* Social */}
+          <div>
+            <h4 style={{ color: 'white', fontWeight: 700, fontSize: 13, marginBottom: 16, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Nous suivre</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: 'oklch(46% 0.17 145)', color: 'white', padding: '10px 14px',
+                borderRadius: 10, fontSize: 13, fontWeight: 600, transition: 'filter 0.15s', textDecoration: 'none',
+              }} onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.15)'}
+                 onMouseLeave={e => e.currentTarget.style.filter = ''}>
+                <MessageCircle size={14} /> WhatsApp
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer"
-                className="flex items-center gap-2 bg-red-700 hover:bg-red-600 text-white px-3 py-2 rounded-lg no-underline transition-colors">
-                ▶ YouTube
+              <a href="#" style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: 'oklch(42% 0.20 25)', color: 'white', padding: '10px 14px',
+                borderRadius: 10, fontSize: 13, fontWeight: 600, transition: 'filter 0.15s', textDecoration: 'none',
+              }} onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.15)'}
+                 onMouseLeave={e => e.currentTarget.style.filter = ''}>
+                <Play size={14} /> YouTube
               </a>
             </div>
           </div>
 
-          {/* Moyens de paiement */}
-          <div className="md:col-span-1">
-            <h4 className="text-white font-bold mb-3">Nous acceptons</h4>
-
-            {/* Image logos paiement */}
-            <div className="bg-white/10 rounded-xl overflow-hidden p-2">
-              <img
-                src={`${import.meta.env.BASE_URL}images/payment-logos.png`}
-                alt="Western Union, Ria, Orange Money, MTN, Wave, PayPal"
-                className="w-full h-auto object-contain rounded-lg"
-                loading="lazy"
-              />
+          {/* Paiement */}
+          <div>
+            <h4 style={{ color: 'white', fontWeight: 700, fontSize: 13, marginBottom: 16, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Nous acceptons</h4>
+            <div style={{ background: 'oklch(100% 0 0 / 0.06)', border: '1px solid oklch(100% 0 0 / 0.1)', borderRadius: 12, padding: 14, marginBottom: 10 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, fontSize: 11, color: 'oklch(65% 0.04 240)' }}>
+                {['Western Union', 'Ria', 'Orange Money', 'MTN', 'Wave', 'PayPal'].map(m => (
+                  <div key={m} style={{ background: 'oklch(100% 0 0 / 0.08)', borderRadius: 6, padding: '4px 8px', textAlign: 'center', fontWeight: 600 }}>{m}</div>
+                ))}
+              </div>
             </div>
-
-            {/* Bouton Cliquez ici */}
-            <Link
-              to="/tarifs"
-              className="mt-3 flex items-center justify-center gap-2 w-full bg-white hover:bg-blue-50 text-[#1A5276] font-bold text-sm px-4 py-2.5 rounded-xl no-underline transition-colors shadow-sm"
-            >
-              Cliquez ici
-              <ArrowRight size={15} />
-            </Link>
+            <Link to="/tarifs" style={{
+              display: 'block', width: '100%', background: 'white', color: 'var(--navy)',
+              borderRadius: 10, padding: '9px 14px', fontSize: 13, fontWeight: 700,
+              textAlign: 'center', textDecoration: 'none', transition: 'filter 0.15s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.filter = 'brightness(0.95)'}
+            onMouseLeave={e => e.currentTarget.style.filter = ''}>Voir les tarifs &rarr;</Link>
           </div>
-
         </div>
 
-        <div className="border-t border-white/20 mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-blue-400">
-          <p>© 2026 Formation TCF Canada. Tous droits réservés.</p>
-          <div className="flex gap-4">
-            <Link to="/confidentialite" className="text-blue-400 hover:text-white no-underline transition-colors">Confidentialité</Link>
-            <Link to="/conditions" className="text-blue-400 hover:text-white no-underline transition-colors">Conditions</Link>
-            <Link to="/faq" className="text-blue-400 hover:text-white no-underline transition-colors">FAQ</Link>
+        <div style={{ borderTop: '1px solid oklch(100% 0 0 / 0.1)', paddingTop: 24, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+          <p style={{ fontSize: 13, color: 'oklch(55% 0.03 240)' }}>&copy; 2026 Formation TCF Canada. Tous droits reserves.</p>
+          <div style={{ display: 'flex', gap: 20 }}>
+            {[
+              ['/confidentialite', 'Confidentialite'],
+              ['/conditions', 'Conditions'],
+              ['/faq', 'FAQ'],
+            ].map(([path, label]) => (
+              <Link key={label} to={path} style={{ color: 'oklch(55% 0.03 240)', fontSize: 13, transition: 'color 0.15s', textDecoration: 'none' }}
+                onMouseEnter={e => e.currentTarget.style.color = 'white'}
+                onMouseLeave={e => e.currentTarget.style.color = 'oklch(55% 0.03 240)'}>{label}</Link>
+            ))}
           </div>
         </div>
       </div>

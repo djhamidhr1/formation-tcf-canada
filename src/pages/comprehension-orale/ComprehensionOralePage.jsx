@@ -1,16 +1,17 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { Headphones, Zap } from 'lucide-react'
 import { supabase } from '../../services/supabase'
 
 const C = { bg: '#EBF5FB', border: '#2E86C1', btn: '#1A5276', text: '#1A5276', light: '#D6EAF8' }
 
 const LEVEL_COLORS = {
-  A1: 'bg-green-100 text-green-800',
+  A1: 'bg-blue-100 text-blue-800',
   A2: 'bg-blue-100 text-blue-800',
-  B1: 'bg-yellow-100 text-yellow-800',
-  B2: 'bg-orange-100 text-orange-800',
+  B1: 'bg-blue-50 text-blue-800',
+  B2: 'bg-blue-100 text-blue-800',
   C1: 'bg-red-100 text-red-800',
-  C2: 'bg-purple-100 text-purple-800',
+  C2: 'bg-blue-100 text-blue-800',
 }
 
 function QuestionViewer({ question, idx, total, onPrev, onNext }) {
@@ -36,7 +37,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
 
       {question.audio_url && (
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
-          <div className="text-sm text-[#1A5276] font-bold mb-2">🎧 Enregistrement audio</div>
+          <div className="text-sm text-[#1A5276] font-bold mb-2 flex items-center gap-1.5"><Headphones className="w-4 h-4" /> Enregistrement audio</div>
           <audio controls className="w-full h-9" src={question.audio_url}>
             Votre navigateur ne supporte pas la lecture audio.
           </audio>
@@ -68,7 +69,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
         {options.map((opt, i) => {
           let cls = 'border-gray-200 bg-white text-gray-800 hover:border-gray-300'
           if (revealed) {
-            if (i === correct) cls = 'border-green-500 bg-green-50 text-green-900'
+            if (i === correct) cls = 'border-green-500 bg-blue-50 text-blue-900'
             else if (i === chosen) cls = 'border-red-400 bg-red-50 text-red-800'
           } else if (i === chosen) {
             cls = 'border-[#2E86C1] bg-blue-50 text-[#1A5276]'
@@ -100,7 +101,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
         )}
 
         {revealed && question.explanation && (
-          <div className="flex-1 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-xs text-amber-800">
+          <div className="flex-1 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-xs text-blue-800">
             {question.explanation}
           </div>
         )}
@@ -146,7 +147,7 @@ export default function ComprehensionOralePage() {
             {selectedSeries ? '← Toutes les séries' : '← Accueil'}
           </button>
           <div className="flex items-center gap-4">
-            <span className="text-5xl">🎧</span>
+            <Headphones className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-extrabold m-0 mb-1.5 text-white">Compréhension Orale</h1>
               <p className="m-0 text-blue-200">
@@ -168,7 +169,7 @@ export default function ComprehensionOralePage() {
               <h2 className="text-xl font-bold text-[#1A5276]">Choisissez une série</h2>
               <Link to="/epreuve/comprehension-orale/astuces"
                 className="text-sm text-[#1A5276] font-medium no-underline hover:underline">
-                💡 Astuces →
+                <Zap className="w-4 h-4 inline" /> Astuces →
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { PenTool } from 'lucide-react'
 import { supabase } from '../../services/supabase'
 
 const C = { bg: '#F5EEF8', border: '#8E44AD', btn: '#7D3C98', text: '#7D3C98', light: '#EBD5F7' }
@@ -30,7 +31,7 @@ export default function ExpressionEcritePage() {
             {selected ? '← Retour' : '← Accueil'}
           </button>
           <div className="flex items-center gap-4">
-            <span className="text-5xl">✍️</span>
+            <PenTool className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-extrabold m-0 mb-1.5 text-white">Expression Écrite</h1>
               <p className="m-0 text-purple-200">

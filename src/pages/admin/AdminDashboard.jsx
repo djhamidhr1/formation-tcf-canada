@@ -529,7 +529,7 @@ function MembersTab() {
                     <td className="px-4 py-3">
                       {sub?.expires_at ? (
                         <span className={`text-xs font-semibold ${expiring ? 'text-orange-500' : 'text-gray-600'}`}>
-                          {expiring && '⚠️ '}{fmt(sub.expires_at)}
+                          {expiring && 'Attention: '}{fmt(sub.expires_at)}
                         </span>
                       ) : <span className="text-gray-300 text-xs">—</span>}
                     </td>
@@ -867,7 +867,7 @@ function VisitorsTab() {
               <div key={c.country}>
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-base">{c.code === '—' ? '🌐' : `${String.fromCodePoint(...[...c.code].map(ch => 127397 + ch.charCodeAt(0)))}`}</span>
+                    <span className="text-sm font-bold text-gray-400">{c.code}</span>
                     <span className="text-sm font-semibold text-gray-700">{c.country}</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -1057,7 +1057,7 @@ function FollowUpTab() {
                       </td>
                       {activeList === 'expiring' && (
                         <td className="px-4 py-3">
-                          <span className="text-orange-600 font-bold text-xs">⚠️ {fmt(it.expires_at)}</span>
+                          <span className="text-orange-600 font-bold text-xs flex items-center gap-1"><AlertCircle size={11} className="shrink-0" /> {fmt(it.expires_at)}</span>
                         </td>
                       )}
                       {activeList === 'noSub' && (

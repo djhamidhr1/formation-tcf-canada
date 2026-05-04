@@ -1,17 +1,19 @@
+import { Target, Clock, MapPin, XCircle, BarChart2 } from 'lucide-react'
+
 const BAREME = [
-  { range: 'Q1–4', level: 'A1', pts: 3, color: 'bg-green-100 text-green-800' },
+  { range: 'Q1–4', level: 'A1', pts: 3, color: 'bg-blue-100 text-blue-800' },
   { range: 'Q5–10', level: 'A2', pts: 9, color: 'bg-blue-100 text-blue-800' },
-  { range: 'Q11–19', level: 'B1', pts: 15, color: 'bg-yellow-100 text-yellow-800' },
-  { range: 'Q20–29', level: 'B2', pts: 21, color: 'bg-orange-100 text-orange-800' },
+  { range: 'Q11–19', level: 'B1', pts: 15, color: 'bg-blue-50 text-blue-800' },
+  { range: 'Q20–29', level: 'B2', pts: 21, color: 'bg-blue-100 text-blue-800' },
   { range: 'Q30–35', level: 'C1', pts: 26, color: 'bg-red-100 text-red-800' },
-  { range: 'Q36–39', level: 'C2', pts: 33, color: 'bg-purple-100 text-purple-800' },
+  { range: 'Q36–39', level: 'C2', pts: 33, color: 'bg-blue-100 text-blue-800' },
 ]
 
 const TIPS = [
-  { icon: '🎯', title: 'Stratégie Gagnante', desc: 'Commencez par les questions C2 (Q36-39, 33 pts chacune). Si vous en répondez correctement, vous gagnez 132 pts en seulement 4 questions !' },
-  { icon: '⏱️', title: 'Gestion du Temps', desc: 'Allouez ~90 secondes par question. Lisez d\'abord la question, puis cherchez la réponse dans le texte — pas l\'inverse.' },
-  { icon: '📍', title: 'Repérage', desc: 'Soulignez les mots-clés de la question. Repérez les connecteurs logiques dans le texte (cependant, néanmoins, en revanche...).' },
-  { icon: '❌', title: 'Élimination', desc: 'Éliminez d\'abord les réponses clairement incorrectes. Entre 2 réponses plausibles, relisez le passage exact du texte source.' },
+  { icon: <Target size={24} />, title: 'Stratégie Gagnante', desc: 'Commencez par les questions C2 (Q36-39, 33 pts chacune). Si vous en répondez correctement, vous gagnez 132 pts en seulement 4 questions !' },
+  { icon: <Clock size={24} />, title: 'Gestion du Temps', desc: 'Allouez ~90 secondes par question. Lisez d\'abord la question, puis cherchez la réponse dans le texte — pas l\'inverse.' },
+  { icon: <MapPin size={24} />, title: 'Repérage', desc: 'Soulignez les mots-clés de la question. Repérez les connecteurs logiques dans le texte (cependant, néanmoins, en revanche...).' },
+  { icon: <XCircle size={24} />, title: 'Élimination', desc: 'Éliminez d\'abord les réponses clairement incorrectes. Entre 2 réponses plausibles, relisez le passage exact du texte source.' },
 ]
 
 export default function CETipsPage() {
@@ -22,7 +24,7 @@ export default function CETipsPage() {
 
       {/* Barème */}
       <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">📊 Barème officiel</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2"><BarChart2 size={20} /> Bareme officiel</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -40,13 +42,13 @@ export default function CETipsPage() {
                   <td className="py-3 px-3">
                     <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${b.color}`}>{b.level}</span>
                   </td>
-                  <td className="py-3 px-3 font-bold text-[#1E8449]">{b.pts} pts</td>
+                  <td className="py-3 px-3 font-bold text-[oklch(48% 0.12 235)]">{b.pts} pts</td>
                   <td className="py-3 px-3 text-right text-gray-500">{b.pts * (b.range === 'Q1–4' ? 4 : b.range === 'Q5–10' ? 6 : b.range === 'Q11–19' ? 9 : b.range === 'Q20–29' ? 10 : b.range === 'Q30–35' ? 6 : 4)} pts</td>
                 </tr>
               ))}
-              <tr className="bg-green-50 font-bold">
+              <tr className="bg-blue-50 font-bold">
                 <td className="py-3 px-3" colSpan={3}>TOTAL MAXIMUM</td>
-                <td className="py-3 px-3 text-right text-[#1E8449]">699 pts</td>
+                <td className="py-3 px-3 text-right text-[oklch(48% 0.12 235)]">699 pts</td>
               </tr>
             </tbody>
           </table>
@@ -57,7 +59,7 @@ export default function CETipsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {TIPS.map(t => (
           <div key={t.title} className="bg-blue-50 border border-blue-100 rounded-xl p-5">
-            <div className="text-2xl mb-2">{t.icon}</div>
+            <div className="mb-2 text-blue-700">{t.icon}</div>
             <h3 className="font-bold text-gray-900 mb-2">{t.title}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{t.desc}</p>
           </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { supabase } from '../../services/supabase'
+import { Mic, Calendar } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 const YEARS = ['2026', '2025', '2024', '2023']
@@ -11,9 +12,9 @@ const TASK_DURATIONS = {
 }
 
 const TASK_COLORS = {
-  1: 'bg-amber-100 text-amber-800 border-amber-200',
-  2: 'bg-orange-100 text-orange-800 border-orange-200',
-  3: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  1: 'bg-blue-50 text-blue-800 border-blue-200',
+  2: 'bg-blue-100 text-blue-800 border-blue-200',
+  3: 'bg-blue-50 text-blue-800 border-blue-200',
 }
 
 function extractYear(slug) {
@@ -52,12 +53,12 @@ function SubjectCard({ sujet }) {
         <div>
           <button
             onClick={() => setShowCorrection(!showCorrection)}
-            className="text-xs font-medium text-amber-700 hover:text-amber-900 underline transition-colors"
+            className="text-xs font-medium text-blue-700 hover:text-amber-900 underline transition-colors"
           >
             {showCorrection ? 'Masquer la correction' : 'Voir la correction →'}
           </button>
           {showCorrection && (
-            <div className="mt-2 bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-900 leading-relaxed">
+            <div className="mt-2 bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-amber-900 leading-relaxed">
               {sujet.correction_exemple}
             </div>
           )}
@@ -139,10 +140,10 @@ export default function EOSubjectsPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       {/* Header */}
-      <div className="bg-gradient-to-br from-amber-500 to-yellow-400 rounded-3xl p-8 text-white text-center mb-8">
-        <div className="text-4xl mb-2">🎤</div>
+      <div className="bg-gradient-to-br from-amber-500 to-blue-400 rounded-3xl p-8 text-white text-center mb-8">
+        <div className="text-4xl mb-2"><Mic size={40} className="mx-auto" /></div>
         <h1 className="text-3xl font-extrabold mb-2">Sujets Expression Orale</h1>
-        <p className="text-amber-100 text-sm">{sujets.length} sujets disponibles · 2023–2026</p>
+        <p className="text-blue-100 text-sm">{sujets.length} sujets disponibles · 2023–2026</p>
       </div>
 
       {/* Year selector */}
@@ -154,7 +155,7 @@ export default function EOSubjectsPage() {
             onClick={() => setSelectedYear(year)}
             className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
               selectedYear === year
-                ? 'bg-amber-500 text-white shadow-sm'
+                ? 'bg-blue-500 text-white shadow-sm'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -166,7 +167,7 @@ export default function EOSubjectsPage() {
       {/* Month cards */}
       {monthsForYear.length === 0 ? (
         <div className="text-center py-12 text-gray-400">
-          <div className="text-4xl mb-3">📅</div>
+          <div className="text-4xl mb-3"><Calendar size={40} className="text-gray-400 mx-auto" /></div>
           <p>Aucun sujet disponible pour {selectedYear}.</p>
         </div>
       ) : (
@@ -178,8 +179,8 @@ export default function EOSubjectsPage() {
                 onClick={() => setSelectedMonth(slug)}
                 className={`py-3 px-3 rounded-xl text-sm font-semibold text-center transition-all ${
                   selectedMonth === slug
-                    ? 'bg-amber-500 text-white shadow-md scale-105'
-                    : 'bg-white border border-gray-200 text-gray-700 hover:border-amber-300 hover:bg-amber-50'
+                    ? 'bg-blue-500 text-white shadow-md scale-105'
+                    : 'bg-white border border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
                 }`}
               >
                 {formatMonthSlug(slug)}
@@ -198,7 +199,7 @@ export default function EOSubjectsPage() {
                     onClick={() => setActiveTask(n)}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                       activeTask === n
-                        ? 'bg-amber-500 text-white'
+                        ? 'bg-blue-500 text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >

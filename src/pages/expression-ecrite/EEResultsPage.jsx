@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { scoreEEToNclc } from '../../utils/scoring'
+import { FileText, Check, AlertTriangle, ClipboardList, Trophy, ChevronUp, ChevronDown } from 'lucide-react'
 
 const NCLC_COLORS = {
   10: 'bg-emerald-600',
-  9: 'bg-green-500',
-  8: 'bg-lime-500',
+  9: 'bg-blue-500',
+  8: 'bg-blue-500',
   7: 'bg-yellow-500',
   6: 'bg-orange-400',
   5: 'bg-orange-500',
@@ -47,7 +48,7 @@ function TaskAccordion({ task, text, index }) {
           <div className="text-right">
             <div className="text-lg font-extrabold text-[#7D3C98]">{task.score}<span className="text-sm font-normal text-gray-400">/7</span></div>
           </div>
-          <span className="text-gray-400 text-lg">{open ? '▲' : '▼'}</span>
+          <span className="text-gray-400 text-lg">{open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}</span>
         </div>
       </button>
 
@@ -56,11 +57,11 @@ function TaskAccordion({ task, text, index }) {
           {/* Positives */}
           {task.positives && task.positives.length > 0 && (
             <div className="px-5 pt-4">
-              <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                <h4 className="text-sm font-bold text-green-800 mb-2">✅ Points positifs</h4>
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <h4 className="text-sm font-bold text-blue-800 mb-2"><Check size={16} className="inline mr-1" /> Points positifs</h4>
                 <ul className="space-y-1">
                   {task.positives.map((p, i) => (
-                    <li key={i} className="text-sm text-green-700 flex gap-2">
+                    <li key={i} className="text-sm text-blue-700 flex gap-2">
                       <span className="shrink-0">•</span>
                       <span>{p}</span>
                     </li>
@@ -74,7 +75,7 @@ function TaskAccordion({ task, text, index }) {
           {task.negatives && task.negatives.length > 0 && (
             <div className="px-5 pt-3">
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                <h4 className="text-sm font-bold text-red-800 mb-2">⚠️ Axes d'amélioration</h4>
+                <h4 className="text-sm font-bold text-red-800 mb-2"><AlertTriangle size={16} className="inline mr-1" /> Axes d'amélioration</h4>
                 <ul className="space-y-1">
                   {task.negatives.map((n, i) => (
                     <li key={i} className="text-sm text-red-700 flex gap-2">
@@ -128,7 +129,7 @@ export default function EEResultsPage() {
   if (!state || !state.aiResult) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4">📝</div>
+        <div className="text-5xl mb-4"><FileText size={48} className="text-[#7D3C98] mx-auto" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-4">Résultats non disponibles</h2>
         <Link
           to="/epreuve/expression-ecrite/sujets-actualites"
@@ -208,8 +209,8 @@ export default function EEResultsPage() {
               <div className="text-sm text-gray-500">Niveau {level}</div>
               <div className="text-xs text-gray-400 mt-1">
                 {nclc >= 7
-                  ? '✅ Excellent niveau — objectif immigration atteint'
-                  : '💪 Continuez à pratiquer pour atteindre NCLC 7+'}
+                  ? <><Check size={14} className="inline mr-1" /> Excellent niveau — objectif immigration atteint</>
+                  : <><Trophy size={14} className="inline mr-1" /> Continuez à pratiquer pour atteindre NCLC 7+</>}
               </div>
             </div>
           </div>
@@ -218,7 +219,7 @@ export default function EEResultsPage() {
 
       {/* Tasks accordion */}
       <div className="mb-8">
-        <h2 className="text-lg font-bold text-gray-900 mb-4">📋 Détail par tâche</h2>
+        <h2 className="text-lg font-bold text-gray-900 mb-4"><ClipboardList size={20} className="inline mr-1" /> Détail par tâche</h2>
         {(aiResult.tasks || []).map((task, i) => (
           <TaskAccordion
             key={task.task_number || i}
@@ -228,7 +229,7 @@ export default function EEResultsPage() {
           />
         ))}
         {(!aiResult.tasks || aiResult.tasks.length === 0) && (
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-amber-800 text-sm">
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-blue-800 text-sm">
             Le détail par tâche n'est pas disponible. Score global : {score}/20.
           </div>
         )}

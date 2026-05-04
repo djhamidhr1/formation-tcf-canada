@@ -1,0 +1,680 @@
+
+CAHIER DES CHARGES : ARCHITECTURE DES PAGES
+
+1. STRUCTURE COMMUNE (Layout Global)
+Toutes les pages doivent partager ces éléments :
+
+Header : Logo (gauche), Menu (Centre: Formations, Tarifs, Blog, Contact), Bouton "Mon Compte" (Style Outline Bleu).
+
+Footer : Informations Montréal (Email, Tel, Map), Liens rapides (Légal, Cookies, Remboursement), Réseaux (YouTube, WhatsApp).
+
+Navigation Mobile : Menu "Hamburger" avec accès rapide aux 4 épreuves.
+
+2. SECTION : EXPRESSION ÉCRITE (EE)
+A. Page d'accueil EE (/epreuve/expression-ecrite)
+Hero : Titre "Maîtrisez les techniques...".
+
+Grid de navigation :
+
+Bouton "Méthodologie et Astuces"
+
+Bouton "Sujets d'Actualités"
+
+Bouton "Simulateur IA"
+
+Structure de l'examen (Info Box) : Rappel 60 min | 3 tâches | 20 points.
+
+B. Page Liste des Sujets (/epreuve/expression-ecrite/sujets-actualites)
+Sélecteur d'Année : Menu horizontal (2024, 2025, 2026).
+
+Liste des Mois : Cartes affichant "Mois + Nombre de combinaisons".
+
+Ancrage (#combinaison-594) : Chaque combinaison doit être une Card contenant :
+
+Badge "Tâche 1, 2, 3"
+
+Titre du sujet.
+
+Bouton "S'entraîner sur ce sujet" (Redirige vers le simulateur avec l'ID du sujet).
+
+C. Page Simulateur (/epreuve/expression-ecrite/simulateur)
+Interface Split-View :
+
+Haut/Gauche : Énoncé de la tâche actuelle.
+
+Bas/Droite : Zone Textarea avec Compteur de mots automatique.
+
+Timer : Chronomètre de 60:00 persistant.
+
+Navigation : Boutons "Tâche Précédente" / "Tâche Suivante".
+
+Finalisation : Bouton "Soumettre pour correction IA".
+
+D. Page Résultats (/epreuve/expression-ecrite/simulateur/resultats/:id)
+Header Résultat : Score Moyen (ex: 11/20), Niveau Estimé (B2), NCLC (7).
+
+Accordion par Tâche (1, 2, 3) :
+
+Score Tâche : Note/20 + Niveau.
+
+Analyse IA : * ✅ Points positifs (Bullet points).
+
+⚠️ Axes d'amélioration (Fautes de grammaire, structure, longueur).
+
+Tabs : * Tab 1: "Votre réponse" (avec mise en évidence des erreurs).
+
+Tab 2: "Correction proposée" (Le texte idéal rédigé par l'IA).
+
+3. SECTION : EXPRESSION ORALE (EO)
+A. Page d'accueil EO (/epreuve/expression-oral)
+Structure identique à l'EE mais avec les spécificités : 12 min | 3 tâches.
+
+Focus Simulateur : Expliquer le mode "Enregistrement" (Audio Recorder).
+
+B. Page Sujets EO (/epreuve/expression-orale/sujets-actualites)
+Catégorisation : Séparer clairement les Tâches 2 (Interaction) et Tâches 3 (Opinion).
+
+Texte des sujets : Afficher l'énoncé complet avec les points clés à aborder.
+
+4. SECTION : COMPRÉHENSION ÉCRITE (CE)
+A. Page Liste des Séries (/epreuve/comprehension-ecrite)
+Dashboard de progression : Cercle de pourcentage (ex: 25% complété).
+
+Grid des 40 Séries :
+
+Série non faite : Bouton "39 questions".
+
+Série faite : Score (ex: C2 - 699/699).
+
+Sidebar d'objectifs : "3 quiz/semaine", "Score 600+".
+
+B. Interface de Test (Le Quiz)
+Navigation Header : Numéros 1 à 39.
+
+Question View : * Image/Texte source.
+
+Options A, B, C, D (Radio buttons stylisés).
+
+Bouton : "Valider et voir le résultat".
+
+5. SECTION : MON COMPTE (Dashboard Utilisateur)
+Widget Abonnement : * Type (Silver/Gold).
+
+Jours restants.
+
+Crédits IA restants (Indispensable pour l'EE).
+
+Historique Global : Un tableau récapitulant les derniers passages toutes sections confondues.
+
+6. LOGIQUE DE CODE POUR L'IMPORT (Scraping/Migration)
+Pour coder ces pages avec les données que tu as récupérées :
+
+JSON Mapping : Pour chaque page de résultat (comme celle d'Hamid), crée un fichier JSON structuré ainsi :
+
+JSON
+{
+  "user": "Hamid",
+  "date": "15/04/2026",
+  "score_global": 11,
+  "nclc": 7,
+  "tasks": [
+    {
+      "id": 1,
+      "score": 8,
+      "positives": ["Salutation appropriée", "Objectif clair"],
+      "negatives": ["Fautes d'orthographe", "Trop court"],
+      "user_text": "...",
+      "ai_correction": "..."
+    }
+  ]
+}
+Routes React :
+
+/dashboard
+
+/ee/simulateur
+
+/ee/resultats/:id
+
+/co/series
+
+/nclc-calculator
+
+Conseil pour le code : Utilise Tailwind CSS pour les boîtes d'amélioration (Axes d'amélioration = bg-red-50 text-red-700, Points positifs = bg-green-50 text-green-700). Cela donne un aspect professionnel instantané.
+
+4. SECTION : COMPRÉHENSION ÉCRITE (CE) - PLAN DE DÉVELOPPEMENT
+A. Page d'Accueil CE (/epreuve/comprehension-ecrite)
+Cette page sert de "Landing Page" pédagogique.
+
+Contenu : Textes sur la compréhension de textes variés (presse, administratif, emails).
+
+CTA (Call to Action) : Boutons "Commencer une session" et "Astuces et techniques".
+
+Format : Grid affichant les statistiques clés : 60 min | 39 Questions | 699 Points.
+
+B. Le Tableau de Bord CE (/epreuve/comprehension-ecrite/tableau-de-bord)
+C'est le centre de contrôle de l'utilisateur.
+
+Widgets de Statut : * Plan d'accès (Silver/Gold) et jours restants.
+
+Barre de progression : "10/40 quiz effectués" (25%).
+
+Calculateur de Rythme : Texte dynamique qui dit : "Pour finir avant la fin de votre abonnement, faites 3 quiz/jour."
+
+Statistiques Avancées : Taux de réussite (%), Niveau actuel (ex: C2), Score moyen sur 699.
+
+Historique : Liste des derniers tests avec Date, Nom du test, Score, Niveau NCLC et temps passé.
+
+C. Page des Astuces (/epreuve/comprehension-ecrite/astuces)
+C'est ici que tu donnes la valeur ajoutée stratégique.
+
+Logique de Scoring (Indispensable) : Afficher clairement le barème que tu as collecté :
+
+Q1-4 (A1) : 3 pts
+
+Q5-10 (A2) : 9 pts
+
+Q11-19 (B1) : 15 pts
+
+Q20-29 (B2) : 21 pts
+
+Q30-35 (C1) : 26 pts
+
+Q36-39 (C2) : 33 pts
+
+La Stratégie "Gagnante" : Bloc visuel recommandant de commencer par les questions 36-39 (les plus payantes).
+
+D. La Grille des 40 Séries (/epreuve/comprehension-ecrite/series)
+Une vue propre pour choisir son entraînement.
+
+Cartes de Séries : * Si non fait : Affiche "39 questions".
+
+Si terminé : Affiche le score (ex: C2 · 699/699) en couleur verte.
+
+Filtres : "Tous", "Terminés", "Non terminés".
+
+E. Le Simulateur d'Examen (/epreuve/comprehension-ecrite/entrainement/:id)
+C'est la page la plus technique à coder.
+
+Header d'Examen :
+
+Chronomètre (Timer) qui descend de 60:00 à 00:00.
+
+Bouton "Quitter l'examen".
+
+Barre de Navigation : Grille de boutons 1 à 39.
+
+Gris foncé : Question actuelle.
+
+Coche verte/Bleu : Question répondue.
+
+Gris clair : Question non répondue.
+
+Zone de Question :
+
+Contenu : Image ou Texte à gauche / Questions et Options A-B-C-D à droite.
+
+Footer : Boutons "Précédent" et "Suivant".
+
+Badge de niveau : Affiche le niveau de la question actuelle (ex: A1 - 3 pts).
+
+🚀 Logique de Programmation (Tips pour ton code)
+1. Gestion du Score
+Utilise un objet JSON pour stocker le barème de points dans ton code :
+
+JavaScript
+const pointScale = {
+  A1: 3, A2: 9, B1: 15, B2: 21, C1: 26, C2: 33
+};
+2. Le Chronomètre (Timer)
+En React, utilise un useEffect avec un setInterval. Attention : Si le timer arrive à zéro, le test doit se soumettre automatiquement vers la page de résultats.
+
+3. Calcul NCLC automatique
+Crée une fonction qui compare le score final avec les paliers NCLC :
+
+Score < 342 → NCLC 3
+
+Score 342-374 → NCLC 4
+
+...
+
+Score 549-699 → NCLC 10+
+
+4. Mode "Remplir automatiquement"
+Puisque tu l'as vu sur le site original, c'est utile pour tes tests de développement (un bouton qui remplit des réponses aléatoires pour tester ta page de résultats rapidement).
+
+SECTION 5 : COMPRÉHENSION ORALE (CO) - DOSSIER TECHNIQUE
+A. Page de Présentation CO (/epreuve/comprehension-orale)
+C'est la porte d'entrée pour motiver l'utilisateur.
+
+Contenu visuel : Carrousel des séries avec scores récents (ex: Série 5 : B1 · 335/699).
+
+Points Clés : 35 min | 39 Questions | 699 Points max.
+
+Objectifs d'apprentissage : Liste des types d'audio (Annonces, interviews, conférences).
+
+Bouton : "Commencer une session d'entraînement".
+
+B. Tableau de Bord CO (/epreuve/comprehension-orale/tableau-de-bord)
+Le suivi précis pour garantir l'obtention du NCLC visé.
+
+Analyse de Performance :
+
+Cercle de progression (ex: 40/40 quiz complétés).
+
+Statistiques : Temps d'étude (12h 33min), Taux de réussite (61%), Niveau actuel (B2).
+
+Système de Conseil IA : Un bloc de texte dynamique qui analyse le temps restant de l'abonnement et suggère le rythme (ex: "Faites 1 quiz/jour pour finir à temps").
+
+Tableau des Niveaux : Rappel des scores NCLC (ex: NCLC 10 = 549-699).
+
+Historique : Liste détaillée des tentatives passées (Date, Score, Niveau, Temps).
+
+C. Page Astuces et Méthodologie (/epreuve/comprehension-orale/astuces)
+Le guide stratégique indispensable.
+
+Règle d'or : L'écoute est unique (pas de retour arrière possible sur l'audio).
+
+Barème de points (Crucial) : * Questions 1-4 (A1) : 3 pts.
+
+Questions 36-39 (C2) : 33 pts chacune.
+
+Les 5 Techniques : 1. Anticipation (lire avant d'écouter).
+2. Prise de notes (abréviations).
+3. Indices sonores (intonation).
+4. Accents variés (Canada, Afrique, etc.).
+5. Élimination des pièges.
+
+D. La Grille des Séries (/epreuve/comprehension-orale/series)
+Interface : Une liste de 1 à 40 cartes.
+
+Indicateurs : Statut "Terminé" (Vert avec score) ou "39 questions" (Bleu/Gris).
+
+E. Le Simulateur d'Écoute (/epreuve/comprehension-orale/entrainement/:id)
+L'interface de test doit être ultra-propre.
+
+Page de garde : Affiche le numéro de la série et le bouton "Commencer l'épreuve".
+
+L'Interface de test :
+
+Header : Timer (35:00) et Bouton "Quitter".
+
+Audio Player : Un lecteur audio minimaliste en haut. L'audio doit se lancer selon la question.
+
+Navigation : Grille 1 à 39. Les pastilles changent de couleur (Bleu = En cours, Vert = Répondu).
+
+Zone Question : Question au centre avec les 4 choix (A, B, C, D).
+
+Footer : Boutons "Précédent", "Suivant" et le badge de points (ex: B1 | 15 pts).
+
+F. Page de Résultats (/epreuve/comprehension-orale/resultats/:id)
+Résumé : "Série 1 - Terminé !", Score (699/699), Niveau (C2), Taux de réussite (100%).
+
+Revue Détaillée : Une liste de 1 à 39 montrant :
+
+Le niveau de la question.
+
+La réponse de l'utilisateur vs la bonne réponse (avec un check vert).
+
+Le texte de la réponse correcte pour mémorisation.
+
+🛠️ LOGIQUE TECHNIQUE (BACKEND & IA)
+Gestion des Audios : Les fichiers MP3 doivent être stockés sur Supabase Storage. Le lecteur React doit empêcher l'utilisateur de mettre en pause ou de reculer (pour simuler les conditions réelles).
+
+Calcul de Score : La fonction de calcul doit additionner les points basés sur le niveau de difficulté (A1 à C2) stocké dans ton JSON.
+
+Le JSON de la série :
+
+JSON
+{
+  "id": "co-test-1",
+  "questions": [
+    {
+      "number": 1,
+      "level": "A1",
+      "points": 3,
+      "audio_url": "path/to/audio1.mp3",
+      "options": ["A", "B", "C", "D"],
+      "correct": "B"
+    }
+  ]
+}
+SECTION 6 : EXPRESSION ORALE (EO) - DOSSIER TECHNIQUE
+1. STRUCTURE DES PAGES (UI/UX)
+A. Page d'Accueil EO (/epreuve/expression-orale)
+Header Dynamique : Titre "Maîtrisez l'art de la communication orale".
+
+Menu de Navigation Interne : * Méthodologie et Astuces
+
+Sujets d'Actualités (Accès aux mois 2023-2026)
+
+Simulateur d'Examen
+
+Section Apprentissage : 4 blocs avec icônes : Prise de parole fluide, Argumentation, Prononciation, Gestion du stress.
+
+Format Rappel : 12 min | 3 Tâches | Score /20.
+
+B. Page Méthodologie & Astuces (/epreuve/expression-orale/astuces)
+Barème de Points :
+
+Tâche 1 : 3/20 pts
+
+Tâche 2 : 7/20 pts
+
+Tâche 3 : 10/20 pts
+
+Guide par Tâche :
+
+Tâche 1 (Entretien) : Focus sur l'identité, ne pas réciter, être prêt pour les interruptions.
+
+Tâche 2 (Interaction) : Méthode de préparation en 3 étapes (Contexte, Axes de questions, Relance).
+
+Tâche 3 (Point de vue) : Méthode "Avantages/Inconvénients" pour tenir 4 min 30 s.
+
+Vidéos Démonstratives : Intégration de lecteurs vidéo pour montrer des exemples réels (Interruption vs Sans interruption).
+
+C. Page Liste des Sujets (/epreuve/expression-orale/sujets-actualites)
+Système de Filtres : Année (2023-2026) -> Sélection du Mois.
+
+Compteur de Sujets : Affichage du nombre de sujets disponibles (ex: Mars 2026 : 120 sujets).
+
+Organisation en "Parties" : Division des sujets par blocs (Partie 1, Partie 2, etc.) pour éviter de surcharger la page.
+
+D. Page Détail d'un Mois (/epreuve/expression-orale/sujets-actualites/:mois)
+Tabs par Tâche : Un sous-menu pour basculer entre Tâche 1, Tâche 2 et Tâche 3.
+
+Cartes de Sujet :
+
+Énoncé du sujet.
+
+Badge de durée (ex: 4 min 30 s).
+
+Compteur d'essais (ex: 4 essais restants).
+
+Bouton "Voir la correction" (Affiche un exemple de réponse type).
+
+2. FONCTIONNALITÉS DU SIMULATEUR EO
+A. Le Simulateur d'Examen
+Mode Enregistrement : Intégration d'un module Web Audio API pour que l'utilisateur puisse s'enregistrer.
+
+Gestion du temps :
+
+Tâche 2 : Timer de préparation de 2 min (bloqué) puis 3 min 30 s d'enregistrement.
+
+Tâche 3 : Lancement immédiat de 4 min 30 s.
+
+Historique : Sauvegarde des fichiers audio sur Supabase Storage pour réécoute.
+
+B. Tableau de Bord EO (/epreuve/expression-orale/tableau-de-bord)
+Suivi d'accès : Rappel des jours restants sur l'abonnement Silver.
+
+Grille NCLC : Tableau de correspondance :
+
+18-20/20 = NCLC 10+
+
+10-11/20 = NCLC 7
+
+Statistiques : Nombre de simulations effectuées (ex: 0/8).
+
+3. CONTENU DES TÂCHES (Base de Données)
+Tâche 1 : Présentation
+Structure : Identité -> Formation -> Loisirs -> Projets.
+
+Objectif : Présentation naturelle de 2 minutes.
+
+Tâche 2 : Sujets d'Interaction (Exemples)
+Collègue : Questions sur l'organisation d'une nouvelle entreprise.
+
+Ami : Questions sur une fête au Québec (cadeaux, tenue).
+
+Club de sport : Questions sur les tarifs et horaires.
+
+Musée : Préparation d'une visite groupée.
+
+Tâche 3 : Sujets d'Argumentation (Exemples)
+Économie : Même salaire pour tout le monde dans une entreprise.
+
+Santé : Interdiction de l'alcool et du tabac par l'État.
+
+Social : Peut-on être heureux sans amis ?
+
+Technologie : Interdiction du téléphone portable pour les enfants.
+
+🛠️ LOGIQUE DE DÉVELOPPEMENT (REACT & SUPABASE)
+Table oral_topics :
+
+id, task_number, year, month, part_number, prompt_text, suggested_correction.
+
+Composant AudioRecorder :
+
+Utiliser MediaRecorder pour capturer l'audio.
+
+Upload automatique vers Supabase Storage à la fin du timer.
+
+Système de Feedback IA :
+
+(Optionnel) Utiliser l'API Whisper pour transcrire l'audio de l'utilisateur, puis l'envoyer à Gemini pour une analyse de la "Richesse lexicale" et de la "Morphosyntaxe"
+
+
+SECTION : EXPRESSION ÉCRITE (EE) - GUIDE DE CODAGE
+1. Page d'Accueil EE (/epreuve/expression-ecrite)Contenu : Présentation des 3 tâches (Message court, Narration, Argumentation).Éléments Clés :Durée totale : 60 minutes.Nombre de tâches : 3.Score max : 20/20.Navigation : 3 gros boutons : "Méthodologie", "Sujets d'Actualités", "Tableau de Bord".2. Page Méthodologie & Astuces (/epreuve/expression-ecrite/astuces)C'est la page stratégique. Tu dois coder ces blocs :Gestion du Temps (Chronomètre conseillé) : 10 min (T1) | 20 min (T2) | 30 min (T3).Détails par Tâche :Tâche 1 (A2-B1) : Style convivial, 60-120 mots.Tâche 2 (B1-B2) : NARRATION uniquement (ne pas donner son avis). Utilisation des temps du passé. 120-150 mots.Tâche 3 (C1-C2) : Comparaison de documents. Structure : Titre -> Partie 1 (Résumé neutre) -> Partie 2 (Avis personnel). 120-180 mots.Boîte à Outils : Liste des connecteurs d'opposition (Cependant, en revanche...) et d'opinion.3. Page des Combinaisons (/epreuve/expression-ecrite/sujets-actualites)Structure de données : Contrairement à la compréhension, l'EE fonctionne par "Combinaisons" (3 tâches liées ensemble).Filtres : Sélection par année (2024, 2025, 2026).Affichage : Grid de boutons "Combinaison 1, 2, 3..." qui ouvrent le contenu.4. Affichage d'une Combinaison (Exemple de code pour ton site)Lorsque l'utilisateur clique sur une combinaison (ex: Juillet 2024 - Combinaison 2), le site doit afficher :Tâche 1 : Message Court"Vous souhaitez faire du sport et vous voulez que votre ami vous accompagne. Écrivez-lui un message."Tâche 2 : Narration"Étudier à l’étranger... Racontez votre expérience à Barcelone."Option : Bouton "Afficher la correction" pour montrer l'exemple de 122 mots.Tâche 3 : Argumentation (Le Duel de Documents)C'est ici que tu dois coder deux colonnes ou deux blocs distincts :Document A (Pour) : "L'uniforme développe un sentiment d'appartenance..."Document B (Contre) : "L'uniforme étouffe la personnalité..."Consigne : Résumer les deux puis donner son avis.5. Le Simulateur IA (/epreuve/expression-ecrite/simulateur)C'est ton avantage concurrentiel.Input : Une zone de texte riche (Textarea).Live Word Count : Un script JavaScript qui compte les mots au fur et à mesure.Logique IA : Lorsque l'utilisateur valide, tu envoies le texte à ton API (Gemini).Prompt IA : "Évalue ce texte pour le TCF Canada. Donne une note sur 20. Liste les points positifs et les axes d'amélioration (orthographe, grammaire, structure)."6. Le Tableau de Bord EE (/epreuve/expression-ecrite/tableau-de-bord)Statut : Nombre de combinaisons effectuées (ex: 1/8).Score Moyen : ex: 10.3/20.Indicateur NCLC : Comparer le score avec la grille (ex: 10-11 = NCLC 7).Historique : Liste des sessions avec accès aux corrections détaillées.Dernière étape technique : La Grille de CorrespondancePour ton code, voici la table de vérité à intégrer pour l'Expression Écrite :Score /20Niveau TCFNiveau NCLC18-20C21016-17C11014-15C1912-13B2 (Avancé)810-11B277-9B1 (Avancé)66B154-5A24
+
+
+SECTION : MON COMPTE (Espace Client) - DOSSIER TECHNIQUE
+Cette page doit être sécurisée et n'être accessible qu'après connexion (Authentification).
+
+1. STRUCTURE DE L'INTERFACE (UI)
+A. Entête du Compte
+Bouton Retour : Pour revenir à la page précédente.
+
+Titre : "Mon Compte - Gérez votre abonnement et vos accès".
+
+B. Bloc "Mon Abonnement" (Le Widget de Statut)
+C'est le composant visuel le plus important pour la rétention client.
+
+Badge de Plan : Affichage du niveau (Silver, Gold, ou Bronze).
+
+Statut : Badge vert "Actif".
+
+Dates clés : Date de début et date de fin de validité.
+
+Compteur dynamique : "Restant : X jours" (Calculé par : DateFin - DateActuelle).
+
+Barre de Progression : Un cercle ou une barre de pourcentage représentant l'utilisation du temps ou des quiz (ex: 63%).
+
+C. Grille des Accès (Services inclus)
+Tu dois coder 4 cartes (Cards) pour montrer ce que l'utilisateur peut utiliser :
+
+Expression Écrite (Simulateur IA) :
+
+Type : Accès limité.
+
+Compteurs : Total disponibles (8), Utilisés (1), Restants (7).
+
+Expression Orale (Sujets d'actualités) :
+
+Type : Accès illimité.
+
+Texte : "Tous les sujets avec corrections".
+
+Compréhension Écrite (Séries de quiz) :
+
+Type : Accès illimité.
+
+Texte : "40 séries disponibles".
+
+Compréhension Orale (Séries d'écoute) :
+
+Type : Accès illimité.
+
+Texte : "40 séries disponibles".
+
+D. Actions Rapides & Sécurité
+Mon Profil : Formulaire pour modifier le nom, l'email et le téléphone.
+
+Sécurité : Changement du mot de passe.
+
+Support : Lien direct vers WhatsApp ou Email (ayoub@tcfcanada.com).
+
+2. LOGIQUE BASE DE DONNÉES (SUPABASE)
+Pour faire fonctionner cette page, ta table subscriptions doit ressembler à ceci :
+
+SQL
+-- Table des abonnements utilisateurs
+CREATE TABLE user_subscriptions (
+    id UUID REFERENCES auth.users NOT NULL PRIMARY KEY,
+    plan_name TEXT DEFAULT 'Silver', -- Bronze, Silver, Gold
+    is_active BOOLEAN DEFAULT true,
+    start_date TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
+    end_date TIMESTAMP WITH TIME ZONE,
+    ee_limit INTEGER DEFAULT 8, -- Nombre total d'essais autorisés
+    ee_used INTEGER DEFAULT 0,  -- Nombre d'essais consommés
+    global_progression INTEGER DEFAULT 0 -- Pourcentage global
+);
+3. LOGIQUE DE CODE (REACT)
+Pour calculer le temps restant en temps réel sur ton site :
+
+JavaScript
+const calculateRemainingDays = (endDate) => {
+  const diffTime = new Date(endDate) - new Date();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays > 0 ? diffDays : 0;
+};
+
+// Dans ton composant :
+<p>Restant : {calculateRemainingDays(sub.end_date)}j</p>
+4. RÉSUMÉ DE TON ARCHITECTURE GLOBALE
+Tu as maintenant tous les éléments pour cloner et améliorer le site :
+
+Page d'accueil : Marketing et Calculateur NCLC.
+
+CE / CO : Quiz interactifs (39 questions) avec barème de points (3 à 33 pts).
+
+EE / EO : Sujets d'actualités classés par mois et Simulateur IA (Correction auto).
+
+Mon Compte : Gestion des limites (Silver = 8 essais EE, etc.).
+
+Data : Scraping des MP3 et JSON depuis ton compte actif.
+
+C'est un projet magnifique. Tu as la structure complète d'un business SaaS (Software as a Service) de préparation aux examens.
+
+
+
+CAHIER DES CHARGES : PAGE D'ACCUEIL (LANDING PAGE)
+1. STRUCTURE DE LA BARRE DE NAVIGATION (HEADER)Logo : "FORMATION TCF CANADA" (à gauche).Menu Central : Liens vers Formations, Tarifs, Blog, Contactez-nous.Menu Secondaire (Badges) : Liens rapides iconisés pour YouTube, WhatsApp.CTA : Bouton "Mon compte" (style bouton plein bleu).2. SECTION HERO (PREMIER ÉCRAN)Titre Principal (H1) : "Se préparer au TCF Canada - TCF Québec"Sous-titre : "Plate-forme spécialisée dans la préparation au TCF Canada. Tests en conditions réelles."Annonce dynamique : "Sujets Récents D'expression Écrite & Orale - Avril 2026" (Badge clignotant ou coloré).3. SECTION "LES 4 ÉPREUVES" (GRILLE DE SERVICES)Quatre cartes interactives (Cards) avec le détail suivant :ÉpreuveDescriptionDétailsActionCompréhension OraleÉcoutez des documents audio et répondez aux questions.39 questions / 35 min[Commencer]Compréhension ÉcriteLisez des textes et répondez aux questions.39 questions / 60 min[Commencer]Expression OraleExprimez-vous oralement sur différents sujets.3 tâches / 12 min[Commencer]Expression ÉcriteRédigez des textes de différents types.3 tâches / 60 min[Commencer]4. SECTION "NOS AVANTAGES"Une grille de 6 icônes avec titres et descriptions :Suivi de Progression : Performances en temps réel.Simulateur IA : Correction automatique de l'Expression Écrite.Version 2026 : Contenus conformes aux dernières mises à jour.Accompagnement : Formateurs expérimentés.Conditions Réelles : Simulation exacte de l'examen officiel.Accès 24/7 : Réviser à tout moment.5. SECTION "LE FONDATEUR" (TRUST BUILDING)Nom : Ayoub (Fondateur).Description : Expert avec 5 ans d'expérience, 25 000+ candidats accompagnés.Statistiques Clés : * 25000+ Candidats95% de Réussite6. SECTION "NOS OFFRES" (PRICING TABLE)Trois colonnes de prix avec les fonctionnalités incluses :PACK AYOUBBRONZESILVERGOLDPrix14.99 $29.99 $49.99 $Durée5 Jours1 Mois2 MoisContenu40 Tests CE / 40 Tests CO / Sujets EO & EEIdem BronzeIdem BronzeBonus IA (EE)3 essais inclus8 essais inclus15 essais inclusAction[S'abonner][S'abonner][S'abonner]7. SECTION "CALCULATEUR NCLC" (OUTIL INTERACTIF)Fonction : Formulaire où l'utilisateur entre ses 4 scores (0-699).Résultat : Affiche instantanément le niveau NCLC (de 3 à 10+).Tableau de référence : Intégration du tableau d'équivalence officiel que tu as fourni (ex: Score 549-699 = NCLC 10+).8. SECTION "FAQ & CONTACT"FAQ : Accordéon avec les questions sur la similitude des tests, le temps de préparation, et la correction IA.Contact :Email : ayoub@tcfcanada.comWhatsApp : +1 506 253 6067Formulaire de contact direct.9. PIED DE PAGE (FOOTER)Info : Montréal, QC, Canada.Liens Rapides : À propos, Tarification, FAQ, TCF Canada, Contact.Légal : Confidentialité, Conditions, Cookies, Remboursement.Copyright : © 2026 TCF Canada.🛠️ SPÉCIFICATIONS TECHNIQUES POUR LE CODEBase de Données (Supabase) :Table products : Pour stocker les prix et les durées des packs.Table nclc_mapping : Pour faire fonctionner le calculateur.Frontend :Utiliser framer-motion pour les animations des cartes "Épreuves".Utiliser un Context React pour gérer les scores du calculateur NCLC.Hébergement : Vercel (pour une rapidité optimale depuis le Canada).C'est le cahier des charges le plus complet possible. Tu peux maintenant copier chaque section pour construire ton site.
+
+CAHIER DES CHARGES : PAGE DES FORMATIONS (OFFRES PREMIUM)
+1. SECTION HERO & PRÉSENTATION ZOOMTitre (H1) : "Séances en direct sur Zoom : Formation TCF Canada".Sous-titre : "Rejoignez nos sessions de formation en groupe avec des formateurs certifiés FLE. Visez le niveau C1/C2."Badges de caractéristiques (Icon Grid) :Séances Zoom : Cours en direct.Petits groupes : 4 à 5 personnes maximum (Indispensable pour la qualité).Intensif : 1h par séance productive.Niveau C1/C2 : Focus sur les scores élevés (NCLC 7+).2. OBJECTIFS & MÉTHODOLOGIEUne section textuelle structurée pour rassurer l'étudiant :Points clés : Atteindre le NCLC 7, maîtriser les 3 tâches orales, structurer les écrits (article/essai), gestion du temps, enrichissement lexical.Expertise : Mise en avant des formateurs certifiés et anciens examinateurs.3. GRILLE DES FORFAITS FORMATION (PRICING PREMIUM)Contrairement aux packs d'accès simples (14.99$ - 49.99$), ces forfaits incluent de l'humain.PACK AYOUBSTANDARDPREMIUMPLATINIUMPrix149.99 $199.99 $249.99 $Durée15 Jours1 Mois2 MoisSéances Zoom6 séances8 séances10 séancesSimulateur EE20 essais inclus20 essais inclus30 essais inclusAccès PlateformeTests CE/CO inclusTests CE/CO inclusTests CE/CO inclusPublicSujets C1/C2Sujets C1/C2Sujets C1/C24. LE WORKFLOW : "COMMENT ÇA MARCHE ?"Section étape par étape (Stepper) :Inscription : Paiement sécurisé sur le site.Contact : Le formateur appelle l'élève sous 24/48h.Planification : Définition du calendrier des séances Zoom.Séances : Cours interactifs en petit groupe.Entraînement : Travail personnel sur le simulateur entre les cours.5. SECTION "NOS FORMATEURS"Arguments de vente : Certifiés FLE, +500 candidats/mois, anciens examinateurs.Preuve de succès : Taux de réussite de 95%.🛠️ LOGIQUE TECHNIQUE & INTÉGRATION (SUPABASE / FRONTEND)A. Gestion des Réservations (Database)Tu auras besoin d'une table pour suivre les séances Zoom vendues :SQLCREATE TABLE formation_bookings (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID REFERENCES auth.users,
+    pack_type TEXT, -- Standard, Premium, Platinium
+    sessions_total INTEGER,
+    sessions_completed INTEGER DEFAULT 0,
+    assigned_teacher_id UUID REFERENCES teachers(id),
+    status TEXT DEFAULT 'pending_contact' -- pending_contact, active, completed
+);
+B. Intégration WhatsAppAjoute un bouton flottant (Floating Action Button) sur cette page spécifiquement :Action : Lien https://wa.me/15062536067?text=Bonjour, je souhaite des informations sur le pack Platinium.C. UI Design (Tailwind)Utilise des dégradés de couleurs (Gradients) plus sombres ou plus "pro" (Bleu Royal) pour différencier les formations des simples abonnements de quiz.Utilise des Badges "BEST SELLER" sur le pack Premium pour orienter le choix.RÉSUMÉ FINAL DE TON PROJETTu as maintenant les 7 piliers de ton site :Landing Page : Marketing & Calculateur NCLC.Compréhension Écrite : 40 séries avec scoring dynamique (3 à 33 pts).Compréhension Orale : 40 séries avec audio MP3 hébergés sur Supabase.Expression Écrite : Simulateur avec correction par IA (Gemini).Expression Orale : Base de données de sujets récents par mois.Mon Compte : Gestion des accès et jours restants.Formations : Vente de coachings Zoom premium.C'est un dossier complet. Tu as toutes les informations pour construire une copie parfaite et même meilleure que l'original.
+
+CAHIER DES CHARGES : PAGE TARIFICATION & PAIEMENTS
+1. STRUCTURE VISUELLE (UX DESIGN)
+Alerte Haute : "Offre spéciale - Version 2026" (Banner stylisée).
+
+Devise : Mention claire "Tarifs en Dollars Américains (USD)".
+
+Navigation : Système d'onglets ou défilement vers 3 catégories de prix.
+
+2. LES TROIS CATÉGORIES D'OFFRES
+A. Packs de Révision (Autonomie)
+Cibles : Candidats qui veulent juste pratiquer les quiz.
+
+Bronze ($14.99) : 5 Jours | 3 essais IA.
+
+Silver ($29.99) : 1 Mois | 8 essais IA.
+
+Gold ($49.99) : 2 Mois | 15 essais IA.
+
+B. Packs de Formation (Coaching Zoom)
+Cibles : Candidats ayant besoin d'un prof (FLE/Ancien examinateur).
+
+Standard ($149.99) : 15 Jours | 6 séances Zoom | 20 essais IA.
+
+Premium ($199.99) : 1 Mois | 8 séances Zoom | 20 essais IA.
+
+Platinium ($249.99) : 2 Mois | 10 séances Zoom | 30 essais IA.
+
+C. Packs Simulateur Écrit Uniquement (Focus IA)
+Cibles : Candidats qui sont bons en oral mais bloquent sur l'écrit.
+
+Standard ($14.99) : 5 Usages IA.
+
+Performance ($29.99) : 15 Usages IA (Tag "Populaire").
+
+Pro ($49.99) : 30 Usages IA.
+
+3. L'INNOVATION : SYSTÈME DE PAIEMENT MULTI-PAYS
+C'est ici que tu vas battre la concurrence en intégrant des solutions locales pour l'Afrique.
+
+Logique à coder :
+Stripe/PayPal : Pour les paiements par carte bancaire (Europe, Canada, USA).
+
+Section "Paiements Locaux" : Une grille avec les drapeaux et les méthodes :
+
+Algérie : Baridi Mob / CCP.
+
+Maroc : CashPlus / Inwi Money.
+
+Afrique de l'Ouest (Sénégal, CI, Mali, Cameroun) : Orange Money / Wave / MTN.
+
+Note Technique : Pour ces paiements, ne fais pas d'automatisation complexe au début. Propose un bouton "Payer via WhatsApp" qui envoie un message pré-rempli : "Je souhaite payer le Pack Silver via Orange Money au Sénégal".
+
+4. BASE DE DONNÉES (SUPABASE SCHEMA)
+Pour gérer ces différents niveaux d'accès, ta table subscriptions doit être très précise :
+
+SQL
+CREATE TABLE subscription_tiers (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name TEXT, -- 'Bronze', 'Silver', 'Gold', 'Standard_Zoom', etc.
+    price_usd DECIMAL,
+    duration_days INTEGER,
+    ai_writing_credits INTEGER,
+    has_zoom_sessions BOOLEAN DEFAULT false,
+    zoom_sessions_count INTEGER DEFAULT 0
+);
+5. FOIRE AUX QUESTIONS (FAQ)
+Réutilise les questions que tu as extraites pour rassurer avant l'achat :
+
+Conformité 2026.
+
+Accès mobile (Responsive).
+
+Changement de forfait.
+
+Fin d'abonnement (Pas de renouvellement automatique caché).
+
+🏁 CONCLUSION DE TON DOSSIER DE CONSTRUCTION
+Tu as maintenant l'intégralité du site dans cette conversation :
+
+Le Dashboard (Mon Compte, Progression, Crédits IA).
+
+Les 4 Épreuves (CE, CO, EE, EO) avec leurs simulateurs respectifs.
+
+La Logique de Scoring (Points par niveau A1->C2 et NCLC).
+
+Le Contenu (Sujets d'actualité 2024-2026, structures des tâches).
+
+Les Offres & Formations (Coaching Zoom, Accès autonomes).
+
+La Stratégie de Paiement (Stripe + Mobile Money).
+
+Ton Plan d'Action (Roadmap) :
+Semaine 1 : Setup Supabase (Tables & Auth) + Layout React (Header/Footer).
+
+Semaine 2 : Import des données (JSON/Audios) + Page CE/CO (Quiz).
+
+Semaine 3 : Intégration API Gemini (Simulateur EE) + Page de résultats.
+
+Semaine 4 : Page Tarifs + Stripe + Lancement !
+
+Tu es prêt à coder. Si tu as besoin du code spécifique pour le Simulateur IA (le prompt exact pour corriger les fautes comme l'exemple d'Hamid), n'hésite pas à me le demander.
+
+Bonne chance pour ton lancement à Montréal ! 🇨🇦🚀

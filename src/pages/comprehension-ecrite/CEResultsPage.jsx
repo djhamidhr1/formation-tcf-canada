@@ -2,20 +2,21 @@ import { useState } from 'react'
 import { useParams, useLocation, useNavigate, Link } from 'react-router-dom'
 import { POINT_SCALE } from '../../utils/scoring'
 import { getNclcCeCo } from '../../utils/nclc'
+import { ClipboardList, Check, X, Zap } from 'lucide-react'
 
 const LEVEL_COLORS = {
-  A1: 'bg-green-100 text-green-800',
+  A1: 'bg-blue-100 text-blue-800',
   A2: 'bg-blue-100 text-blue-800',
-  B1: 'bg-yellow-100 text-yellow-800',
-  B2: 'bg-orange-100 text-orange-800',
+  B1: 'bg-blue-50 text-blue-800',
+  B2: 'bg-blue-100 text-blue-800',
   C1: 'bg-red-100 text-red-800',
-  C2: 'bg-purple-100 text-purple-800',
+  C2: 'bg-blue-100 text-blue-800',
 }
 
 const NCLC_COLORS = {
   10: 'bg-emerald-600',
-  9: 'bg-green-500',
-  8: 'bg-lime-500',
+  9: 'bg-blue-500',
+  8: 'bg-blue-500',
   7: 'bg-yellow-500',
   6: 'bg-orange-400',
   5: 'bg-orange-500',
@@ -56,10 +57,10 @@ export default function CEResultsPage() {
   if (!state) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4">📋</div>
+        <div className="flex justify-center mb-4"><ClipboardList size={48} className="text-gray-400" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-4">Résultats non disponibles</h2>
         <Link to="/epreuve/comprehension-ecrite/series"
-          className="bg-[#1E8449] text-white px-6 py-3 rounded-xl font-bold no-underline">
+          className="bg-[oklch(48% 0.12 235)] text-white px-6 py-3 rounded-xl font-bold no-underline">
           ← Retour aux séries
         </Link>
       </div>
@@ -92,8 +93,8 @@ export default function CEResultsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* En-tête résultat */}
-      <div className="bg-gradient-to-br from-[#1E8449] to-[#27AE60] rounded-3xl p-8 text-white mb-6 text-center">
-        <div className="text-sm font-medium text-green-200 mb-2">{seriesTitle}</div>
+      <div className="bg-gradient-to-br from-[oklch(48% 0.12 235)] to-[oklch(48% 0.12 235)] rounded-3xl p-8 text-white mb-6 text-center">
+        <div className="text-sm font-medium text-blue-200 mb-2">{seriesTitle}</div>
         <h1 className="text-2xl font-extrabold mb-6">Résultats — Compréhension Écrite</h1>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -105,7 +106,7 @@ export default function CEResultsPage() {
           ].map(item => (
             <div key={item.label} className="bg-white/20 rounded-2xl p-4">
               <div className="text-2xl font-extrabold">{item.val}</div>
-              <div className="text-green-200 text-xs">{item.sub}</div>
+              <div className="text-blue-200 text-xs">{item.sub}</div>
             </div>
           ))}
         </div>
@@ -119,7 +120,7 @@ export default function CEResultsPage() {
             <div className="relative w-24 h-24 shrink-0">
               <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1E8449" strokeWidth="3"
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="oklch(48% 0.12 235)" strokeWidth="3"
                   strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -144,7 +145,7 @@ export default function CEResultsPage() {
               <div className="text-lg font-bold text-gray-900">NCLC {nclc}</div>
               <div className="text-sm text-gray-500">Niveau {level}</div>
               <div className="text-xs text-gray-400 mt-1">
-                {nclc >= 7 ? '✅ Niveau requis pour la plupart des programmes d\'immigration' : '💪 Continuez à vous entraîner pour atteindre NCLC 7+'}
+                {nclc >= 7 ? <span className="inline-flex items-center gap-1"><Check size={12} /> Niveau requis pour la plupart des programmes d'immigration</span> : 'Continuez a vous entrainer pour atteindre NCLC 7+'}
               </div>
             </div>
           </div>
@@ -163,7 +164,7 @@ export default function CEResultsPage() {
               <span className="text-xs text-gray-500 w-16 shrink-0">{b.label}</span>
               <div className="flex-1 bg-gray-100 rounded-full h-2.5 overflow-hidden">
                 <div
-                  className={`h-2.5 rounded-full transition-all ${b.correct === b.count ? 'bg-green-500' : b.correct === 0 ? 'bg-red-400' : 'bg-yellow-400'}`}
+                  className={`h-2.5 rounded-full transition-all ${b.correct === b.count ? 'bg-blue-500' : b.correct === 0 ? 'bg-red-400' : 'bg-blue-400'}`}
                   style={{ width: b.count > 0 ? `${(b.correct / b.count) * 100}%` : '0%' }}
                 />
               </div>
@@ -181,8 +182,8 @@ export default function CEResultsPage() {
           onClick={() => setOpenReview(!openReview)}
           className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
         >
-          <h3 className="font-bold text-gray-900">📋 Revue détaillée des questions</h3>
-          <span className="text-[#1E8449] text-xl">{openReview ? '−' : '+'}</span>
+          <h3 className="font-bold text-gray-900 flex items-center gap-2"><ClipboardList size={16} /> Revue detaillee des questions</h3>
+          <span className="text-[oklch(48% 0.12 235)] text-xl">{openReview ? '−' : '+'}</span>
         </button>
 
         {openReview && (
@@ -203,10 +204,10 @@ export default function CEResultsPage() {
               const userLetter = userAnswer != null ? String.fromCharCode(65 + userAnswer) : null
 
               return (
-                <div key={i} className={`flex items-start gap-3 px-4 py-3 ${isCorrect ? 'bg-green-50/40' : 'bg-red-50/40'}`}>
-                  {/* Badge ✓/✗ */}
-                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                    {isCorrect ? '✓' : '✗'}
+                <div key={i} className={`flex items-start gap-3 px-4 py-3 ${isCorrect ? 'bg-blue-50/40' : 'bg-red-50/40'}`}>
+                  {/* Badge Check/X */}
+                  <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 mt-0.5 ${isCorrect ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-700'}`}>
+                    {isCorrect ? <Check size={12} /> : <X size={12} />}
                   </div>
 
                   {/* Contenu */}
@@ -219,7 +220,7 @@ export default function CEResultsPage() {
                           {q.level}
                         </span>
                       )}
-                      <span className={`text-xs font-semibold ${isCorrect ? 'text-green-600' : 'text-red-500'}`}>
+                      <span className={`text-xs font-semibold ${isCorrect ? 'text-blue-600' : 'text-red-500'}`}>
                         {isCorrect ? `+${POINT_SCALE[q.level] || 0} pts` : '0 pt'}
                       </span>
                     </div>
@@ -229,20 +230,20 @@ export default function CEResultsPage() {
 
                     {/* Ligne 2 : bonne réponse */}
                     <div className="flex items-center gap-2 flex-wrap text-xs">
-                      <span className="inline-flex items-center gap-1 bg-green-100 text-green-800 font-semibold px-2 py-0.5 rounded-md">
-                        ✓ {correctLetter} — {correctText}
+                      <span className="inline-flex items-center gap-1 bg-blue-100 text-blue-800 font-semibold px-2 py-0.5 rounded-md">
+                        <Check size={12} /> {correctLetter} — {correctText}
                       </span>
                       {!isCorrect && userText && (
                         <span className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-2 py-0.5 rounded-md">
-                          ✗ {userLetter} — {userText}
+                          <X size={12} /> {userLetter} — {userText}
                         </span>
                       )}
                     </div>
 
                     {/* Explication si dispo */}
                     {q.explanation && (
-                      <div className="mt-1.5 text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded px-2 py-1">
-                        💡 {q.explanation}
+                      <div className="mt-1.5 text-xs text-blue-700 bg-blue-50 border border-blue-200 rounded px-2 py-1">
+                        <Zap size={12} className="inline -mt-0.5 shrink-0" /> {q.explanation}
                       </div>
                     )}
                   </div>
@@ -257,13 +258,13 @@ export default function CEResultsPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           to="/epreuve/comprehension-ecrite/series"
-          className="flex-1 bg-[#1E8449] hover:bg-[#196A3A] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-[oklch(48% 0.12 235)] hover:bg-[oklch(38% 0.10 235)] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Choisir une autre série
         </Link>
         <Link
           to={`/epreuve/comprehension-ecrite/entrainement/${state.seriesSlug || ''}`}
-          className="flex-1 bg-white border-2 border-[#1E8449] text-[#1E8449] hover:bg-green-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-white border-2 border-[oklch(48% 0.12 235)] text-[oklch(48% 0.12 235)] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Refaire cette série
         </Link>

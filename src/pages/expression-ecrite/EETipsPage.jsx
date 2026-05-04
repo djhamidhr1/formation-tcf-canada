@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Clock, Target, Award, ChevronDown, ChevronUp } from 'lucide-react'
+import { Clock, Target, Award, ChevronDown, ChevronUp, PenTool, Trophy, FileText, Link2, MessageSquare, Crosshair, Check, Ruler } from 'lucide-react'
 
 const NCLC_EE = [
   { score: '18–20', nclc: 10, color: 'bg-emerald-600' },
   { score: '16–17', nclc: 10, color: 'bg-emerald-600' },
-  { score: '14–15', nclc: 9, color: 'bg-green-500' },
-  { score: '12–13', nclc: 8, color: 'bg-lime-500' },
+  { score: '14–15', nclc: 9, color: 'bg-blue-500' },
+  { score: '12–13', nclc: 8, color: 'bg-blue-500' },
   { score: '10–11', nclc: 7, color: 'bg-yellow-500' },
   { score: '7–9', nclc: 6, color: 'bg-orange-400' },
   { score: '4–6', nclc: 5, color: 'bg-orange-500' },
@@ -20,7 +20,7 @@ const TASKS_INFO = [
     pts: 6,
     mots: '60–120 mots',
     level: 'A2–B1',
-    levelColor: 'bg-purple-100 text-purple-800',
+    levelColor: 'bg-blue-100 text-blue-800',
     style: 'Style convivial, ton informel/amical',
     desc: 'Répondre à un message, rédiger une invitation, remercier, s\'excuser ou donner des informations à un proche.',
     tips: [
@@ -110,9 +110,9 @@ function TaskAccordion({ task }) {
             <h3 className="font-bold text-gray-900">{task.title}</h3>
             <div className="flex flex-wrap items-center gap-2 mt-1">
               <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${task.levelColor}`}>{task.level}</span>
-              <span className="text-xs text-gray-500">⏱ {task.time}</span>
-              <span className="text-xs font-semibold text-[#7D3C98]">🏆 {task.pts} pts</span>
-              <span className="text-xs text-gray-500">📝 {task.mots}</span>
+              <span className="text-xs text-gray-500 flex items-center gap-0.5"><Clock size={12} /> {task.time}</span>
+              <span className="text-xs font-semibold text-[#7D3C98] flex items-center gap-0.5"><Trophy size={12} /> {task.pts} pts</span>
+              <span className="text-xs text-gray-500 flex items-center gap-0.5"><FileText size={12} /> {task.mots}</span>
             </div>
           </div>
         </div>
@@ -124,8 +124,8 @@ function TaskAccordion({ task }) {
       {open && (
         <div className="border-t border-gray-100 px-6 pb-6 pt-4">
           {/* Style */}
-          <div className="bg-purple-50 border border-purple-200 rounded-xl px-4 py-3 mb-5 text-sm font-semibold text-[#7D3C98]">
-            ✍️ {task.style}
+          <div className="bg-purple-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-sm font-semibold text-[#7D3C98]">
+            <PenTool size={14} className="inline mr-1" /> {task.style}
           </div>
 
           <p className="text-gray-600 text-sm mb-5 leading-relaxed">{task.desc}</p>
@@ -150,10 +150,10 @@ function TaskAccordion({ task }) {
 
             {/* Connecteurs */}
             <div>
-              <h4 className="font-bold text-gray-900 text-sm mb-3">🔗 Connecteurs logiques</h4>
+              <h4 className="font-bold text-gray-900 text-sm mb-3"><Link2 size={14} className="inline mr-1" /> Connecteurs logiques</h4>
               <div className="flex flex-wrap gap-1.5">
                 {task.connectors.map(c => (
-                  <span key={c} className="bg-purple-50 border border-purple-200 text-[#7D3C98] text-xs font-medium px-2.5 py-1 rounded-lg">
+                  <span key={c} className="bg-purple-50 border border-blue-200 text-[#7D3C98] text-xs font-medium px-2.5 py-1 rounded-lg">
                     {c}
                   </span>
                 ))}
@@ -162,7 +162,7 @@ function TaskAccordion({ task }) {
 
             {/* Phrases types */}
             <div>
-              <h4 className="font-bold text-gray-900 text-sm mb-3">💬 Phrases types</h4>
+              <h4 className="font-bold text-gray-900 text-sm mb-3"><MessageSquare size={14} className="inline mr-1" /> Phrases types</h4>
               <ul className="space-y-1.5">
                 {task.phrases.map((p, i) => (
                   <li key={i} className="bg-gray-50 rounded-lg px-3 py-2 text-xs text-gray-700 italic leading-relaxed border border-gray-100">
@@ -285,28 +285,28 @@ export default function EETipsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {[
           {
-            icon: '🎯',
+            IconComp: Crosshair,
             title: 'Respectez les limites de mots',
             desc: 'Trop court (< min) ou trop long (> max+20%) sont pénalisés. Comptez régulièrement pendant que vous écrivez.',
           },
           {
-            icon: '⏱️',
+            IconComp: Clock,
             title: 'Planifiez avant d\'écrire',
             desc: 'Consacrez 2 minutes par tâche à lister vos idées et votre plan. Cela évite les hors-sujet et les répétitions.',
           },
           {
-            icon: '✅',
+            IconComp: Check,
             title: 'Relisez et corrigez',
             desc: 'Gardez 2 minutes par tâche pour la relecture : orthographe, accords, conjugaisons, ponctuation.',
           },
           {
-            icon: '📐',
+            IconComp: Ruler,
             title: 'Structure claire = meilleure note',
             desc: 'Chaque tâche doit avoir une introduction, un développement et une conclusion. Sautez des lignes entre les paragraphes.',
           },
         ].map(tip => (
           <div key={tip.title} className="bg-purple-50 border border-purple-100 rounded-xl p-5">
-            <div className="text-2xl mb-2">{tip.icon}</div>
+            <div className="text-2xl mb-2"><tip.IconComp size={24} className="text-[#7D3C98]" /></div>
             <h3 className="font-bold text-gray-900 mb-2">{tip.title}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{tip.desc}</p>
           </div>
