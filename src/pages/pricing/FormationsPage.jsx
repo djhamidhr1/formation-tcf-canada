@@ -82,7 +82,7 @@ export default function FormationsPage() {
         <p
           style={{
             fontSize: '1.125rem',
-            color: 'oklch(90% 0.02 240)',
+            color: '#FDF2E9',
             maxWidth: 580,
             margin: '0 auto',
             lineHeight: 1.6,

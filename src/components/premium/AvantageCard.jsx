@@ -18,7 +18,7 @@ export default function AvantageCard({ icon, title, desc, index }) {
       {/* Glass card */}
       <div className="relative bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
         {/* Gradient overlay on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-blue-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Content */}
         <div className="relative flex gap-4">
@@ -51,7 +51,7 @@ export default function AvantageCard({ icon, title, desc, index }) {
       <motion.div
         animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -inset-4 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute -inset-4 bg-gradient-to-br from-blue-400/10 to-blue-400/10 rounded-full blur-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity"
       />
     </motion.div>
   )

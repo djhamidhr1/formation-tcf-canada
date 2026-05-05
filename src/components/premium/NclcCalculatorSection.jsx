@@ -9,14 +9,14 @@ import { Calculator, TrendingUp } from 'lucide-react'
  */
 
 const NCLC_TABLE = [
-  { range: '549 – 699', nclc: '10+', color: 'from-green-600 to-emerald-500' },
-  { range: '499 – 548', nclc: '9', color: 'from-green-500 to-green-400' },
-  { range: '453 – 498', nclc: '8', color: 'from-blue-500 to-blue-400' },
-  { range: '406 – 452', nclc: '7', color: 'from-blue-400 to-blue-300' },
-  { range: '375 – 405', nclc: '6', color: 'from-amber-500 to-yellow-400' },
-  { range: '342 – 374', nclc: '5', color: 'from-orange-500 to-amber-500' },
-  { range: '226 – 341', nclc: '4', color: 'from-red-500 to-orange-500' },
-  { range: '< 226', nclc: '3', color: 'from-red-600 to-red-500' },
+  { range: '549 – 699', nclc: '10+', color: 'from-[#0F3D58] to-[#164b6b]' },
+  { range: '499 – 548', nclc: '9', color: 'from-[#0F3D58] to-[#1a5a7a]' },
+  { range: '453 – 498', nclc: '8', color: 'from-[#F98012] to-[#e06800]' },
+  { range: '406 – 452', nclc: '7', color: 'from-[#F98012] to-[#faa040]' },
+  { range: '375 – 405', nclc: '6', color: 'from-[#71C9CE] to-[#5ab5ba]' },
+  { range: '342 – 374', nclc: '5', color: 'from-[#71C9CE] to-[#9bb0bc]' },
+  { range: '226 – 341', nclc: '4', color: 'from-[#9bb0bc] to-[#7a95a0]' },
+  { range: '< 226', nclc: '3', color: 'from-red-500 to-red-600' },
 ]
 
 export default function NclcCalculatorSection() {
@@ -112,7 +112,7 @@ export default function NclcCalculatorSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mt-6 p-6 rounded-2xl bg-gradient-to-br from-blue-600 to-purple-600 text-white"
+              className="mt-6 p-6 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-600 text-white"
             >
               <div className="flex items-center gap-3 mb-2">
                 <TrendingUp size={24} />

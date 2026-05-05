@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, ChevronUp, Clock, Star, Target, BookOpen, Lightbulb, MessageSquare } from 'lucide-react'
 
 const bareme = [
-  { num: 'T1', label: 'Entretien dirigé', pts: '3/20 pts', pct: 15, color: 'bg-yellow-400', desc: "Présentation personnelle, parler de soi, de sa famille, de ses habitudes." },
-  { num: 'T2', label: 'Exercice d\'interaction', pts: '7/20 pts', pct: 35, color: 'bg-amber-500', desc: "Résoudre une situation concrète avec l'examinateur. Simuler un dialogue (achat, demande d'info, etc.)." },
-  { num: 'T3', label: 'Point de vue', pts: '10/20 pts', pct: 50, color: 'bg-orange-500', desc: "Défendre une position sur un sujet d'actualité. Présenter des arguments, nuancer, conclure." },
+  { num: 'T1', label: 'Entretien dirigé', pts: '3/20 pts', pct: 15, color: 'bg-[#71C9CE]', desc: "Présentation personnelle, parler de soi, de sa famille, de ses habitudes." },
+  { num: 'T2', label: 'Exercice d\'interaction', pts: '7/20 pts', pct: 35, color: 'bg-[#0F3D58]', desc: "Résoudre une situation concrète avec l'examinateur. Simuler un dialogue (achat, demande d'info, etc.)." },
+  { num: 'T3', label: 'Point de vue', pts: '10/20 pts', pct: 50, color: 'bg-[#F98012]', desc: "Défendre une position sur un sujet d'actualité. Présenter des arguments, nuancer, conclure." },
 ]
 
 const nclcTable = [
@@ -24,8 +24,8 @@ const taskGuides = [
     id: 't1',
     title: 'Tâche 1 — Entretien dirigé (1–2 min)',
     badge: 'T1 · 3 pts',
-    badgeColor: 'bg-yellow-100 text-yellow-800',
-    color: 'border-yellow-400',
+    badgeColor: 'bg-blue-100 text-blue-800',
+    color: 'border-[#71C9CE]',
     strategies: [
       "Préparez une présentation de 90 secondes : nom, ville d'origine, situation familiale, études/métier.",
       "Employez des temps variés : présent, passé composé, imparfait.",
@@ -44,8 +44,8 @@ const taskGuides = [
     id: 't2',
     title: 'Tâche 2 — Interaction (3 min 30 s)',
     badge: 'T2 · 7 pts',
-    badgeColor: 'bg-amber-100 text-amber-800',
-    color: 'border-amber-500',
+    badgeColor: 'bg-blue-100 text-blue-800',
+    color: 'border-[#0F3D58]',
     strategies: [
       "Lisez attentivement le sujet durant la préparation de 2 minutes.",
       "Identifiez votre rôle et celui de l'examinateur dans le scénario.",
@@ -66,7 +66,7 @@ const taskGuides = [
     title: 'Tâche 3 — Point de vue (4 min 30 s)',
     badge: 'T3 · 10 pts',
     badgeColor: 'bg-orange-100 text-orange-800',
-    color: 'border-orange-500',
+    color: 'border-[#F98012]',
     strategies: [
       "Pas de préparation : réagissez immédiatement au document (image, titre, graphique).",
       "Structure en 3 parties : description → analyse → opinion personnelle.",
@@ -151,7 +151,7 @@ function AccordionCard({ item, open, onToggle }) {
                 <ul className="space-y-2">
                   {item.strategies.map((s, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                      <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
+                      <span className="w-5 h-5 rounded-full bg-blue-100 text-[#0F3D58] flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
                       {s}
                     </li>
                   ))}
@@ -161,7 +161,7 @@ function AccordionCard({ item, open, onToggle }) {
                 <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Formules utiles</h4>
                 <div className="space-y-1.5">
                   {item.formulas.map((f, i) => (
-                    <div key={i} className="bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm text-amber-900 italic">
+                    <div key={i} className="bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-sm text-blue-900 italic">
                       « {f} »
                     </div>
                   ))}
@@ -183,12 +183,12 @@ export default function EOTipsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-yellow-600 to-amber-500 text-white py-12">
+      <div className="bg-gradient-to-r from-[#0F3D58] to-[#164b6b] text-white py-12">
         <div className="max-w-5xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <BookOpen size={36} className="mx-auto mb-3 opacity-90" />
             <h1 className="text-3xl font-extrabold mb-2">Méthodologie — Expression Orale</h1>
-            <p className="text-yellow-100">Stratégies éprouvées pour chaque tâche de l'épreuve</p>
+            <p className="text-blue-200">Stratégies éprouvées pour chaque tâche de l'épreuve</p>
           </motion.div>
         </div>
       </div>
@@ -245,15 +245,15 @@ export default function EOTipsPage() {
                   className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-yellow-50 rounded-xl">
-                      <Icon size={20} className="text-yellow-600" />
+                    <div className="p-2 bg-blue-50 rounded-xl">
+                      <Icon size={20} className="text-[#0F3D58]" />
                     </div>
                     <h3 className="font-bold text-gray-800">{tip.title}</h3>
                   </div>
                   <ul className="space-y-2">
                     {tip.tips.map((t, j) => (
                       <li key={j} className="flex items-start gap-2 text-sm text-gray-600">
-                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 flex-shrink-0 mt-1.5" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#F98012] flex-shrink-0 mt-1.5" />
                         {t}
                       </li>
                     ))}
@@ -268,7 +268,7 @@ export default function EOTipsPage() {
         <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Correspondance Score → NCLC</h2>
           <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="bg-gradient-to-r from-yellow-500 to-amber-500 px-6 py-4">
+            <div className="bg-gradient-to-r from-[#0F3D58] to-[#164b6b] px-6 py-4">
               <div className="grid grid-cols-3 text-white text-sm font-bold">
                 <span>Score / 20</span>
                 <span className="text-center">Niveau NCLC</span>
@@ -281,13 +281,13 @@ export default function EOTipsPage() {
               let aprColor = 'text-red-500'
               if (nclcNum >= 10) { appreciation = 'Excellent'; aprColor = 'text-green-600' }
               else if (nclcNum >= 8) { appreciation = 'Très bon'; aprColor = 'text-blue-600' }
-              else if (nclcNum >= 6) { appreciation = 'Bon'; aprColor = 'text-amber-600' }
+              else if (nclcNum >= 6) { appreciation = 'Bon'; aprColor = 'text-[#F98012]' }
               else if (nclcNum >= 5) { appreciation = 'Passable'; aprColor = 'text-orange-500' }
               return (
                 <div key={i} className={`grid grid-cols-3 px-6 py-3.5 text-sm border-b border-gray-50 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
                   <span className="font-semibold text-gray-800">{row.score} pts</span>
                   <span className="text-center">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-amber-100 text-amber-800 font-bold text-sm">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-bold text-sm">
                       {row.nclc}
                     </span>
                   </span>
@@ -302,9 +302,9 @@ export default function EOTipsPage() {
         </motion.section>
 
         {/* Quick tips box */}
-        <div className="bg-gradient-to-r from-yellow-50 to-amber-50 border border-yellow-200 rounded-2xl p-6">
-          <h3 className="font-bold text-yellow-800 text-lg mb-3 flex items-center gap-2">
-            <Star size={18} className="text-yellow-600" /> Le jour J — Checklist rapide
+        <div className="bg-gradient-to-r from-[#FDF2E9] to-[#e8f7f8] border border-[#e8e0d8] rounded-2xl p-6">
+          <h3 className="font-bold text-[#0F3D58] text-lg mb-3 flex items-center gap-2">
+            <Star size={18} className="text-[#0F3D58]" /> Le jour J — Checklist rapide
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {[
@@ -317,8 +317,8 @@ export default function EOTipsPage() {
               "Ne pas paniquer si vous faites une erreur",
               "Sourire et montrer de l'enthousiasme",
             ].map((t, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm text-yellow-900">
-                <span className="w-4 h-4 rounded border-2 border-yellow-400 flex-shrink-0" />
+              <div key={i} className="flex items-center gap-2 text-sm text-[#0F3D58]">
+                <span className="w-4 h-4 rounded border-2 border-[#F98012] flex-shrink-0" />
                 {t}
               </div>
             ))}

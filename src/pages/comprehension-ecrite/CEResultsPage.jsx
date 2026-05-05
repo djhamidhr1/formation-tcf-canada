@@ -14,14 +14,14 @@ const LEVEL_COLORS = {
 }
 
 const NCLC_COLORS = {
-  10: 'bg-emerald-600',
-  9: 'bg-blue-500',
-  8: 'bg-blue-500',
-  7: 'bg-yellow-500',
-  6: 'bg-orange-400',
-  5: 'bg-orange-500',
-  4: 'bg-red-500',
-  3: 'bg-red-700',
+  10: 'bg-[#0F3D58]',
+  9: 'bg-[#F98012]',
+  8: 'bg-[#F98012]',
+  7: 'bg-[#71C9CE]',
+  6: 'bg-[#71C9CE]',
+  5: 'bg-[#71C9CE]',
+  4: 'bg-[#9bb0bc]',
+  3: 'bg-[#9bb0bc]',
 }
 
 const LEVEL_RANGES = [
@@ -60,7 +60,7 @@ export default function CEResultsPage() {
         <div className="flex justify-center mb-4"><ClipboardList size={48} className="text-gray-400" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-4">Résultats non disponibles</h2>
         <Link to="/epreuve/comprehension-ecrite/series"
-          className="bg-[oklch(48% 0.12 235)] text-white px-6 py-3 rounded-xl font-bold no-underline">
+          className="bg-[#0F3D58] text-white px-6 py-3 rounded-xl font-bold no-underline">
           ← Retour aux séries
         </Link>
       </div>
@@ -93,7 +93,7 @@ export default function CEResultsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* En-tête résultat */}
-      <div className="bg-gradient-to-br from-[oklch(48% 0.12 235)] to-[oklch(48% 0.12 235)] rounded-3xl p-8 text-white mb-6 text-center">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#0F3D58] rounded-3xl p-8 text-white mb-6 text-center">
         <div className="text-sm font-medium text-blue-200 mb-2">{seriesTitle}</div>
         <h1 className="text-2xl font-extrabold mb-6">Résultats — Compréhension Écrite</h1>
 
@@ -120,7 +120,7 @@ export default function CEResultsPage() {
             <div className="relative w-24 h-24 shrink-0">
               <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="oklch(48% 0.12 235)" strokeWidth="3"
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#0F3D58" strokeWidth="3"
                   strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -164,7 +164,7 @@ export default function CEResultsPage() {
               <span className="text-xs text-gray-500 w-16 shrink-0">{b.label}</span>
               <div className="flex-1 bg-gray-100 rounded-full h-2.5 overflow-hidden">
                 <div
-                  className={`h-2.5 rounded-full transition-all ${b.correct === b.count ? 'bg-blue-500' : b.correct === 0 ? 'bg-red-400' : 'bg-blue-400'}`}
+                  className={`h-2.5 rounded-full transition-all ${b.correct === b.count ? 'bg-[#0F3D58]' : b.correct === 0 ? 'bg-red-400' : 'bg-[#F98012]'}`}
                   style={{ width: b.count > 0 ? `${(b.correct / b.count) * 100}%` : '0%' }}
                 />
               </div>
@@ -183,7 +183,7 @@ export default function CEResultsPage() {
           className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
         >
           <h3 className="font-bold text-gray-900 flex items-center gap-2"><ClipboardList size={16} /> Revue detaillee des questions</h3>
-          <span className="text-[oklch(48% 0.12 235)] text-xl">{openReview ? '−' : '+'}</span>
+          <span className="text-[#0F3D58] text-xl">{openReview ? '−' : '+'}</span>
         </button>
 
         {openReview && (
@@ -258,13 +258,13 @@ export default function CEResultsPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           to="/epreuve/comprehension-ecrite/series"
-          className="flex-1 bg-[oklch(48% 0.12 235)] hover:bg-[oklch(38% 0.10 235)] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-[#0F3D58] hover:bg-[#0F3D58] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Choisir une autre série
         </Link>
         <Link
           to={`/epreuve/comprehension-ecrite/entrainement/${state.seriesSlug || ''}`}
-          className="flex-1 bg-white border-2 border-[oklch(48% 0.12 235)] text-[oklch(48% 0.12 235)] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Refaire cette série
         </Link>

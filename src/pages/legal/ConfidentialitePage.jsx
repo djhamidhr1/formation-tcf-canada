@@ -60,7 +60,7 @@ Nous n'utilisons pas de cookies publicitaires ou de tracking tiers.`,
 
 const COLOR = {
   blue:   'bg-blue-50 text-blue-600 border-blue-200',
-  purple: 'bg-purple-50 text-purple-600 border-purple-200',
+  purple: 'bg-blue-50 text-blue-600 border-blue-200',
   green:  'bg-green-50 text-green-600 border-green-200',
   orange: 'bg-orange-50 text-orange-600 border-orange-200',
   red:    'bg-red-50 text-red-600 border-red-200',
@@ -70,7 +70,7 @@ export default function ConfidentialitePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] text-white py-14 px-4">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] text-white py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Shield size={32} className="text-white" />
@@ -83,7 +83,7 @@ export default function ConfidentialitePage() {
       {/* Intro banner */}
       <div className="max-w-3xl mx-auto px-4 -mt-6">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex items-start gap-4">
-          <Lock size={20} className="text-[#1A5276] shrink-0 mt-0.5" />
+          <Lock size={20} className="text-[#0F3D58] shrink-0 mt-0.5" />
           <p className="text-sm text-gray-600 leading-relaxed">
             Formation TCF Canada, basée à <strong>Montréal, Québec, Canada</strong>, s'engage à protéger vos données personnelles.
             Cette politique explique quelles données nous collectons, comment nous les utilisons et vos droits en tant qu'utilisateur.
@@ -108,23 +108,23 @@ export default function ConfidentialitePage() {
         ))}
 
         {/* Contact */}
-        <div className="bg-[#1A5276] rounded-2xl p-6 text-white text-center">
+        <div className="bg-[#0F3D58] rounded-2xl p-6 text-white text-center">
           <MapPin size={24} className="mx-auto mb-2 opacity-80" />
           <p className="font-extrabold text-lg mb-1">Nous contacter</p>
           <p className="text-blue-200 text-sm mb-3">Pour toute question relative à vos données personnelles</p>
           <a href="mailto:hamid@formation-tcf.com"
-            className="inline-block bg-white text-[#1A5276] font-bold px-6 py-2.5 rounded-xl text-sm no-underline hover:bg-blue-50 transition-colors">
+            className="inline-block bg-white text-[#0F3D58] font-bold px-6 py-2.5 rounded-xl text-sm no-underline hover:bg-blue-50 transition-colors">
             hamid@formation-tcf.com
           </a>
         </div>
 
         {/* Back */}
         <div className="flex items-center justify-center gap-4 py-2 text-sm text-gray-400">
-          <Link to="/" className="hover:text-[#1A5276] no-underline transition-colors">← Accueil</Link>
+          <Link to="/" className="hover:text-[#0F3D58] no-underline transition-colors">← Accueil</Link>
           <span>·</span>
-          <Link to="/conditions" className="hover:text-[#1A5276] no-underline transition-colors">Conditions d'utilisation</Link>
+          <Link to="/conditions" className="hover:text-[#0F3D58] no-underline transition-colors">Conditions d'utilisation</Link>
           <span>·</span>
-          <Link to="/faq" className="hover:text-[#1A5276] no-underline transition-colors">FAQ</Link>
+          <Link to="/faq" className="hover:text-[#0F3D58] no-underline transition-colors">FAQ</Link>
         </div>
       </div>
     </div>

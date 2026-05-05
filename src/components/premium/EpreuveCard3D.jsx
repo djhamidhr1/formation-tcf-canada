@@ -12,7 +12,7 @@ export default function EpreuveCard3D({ epreuve, index }) {
     co: 'from-blue-600 via-blue-500 to-blue-400',
     ce: 'from-green-600 via-green-500 to-green-400',
     eo: 'from-amber-600 via-yellow-500 to-yellow-400',
-    ee: 'from-purple-600 via-violet-500 to-purple-400',
+    ee: 'from-blue-600 via-blue-500 to-blue-400',
   }
 
   const glowColors = {

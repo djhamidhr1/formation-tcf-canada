@@ -51,7 +51,7 @@ export default function PricingCardPremium({ plan, index }) {
       >
         {/* Background gradient pour carte populaire */}
         {popular && (
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-blue-50/50 opacity-60" />
         )}
 
         {/* Shimmer effect on hover */}
@@ -123,7 +123,7 @@ export default function PricingCardPremium({ plan, index }) {
         {popular && (
           <>
             <div className="absolute -right-10 -top-10 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl" />
-            <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-purple-400/10 rounded-full blur-2xl" />
+            <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl" />
           </>
         )}
       </div>

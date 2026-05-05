@@ -66,7 +66,7 @@ export default function AccountPage() {
           <div style={{ width: 72, height: 72, borderRadius: 20, background: 'linear-gradient(135deg, var(--co-main), var(--ee-main))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, fontWeight: 900, color: 'white', flexShrink: 0, boxShadow: 'var(--shadow-lg)' }}>{initials}</div>
           <div style={{ paddingBottom: 16, flex: 1 }}>
             <h1 style={{ fontSize: 26, fontWeight: 900, color: 'white', marginBottom: 4, letterSpacing: '-0.03em', margin: '0 0 4px' }}>{profile?.full_name || 'Utilisateur'}</h1>
-            <div style={{ color: 'oklch(70% 0.04 240)', fontSize: 14 }}>{user.email}</div>
+            <div style={{ color: 'rgba(170, 150, 210, 0.8)', fontSize: 14 }}>{user.email}</div>
           </div>
           <div style={{ paddingBottom: 16 }}>
             <span style={{ display: 'inline-flex', alignItems: 'center', background: 'var(--surface-2)', color: 'var(--text-2)', padding: '3px 10px', borderRadius: 'var(--radius-full)', fontSize: 12, fontWeight: 600 }}>

@@ -4,14 +4,14 @@ import { scoreEEToNclc } from '../../utils/scoring'
 import { FileText, Check, AlertTriangle, ClipboardList, Trophy, ChevronUp, ChevronDown } from 'lucide-react'
 
 const NCLC_COLORS = {
-  10: 'bg-emerald-600',
-  9: 'bg-blue-500',
-  8: 'bg-blue-500',
-  7: 'bg-yellow-500',
-  6: 'bg-orange-400',
-  5: 'bg-orange-500',
-  4: 'bg-red-500',
-  3: 'bg-red-700',
+  10: 'bg-[#0F3D58]',
+  9: 'bg-[#0F3D58]',
+  8: 'bg-[#F98012]',
+  7: 'bg-[#F98012]',
+  6: 'bg-[#71C9CE]',
+  5: 'bg-[#71C9CE]',
+  4: 'bg-[#9bb0bc]',
+  3: 'bg-[#9bb0bc]',
 }
 
 function getLevel(nclc) {
@@ -34,7 +34,7 @@ function TaskAccordion({ task, text, index }) {
         className="w-full flex items-center justify-between p-5 hover:bg-gray-50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="bg-[#7D3C98] text-white text-sm font-bold w-8 h-8 rounded-lg flex items-center justify-center shrink-0">
+          <span className="bg-[#0F3D58] text-white text-sm font-bold w-8 h-8 rounded-lg flex items-center justify-center shrink-0">
             {task.task_number}
           </span>
           <div className="text-left">
@@ -46,7 +46,7 @@ function TaskAccordion({ task, text, index }) {
         </div>
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <div className="text-lg font-extrabold text-[#7D3C98]">{task.score}<span className="text-sm font-normal text-gray-400">/7</span></div>
+            <div className="text-lg font-extrabold text-[#0F3D58]">{task.score}<span className="text-sm font-normal text-gray-400">/7</span></div>
           </div>
           <span className="text-gray-400 text-lg">{open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}</span>
         </div>
@@ -94,7 +94,7 @@ function TaskAccordion({ task, text, index }) {
               <button
                 onClick={() => setActiveTab('response')}
                 className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                  activeTab === 'response' ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  activeTab === 'response' ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
                 Votre réponse
@@ -103,7 +103,7 @@ function TaskAccordion({ task, text, index }) {
                 <button
                   onClick={() => setActiveTab('correction')}
                   className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                    activeTab === 'correction' ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    activeTab === 'correction' ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
                   Correction proposée
@@ -129,11 +129,11 @@ export default function EEResultsPage() {
   if (!state || !state.aiResult) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4"><FileText size={48} className="text-[#7D3C98] mx-auto" /></div>
+        <div className="text-5xl mb-4"><FileText size={48} className="text-[#0F3D58] mx-auto" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-4">Résultats non disponibles</h2>
         <Link
           to="/epreuve/expression-ecrite/sujets-actualites"
-          className="bg-[#7D3C98] text-white px-6 py-3 rounded-xl font-bold no-underline"
+          className="bg-[#0F3D58] text-white px-6 py-3 rounded-xl font-bold no-underline"
         >
           ← Retour aux sujets
         </Link>
@@ -150,9 +150,9 @@ export default function EEResultsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#7D3C98] to-[#9B59B6] rounded-3xl p-8 text-white mb-6 text-center">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#71C9CE] rounded-3xl p-8 text-white mb-6 text-center">
         {combinaison?.month_slug && (
-          <div className="text-sm font-medium text-purple-200 mb-2">{combinaison.month_slug}</div>
+          <div className="text-sm font-medium text-blue-200 mb-2">{combinaison.month_slug}</div>
         )}
         <h1 className="text-2xl font-extrabold mb-6">Résultats — Expression Écrite</h1>
 
@@ -164,7 +164,7 @@ export default function EEResultsPage() {
           ].map(item => (
             <div key={item.label} className="bg-white/20 rounded-2xl p-4">
               <div className="text-2xl font-extrabold">{item.val}</div>
-              <div className="text-purple-200 text-xs mt-1">{item.sub}</div>
+              <div className="text-blue-200 text-xs mt-1">{item.sub}</div>
             </div>
           ))}
         </div>
@@ -178,7 +178,7 @@ export default function EEResultsPage() {
             <div className="relative w-24 h-24 shrink-0">
               <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#7D3C98" strokeWidth="3"
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#0F3D58" strokeWidth="3"
                   strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -239,13 +239,13 @@ export default function EEResultsPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           to="/epreuve/expression-ecrite/sujets-actualites"
-          className="flex-1 bg-[#7D3C98] hover:bg-[#6C3483] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Nouveau sujet
         </Link>
         <Link
           to="/epreuve/expression-ecrite/sujets-actualites"
-          className="flex-1 bg-white border-2 border-[#7D3C98] text-[#7D3C98] hover:bg-purple-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Voir les sujets
         </Link>

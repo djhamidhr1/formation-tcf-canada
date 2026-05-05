@@ -12,8 +12,9 @@ import { BsMicrosoft } from 'react-icons/bs'
 /* ─── Redirect URL helper ─── */
 function getRedirectURL() {
   const base = window.location.origin
-  const isProd = !base.includes('localhost')
-  return isProd ? `${base}/formation-tcf-canada/` : `${base}/`
+  if (base.includes('localhost')) return `${base}/`
+  if (base.includes('github.io')) return `${base}/formation-tcf-canada/`
+  return `${base}/`
 }
 
 /* ─── Social Provider Config ─── */
@@ -186,37 +187,32 @@ export default function AuthModal() {
           {step === 'social' && (
             <>
               {/* Logo */}
-              <div className="flex flex-col items-center mb-2">
-                <Leaf size={40} className="text-red-500 mb-2" />
+              <div className="flex flex-col items-center mb-3">
+                <Leaf size={36} className="text-[#F98012] mb-2" />
                 <p className="text-xs text-gray-400 font-medium">Formation TCF Canada</p>
               </div>
 
-              {/* Social buttons */}
-              <div className="space-y-2.5">
-                {PROVIDERS.map(({ id, label, Icon, iconColor, border, bg }) => (
-                  <button
-                    key={id}
-                    onClick={() => handleSocial(id)}
-                    disabled={loading}
-                    className={`w-full flex items-center gap-3 px-4 py-3 bg-white border rounded-xl text-sm font-semibold text-gray-700 transition-all ${border} ${bg} disabled:opacity-50 shadow-sm hover:shadow-md`}
-                  >
-                    <Icon size={20} className={`shrink-0 ${iconColor}`} />
-                    <span className="flex-1 text-center">{label}</span>
-                  </button>
-                ))}
-              </div>
+              {/* Google button only */}
+              <button
+                onClick={() => handleSocial('google')}
+                disabled={loading}
+                className="w-full flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 hover:border-[#F98012] hover:shadow-md rounded-xl text-sm font-semibold text-gray-700 transition-all disabled:opacity-50 shadow-sm"
+              >
+                <FcGoogle size={20} className="shrink-0" />
+                <span className="flex-1 text-center">Continuer avec Google</span>
+              </button>
 
               {/* Divider */}
               <div className="flex items-center gap-3 py-1">
                 <div className="flex-1 h-px bg-gray-200" />
-                <span className="text-xs text-gray-400 font-medium">ou</span>
+                <span className="text-xs text-gray-400 font-medium">ou par email</span>
                 <div className="flex-1 h-px bg-gray-200" />
               </div>
 
               {/* Email button */}
               <button
                 onClick={() => setStep('email')}
-                className="w-full flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 hover:border-gray-300 hover:bg-gray-50 rounded-xl text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md transition-all"
+                className="w-full flex items-center gap-3 px-4 py-3 bg-white border border-gray-200 hover:border-[#F98012] hover:shadow-md rounded-xl text-sm font-semibold text-gray-700 transition-all shadow-sm"
               >
                 <Mail size={20} className="text-gray-500 shrink-0" />
                 <span className="flex-1 text-center">Continuer avec Email</span>
@@ -225,9 +221,9 @@ export default function AuthModal() {
               {/* Legal */}
               <p className="text-center text-xs text-gray-400 pt-2 leading-relaxed">
                 En continuant, vous acceptez nos{' '}
-                <Link to="/conditions" onClick={closeModal} className="underline text-gray-500 hover:text-gray-800 transition-colors no-underline" style={{textDecoration:'underline'}}>Conditions d'utilisation</Link>
+                <Link to="/conditions" onClick={closeModal} className="text-gray-500 hover:text-gray-800 transition-colors" style={{textDecoration:'underline'}}>Conditions</Link>
                 {' '}et notre{' '}
-                <Link to="/confidentialite" onClick={closeModal} className="underline text-gray-500 hover:text-gray-800 transition-colors no-underline" style={{textDecoration:'underline'}}>Politique de confidentialité</Link>.
+                <Link to="/confidentialite" onClick={closeModal} className="text-gray-500 hover:text-gray-800 transition-colors" style={{textDecoration:'underline'}}>Politique de confidentialité</Link>.
               </p>
             </>
           )}
@@ -264,7 +260,7 @@ export default function AuthModal() {
                     <input
                       type="text" required value={form.fullName} onChange={update('fullName')}
                       placeholder="Prénom Nom"
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A5276] focus:border-transparent transition"
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F98012] focus:border-transparent transition"
                     />
                   </div>
                 )}
@@ -275,7 +271,7 @@ export default function AuthModal() {
                   <input
                     type="email" required value={form.email} onChange={update('email')}
                     placeholder="votre@email.com"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A5276] focus:border-transparent transition"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F98012] focus:border-transparent transition"
                   />
                 </div>
 
@@ -286,7 +282,7 @@ export default function AuthModal() {
                     <input
                       type={showPwd ? 'text' : 'password'} required value={form.password} onChange={update('password')}
                       placeholder={mode === 'signup' ? '6 caractères minimum' : '••••••••'}
-                      className="w-full border border-gray-200 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A5276] focus:border-transparent transition"
+                      className="w-full border border-gray-200 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-[#F98012] focus:border-transparent transition"
                     />
                     <button type="button" onClick={() => setShowPwd(v => !v)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -303,7 +299,7 @@ export default function AuthModal() {
                       <input
                         type={showConfirm ? 'text' : 'password'} required value={form.confirm} onChange={update('confirm')}
                         placeholder="••••••••"
-                        className="w-full border border-gray-200 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A5276] focus:border-transparent transition"
+                        className="w-full border border-gray-200 rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:ring-2 focus:ring-[#F98012] focus:border-transparent transition"
                       />
                       <button type="button" onClick={() => setShowConfirm(v => !v)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
@@ -317,7 +313,7 @@ export default function AuthModal() {
                 {mode === 'login' && (
                   <div className="text-right">
                     <button type="button" onClick={() => setStep('reset')}
-                      className="text-xs text-[#1A5276] hover:underline font-medium">
+                      className="text-xs text-[#0F3D58] hover:underline font-medium">
                       Mot de passe oublié ?
                     </button>
                   </div>
@@ -326,7 +322,7 @@ export default function AuthModal() {
                 {/* Submit */}
                 <button
                   type="submit" disabled={loading}
-                  className="w-full bg-[#1A5276] hover:bg-[#154360] text-white py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-1"
+                  className="w-full bg-[#0F3D58] hover:bg-[#F98012] text-white py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-60 flex items-center justify-center gap-2 mt-1"
                 >
                   {loading && <Loader2 size={16} className="animate-spin" />}
                   {mode === 'login' ? 'Se connecter' : 'Créer mon compte'}
@@ -334,17 +330,13 @@ export default function AuthModal() {
                 </button>
               </form>
 
-              {/* Social mini links */}
+              {/* Google shortcut */}
               <div className="pt-3 border-t border-gray-100">
-                <p className="text-xs text-gray-400 text-center mb-2">Ou connectez-vous via</p>
-                <div className="flex justify-center gap-3">
-                  {PROVIDERS.slice(0,4).map(({ id, Icon, iconColor }) => (
-                    <button key={id} onClick={() => handleSocial(id)} disabled={loading}
-                      className="p-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 hover:shadow-sm transition-all disabled:opacity-50">
-                      <Icon size={18} className={iconColor} />
-                    </button>
-                  ))}
-                </div>
+                <button onClick={() => handleSocial('google')} disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 rounded-xl text-sm font-semibold text-gray-600 hover:border-[#F98012] hover:shadow-sm transition-all disabled:opacity-50">
+                  <FcGoogle size={18} />
+                  <span>Connexion rapide avec Google</span>
+                </button>
               </div>
             </>
           )}
@@ -357,7 +349,7 @@ export default function AuthModal() {
               </button>
               <div className="text-center mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Mail size={22} className="text-[#1A5276]" />
+                  <Mail size={22} className="text-[#0F3D58]" />
                 </div>
                 <p className="text-sm text-gray-600">Entrez votre email et nous vous enverrons un lien de réinitialisation.</p>
               </div>
@@ -365,10 +357,10 @@ export default function AuthModal() {
                 <input
                   type="email" required value={form.email} onChange={update('email')}
                   placeholder="votre@email.com"
-                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A5276]"
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#F98012]"
                 />
                 <button type="submit" disabled={loading}
-                  className="w-full bg-[#1A5276] hover:bg-[#154360] text-white py-3 rounded-xl font-bold text-sm disabled:opacity-60 flex items-center justify-center gap-2">
+                  className="w-full bg-[#0F3D58] hover:bg-[#F98012] text-white py-3 rounded-xl font-bold text-sm disabled:opacity-60 flex items-center justify-center gap-2">
                   {loading && <Loader2 size={16} className="animate-spin" />}
                   Envoyer le lien
                 </button>
@@ -387,7 +379,7 @@ export default function AuthModal() {
                 Vérifiez votre boîte mail et cliquez sur le lien pour {step === 'sent' && mode === 'signup' ? 'confirmer votre compte.' : 'réinitialiser votre mot de passe.'}
               </p>
               <button onClick={closeModal}
-                className="bg-[#1A5276] text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-[#154360]">
+                className="bg-[#0F3D58] text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-[#F98012]">
                 Fermer
               </button>
             </div>

@@ -124,11 +124,11 @@ export default function EESubjectsPage() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#7D3C98] to-[#8E44AD] text-white py-12 px-4">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] text-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <Link
             to="/epreuve/expression-ecrite"
-            className="inline-flex items-center gap-1.5 text-purple-200 hover:text-white text-sm mb-4 no-underline transition-colors"
+            className="inline-flex items-center gap-1.5 text-blue-200 hover:text-white text-sm mb-4 no-underline transition-colors"
           >
             ← Expression Écrite
           </Link>
@@ -136,7 +136,7 @@ export default function EESubjectsPage() {
             <FileText size={40} className="shrink-0 opacity-90" />
             <div>
               <h1 className="text-3xl font-extrabold mb-1">Sujets d'actualités</h1>
-              <p className="text-purple-200 text-sm">
+              <p className="text-blue-200 text-sm">
                 {loading ? 'Chargement...' : `${combinaisons.length} combinaisons disponibles · 60 min · 3 tâches`}
               </p>
             </div>
@@ -154,7 +154,7 @@ export default function EESubjectsPage() {
               placeholder="Rechercher un sujet..."
               value={searchQuery}
               onChange={handleSearch}
-              className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent"
+              className="w-full pl-9 pr-4 py-2.5 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -162,7 +162,7 @@ export default function EESubjectsPage() {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => handleYearChange('all')}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${yearFilter === 'all' ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${yearFilter === 'all' ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
               >
                 Toutes années
               </button>
@@ -170,7 +170,7 @@ export default function EESubjectsPage() {
                 <button
                   key={year}
                   onClick={() => handleYearChange(year)}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${yearFilter === year ? 'bg-[#7D3C98] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${yearFilter === year ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                 >
                   {year}
                 </button>
@@ -185,7 +185,7 @@ export default function EESubjectsPage() {
         {/* Content */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 text-gray-400">
-            <Loader2 size={40} className="animate-spin mb-4 text-[#7D3C98]" />
+            <Loader2 size={40} className="animate-spin mb-4 text-[#0F3D58]" />
             <p className="text-sm">Chargement des sujets...</p>
           </div>
         ) : filtered.length === 0 ? (
@@ -197,7 +197,7 @@ export default function EESubjectsPage() {
             </p>
             <button
               onClick={() => { setSearchQuery(''); setYearFilter('all') }}
-              className="bg-[#7D3C98] text-white px-5 py-2 rounded-xl text-sm font-semibold"
+              className="bg-[#0F3D58] text-white px-5 py-2 rounded-xl text-sm font-semibold"
             >
               Réinitialiser les filtres
             </button>
@@ -211,7 +211,7 @@ export default function EESubjectsPage() {
                   <h2 className="text-lg font-extrabold text-gray-900">
                     {formatMonthSlug(monthSlug)}
                   </h2>
-                  <span className="bg-blue-100 text-[#7D3C98] text-xs font-bold px-2.5 py-1 rounded-full">
+                  <span className="bg-blue-100 text-[#0F3D58] text-xs font-bold px-2.5 py-1 rounded-full">
                     {groupedVisible[monthSlug].length} combinaison{groupedVisible[monthSlug].length !== 1 ? 's' : ''}
                   </span>
                   <div className="flex-1 h-px bg-gray-200" />
@@ -230,7 +230,7 @@ export default function EESubjectsPage() {
               <div className="text-center mt-6">
                 <button
                   onClick={() => setPage(p => p + 1)}
-                  className="inline-flex items-center gap-2 bg-white border-2 border-[#7D3C98] text-[#7D3C98] hover:bg-purple-50 font-bold px-8 py-3 rounded-xl text-sm transition-colors"
+                  className="inline-flex items-center gap-2 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-blue-50 font-bold px-8 py-3 rounded-xl text-sm transition-colors"
                 >
                   <ChevronDown size={16} />
                   Charger plus ({filtered.length - page * PAGE_SIZE} restants)
@@ -264,16 +264,16 @@ function CombiCard({ combi, number, monthLabel }) {
   ]
 
   return (
-    <div className="bg-white rounded-2xl border border-purple-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+    <div className="bg-white rounded-2xl border border-blue-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
       {/* Card header — click to expand/collapse */}
       <button
         onClick={() => setExpanded(e => !e)}
         className="w-full text-left focus:outline-none"
       >
-        <div className="bg-gradient-to-r from-[#7D3C98] to-[#8E44AD] px-4 py-3 flex items-center justify-between">
+        <div className="bg-gradient-to-r from-[#0F3D58] to-[#164b6b] px-4 py-3 flex items-center justify-between">
           <div>
             <span className="text-white font-extrabold text-base">Combinaison {number}</span>
-            <span className="text-purple-200 text-xs ml-2 block sm:inline">{monthLabel}</span>
+            <span className="text-blue-200 text-xs ml-2 block sm:inline">{monthLabel}</span>
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
             {['T1', 'T2', 'T3'].map(t => (
@@ -300,7 +300,7 @@ function CombiCard({ combi, number, monthLabel }) {
           </p>
           <Link
             to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
-            className="mt-auto w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
+            className="mt-auto w-full inline-flex items-center justify-center gap-2 bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
           >
             <PenTool size={14} className="inline mr-1" /> S'entraîner
           </Link>
@@ -372,7 +372,7 @@ function CombiCard({ combi, number, monthLabel }) {
           <div className="px-4 py-4 mt-auto">
             <Link
               to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#7D3C98] hover:bg-[#6C3483] text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
             >
               <PenTool size={14} className="inline mr-1" /> S'entraîner
             </Link>

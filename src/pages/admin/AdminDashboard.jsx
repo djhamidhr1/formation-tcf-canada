@@ -31,7 +31,7 @@ const PLANS = { free: { label: 'Gratuit', color: 'gray' }, silver: { label: 'Sil
 
 const PLAN_BADGE = {
   free:   'bg-gray-100 text-gray-600',
-  silver: 'bg-blue-100 text-blue-700',
+  silver: 'bg-orange-100 text-[#F98012]',
   gold:   'bg-yellow-100 text-yellow-700',
   zoom:   'bg-green-100 text-green-700',
 }
@@ -85,7 +85,7 @@ function RichEditor({ value, onChange, placeholder = 'Saisissez le texte...' }) 
   ]
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-purple-300 focus-within:border-transparent">
+    <div className="border border-gray-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#F98012] focus-within:border-transparent">
       {/* Toolbar */}
       <div className="flex items-center gap-1 px-2 py-1.5 bg-gray-50 border-b border-gray-200 flex-wrap">
         {tools.map(({ icon: Icon, label, fn }) => (
@@ -111,8 +111,8 @@ function RichEditor({ value, onChange, placeholder = 'Saisissez le texte...' }) 
 /* ─────────────── STAT CARD ─────────────── */
 function StatCard({ icon: Icon, label, value, sub, color = 'purple', trend }) {
   const colors = {
-    purple: 'bg-purple-50 text-purple-600',
-    blue:   'bg-blue-50 text-blue-600',
+    purple: 'bg-orange-50 text-[#F98012]',
+    blue:   'bg-orange-50 text-[#F98012]',
     green:  'bg-green-50 text-green-600',
     orange: 'bg-orange-50 text-orange-600',
     red:    'bg-red-50 text-red-600',
@@ -161,7 +161,7 @@ function SearchInput({ value, onChange, placeholder }) {
       <input
         type="text" value={value} onChange={e => onChange(e.target.value)}
         placeholder={placeholder || 'Rechercher...'}
-        className="pl-8 pr-4 py-2 text-sm border border-gray-200 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-300"
+        className="pl-8 pr-4 py-2 text-sm border border-gray-200 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
     </div>
   )
@@ -252,7 +252,7 @@ function OverviewTab() {
     { icon: Mic,         label: 'Séries CO',          value: stats.co,          color: 'red' },
   ] : []
 
-  if (loading) return <div className="flex items-center justify-center py-20"><div className="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"/></div>
+  if (loading) return <div className="flex items-center justify-center py-20"><div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
 
   return (
     <div className="space-y-6">
@@ -272,7 +272,7 @@ function OverviewTab() {
             {recentUsers.length === 0 && <p className="px-5 py-4 text-sm text-gray-400">Aucun utilisateur</p>}
             {recentUsers.map(u => (
               <div key={u.id} className="px-5 py-3 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
                   {(u.full_name || u.email || '?')[0].toUpperCase()}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -316,7 +316,7 @@ function OverviewTab() {
       </div>
 
       {/* Quick actions */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-6 text-white">
         <h3 className="font-extrabold text-lg mb-4">Actions rapides</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
@@ -325,7 +325,7 @@ function OverviewTab() {
             { label: 'Voir soumissions',     icon: MessageSquare },
             { label: 'Exporter données',     icon: Download },
           ].map(({ label, icon: Icon }) => (
-            <button key={label} className="bg-white/15 hover:bg-white/25 rounded-xl p-3 text-left transition-colors">
+            <button key={label} className="bg-white/15 hover:bg-[#F98012]/30 rounded-xl p-3 text-left transition-colors">
               <Icon size={18} className="mb-2 opacity-80" />
               <p className="text-xs font-semibold">{label}</p>
             </button>
@@ -403,7 +403,7 @@ function MembersTab() {
 
   const SortIcon = ({ field }) => {
     if (sortField !== field) return <Minus size={11} className="text-gray-300" />
-    return sortAsc ? <ArrowUp size={11} className="text-purple-500" /> : <ArrowDown size={11} className="text-purple-500" />
+    return sortAsc ? <ArrowUp size={11} className="text-[#0F3D58]" /> : <ArrowDown size={11} className="text-[#0F3D58]" />
   }
 
   const handleUpdateMember = async () => {
@@ -451,7 +451,7 @@ function MembersTab() {
           <SearchInput value={search} onChange={setSearch} placeholder="Nom, email..." />
         </div>
         <select value={planFilter} onChange={e => setPlanFilter(e.target.value)}
-          className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300">
+          className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
           <option value="all">Tous les plans</option>
           <option value="free">Gratuit</option>
           <option value="silver">Silver</option>
@@ -459,7 +459,7 @@ function MembersTab() {
           <option value="zoom">Zoom</option>
         </select>
         <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-          className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300">
+          className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
           <option value="all">Tous statuts</option>
           <option value="active">Abonnés actifs</option>
           <option value="inactive">Sans abonnement</option>
@@ -504,7 +504,7 @@ function MembersTab() {
             <tbody className="divide-y divide-gray-50">
               {loading && (
                 <tr><td colSpan={7} className="py-10 text-center">
-                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin"/></div>
+                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
                 </td></tr>
               )}
               {!loading && paginated.map(m => {
@@ -515,7 +515,7 @@ function MembersTab() {
                   <tr key={m.id} className={`hover:bg-gray-50 transition-colors ${m.is_blocked ? 'opacity-50' : ''}`}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+                        <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
                           {(m.full_name || m.email || '?')[0].toUpperCase()}
                         </div>
                         <div>
@@ -543,7 +543,7 @@ function MembersTab() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 justify-end">
                         <button onClick={() => { setSelected(m); setEditForm({ full_name: m.full_name, email: m.email, plan: plan }); setModal('edit') }}
-                          title="Modifier" className="p-1.5 rounded-lg hover:bg-purple-50 text-gray-400 hover:text-purple-600"><Edit2 size={13} /></button>
+                          title="Modifier" className="p-1.5 rounded-lg hover:bg-orange-50 text-gray-400 hover:text-[#F98012]"><Edit2 size={13} /></button>
                         <button onClick={() => handleToggleAdmin(m)}
                           title={m.is_admin ? 'Retirer admin' : 'Rendre admin'}
                           className={`p-1.5 rounded-lg ${m.is_admin ? 'text-red-400 hover:bg-red-50' : 'text-gray-400 hover:bg-yellow-50 hover:text-yellow-600'}`}>
@@ -555,7 +555,7 @@ function MembersTab() {
                           {m.is_blocked ? <UserCheck size={13} /> : <UserX size={13} />}
                         </button>
                         <a href={`mailto:${m.email}`} title="Envoyer email"
-                          className="p-1.5 rounded-lg hover:bg-blue-50 text-gray-400 hover:text-blue-500">
+                          className="p-1.5 rounded-lg hover:bg-orange-50 text-gray-400 hover:text-[#F98012]">
                           <Mail size={13} />
                         </a>
                       </div>
@@ -568,7 +568,7 @@ function MembersTab() {
         </div>
         {hasMore && (
           <div className="px-4 py-3 border-t border-gray-100 text-center">
-            <button onClick={() => setPage(p => p + 1)} className="text-sm text-purple-600 font-semibold hover:underline">
+            <button onClick={() => setPage(p => p + 1)} className="text-sm text-[#F98012] font-semibold hover:underline hover:text-[#71C9CE]">
               Afficher plus ({filtered.length - page * PER_PAGE} restants)
             </button>
           </div>
@@ -582,12 +582,12 @@ function MembersTab() {
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-1">Nom complet</label>
               <input type="text" value={editForm.full_name || ''} onChange={e => setEditForm(f => ({ ...f, full_name: e.target.value }))}
-                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300" />
+                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
             </div>
             <div>
               <label className="block text-xs font-bold text-gray-700 mb-1">Plan</label>
               <select value={editForm.plan || 'free'} onChange={e => setEditForm(f => ({ ...f, plan: e.target.value }))}
-                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300">
+                className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
                 <option value="free">Gratuit</option>
                 <option value="silver">Silver</option>
                 <option value="gold">Gold</option>
@@ -596,7 +596,7 @@ function MembersTab() {
             </div>
             <div className="flex gap-3 justify-end pt-2">
               <button onClick={() => setModal(null)} className="px-5 py-2 text-sm border border-gray-200 rounded-xl hover:bg-gray-50">Annuler</button>
-              <button onClick={handleUpdateMember} className="flex items-center gap-2 px-5 py-2 text-sm bg-[#7D3C98] text-white rounded-xl font-bold hover:bg-[#6C3483]">
+              <button onClick={handleUpdateMember} className="flex items-center gap-2 px-5 py-2 text-sm bg-[#0F3D58] text-white rounded-xl font-bold hover:bg-[#F98012] hover:text-white">
                 <Save size={14} /> Enregistrer
               </button>
             </div>
@@ -667,7 +667,7 @@ function SubmissionsTab() {
           <SearchInput value={search} onChange={setSearch} placeholder="Chercher par membre..." />
         </div>
         <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}
-          className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300">
+          className="border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
           <option value="all">Tous</option>
           <option value="pending">En attente</option>
           <option value="reviewed">Corrigés</option>
@@ -703,7 +703,7 @@ function SubmissionsTab() {
             <tbody className="divide-y divide-gray-50">
               {loading && (
                 <tr><td colSpan={5} className="py-10 text-center">
-                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin"/></div>
+                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
                 </td></tr>
               )}
               {!loading && filtered.length === 0 && (
@@ -730,7 +730,7 @@ function SubmissionsTab() {
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2 justify-end">
                       <button onClick={() => { setSelected(it); setReply(it.admin_feedback || '') }}
-                        className="flex items-center gap-1 px-2.5 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-xs font-semibold hover:bg-purple-100">
+                        className="flex items-center gap-1 px-2.5 py-1.5 bg-orange-50 text-[#F98012] rounded-lg text-xs font-semibold hover:bg-orange-100">
                         <Eye size={12} /> Voir
                       </button>
                       <select value={it.status || 'pending'} onChange={e => handleStatusChange(it.id, e.target.value)}
@@ -753,7 +753,7 @@ function SubmissionsTab() {
         <Modal title="Soumission — Modération" onClose={() => setSelected(null)} wide>
           <div className="space-y-4">
             <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-              <div className="w-9 h-9 rounded-full bg-purple-600 flex items-center justify-center text-white text-sm font-bold">
+              <div className="w-9 h-9 rounded-full bg-[#0F3D58] flex items-center justify-center text-white text-sm font-bold">
                 {(selected.profiles?.full_name || '?')[0].toUpperCase()}
               </div>
               <div>
@@ -792,7 +792,7 @@ function SubmissionsTab() {
             <div className="flex gap-3 justify-end">
               <button onClick={() => setSelected(null)} className="px-5 py-2 text-sm border border-gray-200 rounded-xl hover:bg-gray-50">Fermer</button>
               <button onClick={handleReply} disabled={sending || !reply.trim()}
-                className="flex items-center gap-2 px-5 py-2 text-sm bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 disabled:opacity-50">
+                className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-600 text-white rounded-xl font-bold hover:bg-[#F98012] disabled:opacity-50">
                 <Send size={14} /> {sending ? 'Envoi...' : 'Envoyer le feedback'}
               </button>
             </div>
@@ -816,8 +816,8 @@ const MOCK_COUNTRIES = [
   { country: 'Autres', code: '—', visits: 42, pct: 1 },
 ]
 const MOCK_DEVICES = [
-  { type: 'Mobile', icon: Smartphone, pct: 58, color: 'bg-purple-500' },
-  { type: 'Desktop', icon: Monitor, pct: 34, color: 'bg-blue-500' },
+  { type: 'Mobile', icon: Smartphone, pct: 58, color: 'bg-[#0F3D58]' },
+  { type: 'Desktop', icon: Monitor, pct: 34, color: 'bg-[#0F3D58]' },
   { type: 'Tablette', icon: Tablet, pct: 8, color: 'bg-green-500' },
 ]
 const MOCK_PAGES = [
@@ -838,7 +838,7 @@ function VisitorsTab() {
       <div className="flex gap-2 flex-wrap">
         {[{ id: '24h', label: '24 heures' }, { id: '7d', label: '7 jours' }, { id: '30d', label: '30 jours' }, { id: '90d', label: '3 mois' }].map(p => (
           <button key={p.id} onClick={() => setPeriod(p.id)}
-            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${period === p.id ? 'bg-[#7D3C98] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${period === p.id ? 'bg-[#0F3D58] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
             {p.label}
           </button>
         ))}
@@ -859,7 +859,7 @@ function VisitorsTab() {
         {/* Pays */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
           <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-2">
-            <MapPin size={16} className="text-purple-500" />
+            <MapPin size={16} className="text-[#0F3D58]" />
             <h3 className="font-extrabold text-gray-900 text-sm">Visiteurs par pays</h3>
           </div>
           <div className="p-5 space-y-3">
@@ -872,11 +872,11 @@ function VisitorsTab() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-gray-400">{c.visits.toLocaleString()}</span>
-                    <span className="text-xs font-bold text-purple-600 w-8 text-right">{c.pct}%</span>
+                    <span className="text-xs font-bold text-blue-600 w-8 text-right">{c.pct}%</span>
                   </div>
                 </div>
                 <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full transition-all" style={{ width: `${c.pct}%` }} />
+                  <div className="h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full transition-all" style={{ width: `${c.pct}%` }} />
                 </div>
               </div>
             ))}
@@ -888,7 +888,7 @@ function VisitorsTab() {
           {/* Appareils */}
           <div className="bg-white rounded-2xl border border-gray-100 shadow-sm">
             <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-2">
-              <Monitor size={16} className="text-blue-500" />
+              <Monitor size={16} className="text-[#0F3D58]" />
               <h3 className="font-extrabold text-gray-900 text-sm">Appareils</h3>
             </div>
             <div className="p-5 space-y-3">
@@ -933,12 +933,12 @@ function VisitorsTab() {
 
       {/* Info banner */}
       <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-start gap-3">
-        <AlertCircle size={16} className="text-blue-500 shrink-0 mt-0.5" />
+        <AlertCircle size={16} className="text-[#0F3D58] shrink-0 mt-0.5" />
         <div>
-          <p className="text-sm font-bold text-blue-800">Données simulées</p>
-          <p className="text-xs text-blue-600 mt-0.5">
+          <p className="text-sm font-bold text-[#0F3D58]">Données simulées</p>
+          <p className="text-xs text-[#0F3D58] mt-0.5">
             Pour des données réelles, intégrez <strong>Plausible Analytics</strong> ou <strong>Google Analytics 4</strong>.
-            Ajoutez la table <code className="bg-blue-100 px-1 rounded">page_views</code> dans Supabase pour tracker les visites natives.
+            Ajoutez la table <code className="bg-orange-100 px-1 rounded">page_views</code> dans Supabase pour tracker les visites natives.
           </p>
         </div>
       </div>
@@ -1004,7 +1004,7 @@ function FollowUpTab() {
       <div className="flex gap-3 flex-wrap">
         {LISTS.map(({ id, label, icon: Icon, color, items }) => (
           <button key={id} onClick={() => setActiveList(id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${activeList === id ? 'bg-[#7D3C98] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-colors ${activeList === id ? 'bg-[#0F3D58] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
             <Icon size={14} /> {label}
             <span className={`ml-1 text-xs px-1.5 py-0.5 rounded-full font-bold ${activeList === id ? 'bg-white/25 text-white' : 'bg-gray-100 text-gray-500'}`}>
               {items.length}
@@ -1016,7 +1016,7 @@ function FollowUpTab() {
       <SearchInput value={search} onChange={setSearch} placeholder="Rechercher un membre..." />
 
       {loading ? (
-        <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin"/></div>
+        <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
       ) : (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
@@ -1046,7 +1046,7 @@ function FollowUpTab() {
                     <tr key={it.id || i} className="hover:bg-gray-50">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center text-purple-700 text-xs font-bold">
+                          <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-[#0F3D58] text-xs font-bold">
                             {name[0]?.toUpperCase()}
                           </div>
                           <div>
@@ -1065,18 +1065,18 @@ function FollowUpTab() {
                       )}
                       {activeList === 'results' && (
                         <>
-                          <td className="px-4 py-3"><span className="text-xs font-bold text-purple-600 uppercase">{it.table_type}</span></td>
+                          <td className="px-4 py-3"><span className="text-xs font-bold text-[#F98012] uppercase">{it.table_type}</span></td>
                           <td className="px-4 py-3 text-xs font-bold text-gray-700">{it.score}/{it.total}</td>
                         </>
                       )}
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1 justify-end">
                           <a href={`mailto:${email}?subject=Formation TCF Canada&body=Bonjour ${name},`}
-                            className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-semibold hover:bg-blue-100">
+                            className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-semibold hover:bg-orange-100">
                             <Mail size={11} /> Email
                           </a>
                           <button onClick={() => { setNoteModal(it); setNote('') }}
-                            className="flex items-center gap-1 px-2.5 py-1.5 bg-purple-50 text-purple-700 rounded-lg text-xs font-semibold hover:bg-purple-100">
+                            className="flex items-center gap-1 px-2.5 py-1.5 bg-orange-50 text-[#F98012] rounded-lg text-xs font-semibold hover:bg-orange-100">
                             <Edit2 size={11} /> Note
                           </button>
                         </div>
@@ -1097,7 +1097,7 @@ function FollowUpTab() {
             <RichEditor value={note} onChange={setNote} placeholder="Rédigez votre note de suivi..." />
             <div className="flex gap-3 justify-end">
               <button onClick={() => setNoteModal(null)} className="px-5 py-2 text-sm border border-gray-200 rounded-xl hover:bg-gray-50">Annuler</button>
-              <button onClick={addNote} className="flex items-center gap-2 px-5 py-2 text-sm bg-[#7D3C98] text-white rounded-xl font-bold hover:bg-[#6C3483]">
+              <button onClick={addNote} className="flex items-center gap-2 px-5 py-2 text-sm bg-[#0F3D58] text-white rounded-xl font-bold hover:bg-[#F98012] hover:text-white">
                 <Save size={14} /> Sauvegarder
               </button>
             </div>
@@ -1145,9 +1145,9 @@ function SettingsTab() {
     <div className="space-y-6">
       {/* Admin info */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h3 className="font-extrabold text-gray-900 mb-4 flex items-center gap-2"><Shield size={16} className="text-purple-600" /> Compte administrateur</h3>
+        <h3 className="font-extrabold text-gray-900 mb-4 flex items-center gap-2"><Shield size={16} className="text-[#0F3D58]" /> Compte administrateur</h3>
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center text-white text-xl font-extrabold">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-xl font-extrabold">
             {(user?.email || 'A')[0].toUpperCase()}
           </div>
           <div>
@@ -1160,7 +1160,7 @@ function SettingsTab() {
 
       {/* DB Stats */}
       <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-        <h3 className="font-extrabold text-gray-900 mb-4 flex items-center gap-2"><Database size={16} className="text-blue-600" /> Base de données — État</h3>
+        <h3 className="font-extrabold text-gray-900 mb-4 flex items-center gap-2"><Database size={16} className="text-[#0F3D58]" /> Base de données — État</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {DB_ROWS.map(r => <StatCard key={r.label} {...r} />)}
         </div>
@@ -1177,9 +1177,9 @@ function SettingsTab() {
             { label: 'Auth — Utilisateurs', url: 'https://supabase.com/dashboard/project/fvhxptpzskvwpdtycklj/auth/users' },
           ].map(({ label, url }) => (
             <a key={label} href={url} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-purple-50 border border-gray-200 hover:border-purple-200 transition-colors group">
-              <Database size={14} className="text-gray-400 group-hover:text-purple-600" />
-              <span className="text-sm font-semibold text-gray-700 group-hover:text-purple-700">{label}</span>
+              className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl hover:bg-orange-50 border border-gray-200 hover:border-[#F98012] transition-colors group">
+              <Database size={14} className="text-gray-400 group-hover:text-[#F98012]" />
+              <span className="text-sm font-semibold text-gray-700 group-hover:text-[#F98012]">{label}</span>
             </a>
           ))}
         </div>
@@ -1201,7 +1201,7 @@ export default function AdminDashboard() {
   if (authLoading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -1212,7 +1212,7 @@ export default function AdminDashboard() {
         <Shield size={48} className="text-gray-300 mb-4" />
         <h2 className="text-2xl font-extrabold text-gray-700 mb-2">Accès restreint</h2>
         <p className="text-gray-500 mb-6">Vous devez être connecté pour accéder à l'administration.</p>
-        <Link to="/connexion" className="bg-[#7D3C98] text-white px-6 py-3 rounded-xl font-bold no-underline hover:bg-[#6C3483]">
+        <Link to="/connexion" className="bg-[#0F3D58] text-white px-6 py-3 rounded-xl font-bold no-underline hover:bg-[#F98012] hover:text-white">
           Se connecter
         </Link>
       </div>
@@ -1228,7 +1228,7 @@ export default function AdminDashboard() {
         <h2 className="text-2xl font-extrabold text-gray-700 mb-2">Accès interdit</h2>
         <p className="text-gray-500 mb-2">Votre compte ne possède pas les droits administrateur.</p>
         <p className="text-xs text-gray-400 mb-6">Connecté en tant que : <strong>{user.email}</strong></p>
-        <Link to="/" className="bg-[#7D3C98] text-white px-6 py-3 rounded-xl font-bold no-underline hover:bg-[#6C3483]">
+        <Link to="/" className="bg-[#0F3D58] text-white px-6 py-3 rounded-xl font-bold no-underline hover:bg-[#F98012] hover:text-white">
           Retour à l'accueil
         </Link>
       </div>
@@ -1251,7 +1251,7 @@ export default function AdminDashboard() {
       <aside className={`${sidebarOpen ? 'w-56' : 'w-16'} bg-white border-r border-gray-100 flex flex-col shrink-0 transition-all duration-200 sticky top-0 h-screen`}>
         {/* Logo */}
         <div className="px-4 py-4 border-b border-gray-100 flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center shrink-0">
             <Shield size={15} className="text-white" />
           </div>
           {sidebarOpen && <span className="font-extrabold text-gray-800 text-sm truncate">Admin TCF</span>}
@@ -1264,7 +1264,7 @@ export default function AdminDashboard() {
         <nav className="flex-1 py-3 overflow-y-auto">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold transition-colors ${activeTab === id ? 'bg-purple-50 text-[#7D3C98] border-r-2 border-[#7D3C98]' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'}`}>
+              className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold transition-colors ${activeTab === id ? 'bg-orange-50 text-[#F98012] border-r-2 border-[#F98012]' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-800'}`}>
               <Icon size={16} className="shrink-0" />
               {sidebarOpen && <span className="truncate">{label}</span>}
             </button>
@@ -1274,13 +1274,13 @@ export default function AdminDashboard() {
         {/* User info */}
         <div className="p-3 border-t border-gray-100">
           <div className={`flex items-center ${sidebarOpen ? 'gap-2' : 'justify-center'}`}>
-            <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
+            <div className="w-7 h-7 rounded-full bg-[#0F3D58] flex items-center justify-center text-white text-xs font-bold shrink-0">
               {(user.email || 'A')[0].toUpperCase()}
             </div>
             {sidebarOpen && (
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-bold text-gray-700 truncate">{user.email}</p>
-                <p className="text-xs text-purple-600 font-semibold">Administrateur</p>
+                <p className="text-xs text-[#F98012] font-semibold">Administrateur</p>
               </div>
             )}
             <button onClick={() => { signOut(); navigate('/') }}
@@ -1305,7 +1305,7 @@ export default function AdminDashboard() {
             <span className="text-xs bg-green-100 text-green-700 font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
               <span className="w-1.5 h-1.5 bg-green-500 rounded-full" /> En ligne
             </span>
-            <Link to="/" className="text-xs text-gray-500 hover:text-purple-600 font-semibold no-underline">
+            <Link to="/" className="text-xs text-gray-500 hover:text-[#F98012] font-semibold no-underline">
               ← Site
             </Link>
           </div>

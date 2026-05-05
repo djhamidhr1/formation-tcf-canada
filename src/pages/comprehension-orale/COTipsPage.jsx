@@ -58,23 +58,23 @@ export default function COTipsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] rounded-3xl p-8 text-white text-center mb-10">
-        <div className="flex justify-center mb-3"><Headphones size={48} /></div>
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] rounded-3xl p-8 text-white text-center mb-10">
+        <div className="flex justify-center mb-3" style={{ color: '#F98012' }}><Headphones size={48} /></div>
         <h1 className="text-3xl font-extrabold mb-2">Astuces & Barème — Compréhension Orale</h1>
-        <p className="text-blue-200 text-sm">Maîtrisez l'écoute unique pour maximiser votre score</p>
+        <p className="text-sm" style={{ color: 'rgba(200, 215, 225, 0.85)' }}>Maîtrisez l'écoute unique pour maximiser votre score</p>
       </div>
 
       {/* Règle d'Or */}
-      <div className="bg-blue-50 border-2 border-blue-300 rounded-2xl p-6 mb-8">
+      <div className="rounded-2xl p-6 mb-8" style={{ background: '#fef0e2', border: '2px solid rgba(249,128,18,0.3)' }}>
         <div className="flex items-start gap-3">
-          <span className="shrink-0 text-amber-600"><AlertTriangle size={28} /></span>
+          <span className="shrink-0" style={{ color: '#F98012' }}><AlertTriangle size={28} /></span>
           <div>
-            <h2 className="text-lg font-bold text-blue-800 mb-2">Règle d'Or — Écoute Unique</h2>
-            <p className="text-blue-700 text-sm leading-relaxed mb-3">
+            <h2 className="text-lg font-bold mb-2" style={{ color: '#0F3D58' }}>Règle d'Or — Écoute Unique</h2>
+            <p className="text-sm leading-relaxed mb-3" style={{ color: '#3a5a6e' }}>
               Contrairement à l'écrit, <strong>chaque document audio ne peut être écouté qu'une seule fois</strong>.
               Il n'y a aucun retour arrière possible. Cette règle est strictement appliquée à l'examen réel.
             </p>
-            <ul className="list-disc pl-4 space-y-1 text-blue-700 text-sm">
+            <ul className="list-disc pl-4 space-y-1 text-sm" style={{ color: '#3a5a6e' }}>
               <li>Lisez la question <strong>avant</strong> de lancer l'audio</li>
               <li>Concentrez-vous pleinement dès le début — chaque seconde compte</li>
               <li>Prenez des notes pendant l'écoute, pas après</li>
@@ -104,13 +104,13 @@ export default function COTipsPage() {
                   <td className="py-3 px-3">
                     <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${b.color}`}>{b.level}</span>
                   </td>
-                  <td className="py-3 px-3 font-bold text-[#1A5276]">{b.pts} pts</td>
+                  <td className="py-3 px-3 font-bold text-[#0F3D58]">{b.pts} pts</td>
                   <td className="py-3 px-3 text-right text-gray-500">{b.pts * b.count} pts</td>
                 </tr>
               ))}
               <tr className="bg-blue-50 font-bold">
                 <td className="py-3 px-3" colSpan={3}>TOTAL MAXIMUM</td>
-                <td className="py-3 px-3 text-right text-[#1A5276]">699 pts</td>
+                <td className="py-3 px-3 text-right text-[#0F3D58]">699 pts</td>
               </tr>
             </tbody>
           </table>
@@ -138,15 +138,15 @@ export default function COTipsPage() {
         <h2 className="text-xl font-bold text-gray-900 mb-5 flex items-center gap-2"><Zap size={20} /> 5 Techniques Essentielles</h2>
         <div className="space-y-4">
           {TECHNIQUES.map(t => (
-            <div key={t.num} className="bg-blue-50 border border-blue-100 rounded-xl p-5 flex gap-4">
+            <div key={t.num} className="rounded-xl p-5 flex gap-4" style={{ background: '#fef0e2', border: '1px solid rgba(249,128,18,0.15)' }}>
               <div className="shrink-0">
-                <div className="w-10 h-10 bg-[#1A5276] rounded-xl flex items-center justify-center text-white font-extrabold text-lg">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white font-extrabold text-lg" style={{ background: '#0F3D58' }}>
                   {t.num}
                 </div>
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-blue-700">{t.icon}</span>
+                  <span style={{ color: '#F98012' }}>{t.icon}</span>
                   <h3 className="font-bold text-gray-900">{t.title}</h3>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">{t.desc}</p>
@@ -158,11 +158,8 @@ export default function COTipsPage() {
 
       {/* CTA */}
       <div className="text-center">
-        <Link
-          to="/epreuve/comprehension-orale/series"
-          className="inline-block bg-[#1A5276] hover:bg-[#154360] text-white font-bold px-8 py-4 rounded-xl text-base no-underline transition-colors shadow-md"
-        >
-          <Headphones size={16} className="inline -mt-0.5" /> Commencer l'entrainement →
+        <Link to="/epreuve/comprehension-orale/series" className="btn-start-session" style={{ padding: '14px 32px', fontSize: 15 }}>
+          <Headphones size={16} className="inline -mt-0.5 mr-1" /> Commencer l'entraînement →
         </Link>
         <p className="text-gray-400 text-sm mt-3">10 séries disponibles · 390 questions</p>
       </div>

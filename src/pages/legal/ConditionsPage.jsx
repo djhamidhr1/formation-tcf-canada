@@ -72,7 +72,7 @@ Formation TCF Canada · Montréal, Québec, Canada`,
 const COLOR = {
   green:  'bg-green-50 text-green-600 border-green-200',
   blue:   'bg-blue-50 text-blue-600 border-blue-200',
-  purple: 'bg-purple-50 text-purple-600 border-purple-200',
+  purple: 'bg-blue-50 text-blue-600 border-blue-200',
   red:    'bg-red-50 text-red-600 border-red-200',
   orange: 'bg-orange-50 text-orange-600 border-orange-200',
   gray:   'bg-gray-50 text-gray-600 border-gray-200',
@@ -82,20 +82,20 @@ export default function ConditionsPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#7D3C98] to-[#8E44AD] text-white py-14 px-4">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] text-white py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <FileText size={32} className="text-white" />
           </div>
           <h1 className="text-3xl font-extrabold mb-2">Conditions d'utilisation</h1>
-          <p className="text-purple-200 text-sm">Dernière mise à jour : Avril 2026 · Formation TCF Canada</p>
+          <p className="text-blue-200 text-sm">Dernière mise à jour : Avril 2026 · Formation TCF Canada</p>
         </div>
       </div>
 
       {/* Intro */}
       <div className="max-w-3xl mx-auto px-4 -mt-6">
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex items-start gap-4">
-          <Scale size={20} className="text-purple-600 shrink-0 mt-0.5" />
+          <Scale size={20} className="text-blue-600 shrink-0 mt-0.5" />
           <p className="text-sm text-gray-600 leading-relaxed">
             Veuillez lire attentivement ces conditions avant d'utiliser la plateforme.
             En vous inscrivant, vous acceptez d'être lié par ces conditions.
@@ -121,11 +121,11 @@ export default function ConditionsPage() {
 
         {/* Back */}
         <div className="flex items-center justify-center gap-4 py-2 text-sm text-gray-400">
-          <Link to="/" className="hover:text-purple-600 no-underline transition-colors">← Accueil</Link>
+          <Link to="/" className="hover:text-blue-600 no-underline transition-colors">← Accueil</Link>
           <span>·</span>
-          <Link to="/confidentialite" className="hover:text-purple-600 no-underline transition-colors">Confidentialité</Link>
+          <Link to="/confidentialite" className="hover:text-blue-600 no-underline transition-colors">Confidentialité</Link>
           <span>·</span>
-          <Link to="/faq" className="hover:text-purple-600 no-underline transition-colors">FAQ</Link>
+          <Link to="/faq" className="hover:text-blue-600 no-underline transition-colors">FAQ</Link>
         </div>
       </div>
     </div>

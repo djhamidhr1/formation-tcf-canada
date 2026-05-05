@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { Clock, Target, Award, ChevronDown, ChevronUp, PenTool, Trophy, FileText, Link2, MessageSquare, Crosshair, Check, Ruler } from 'lucide-react'
 
 const NCLC_EE = [
-  { score: '18–20', nclc: 10, color: 'bg-emerald-600' },
-  { score: '16–17', nclc: 10, color: 'bg-emerald-600' },
-  { score: '14–15', nclc: 9, color: 'bg-blue-500' },
-  { score: '12–13', nclc: 8, color: 'bg-blue-500' },
+  { score: '18–20', nclc: 10, color: 'bg-[#0F3D58]' },
+  { score: '16–17', nclc: 10, color: 'bg-[#0F3D58]' },
+  { score: '14–15', nclc: 9, color: 'bg-[#0F3D58]' },
+  { score: '12–13', nclc: 8, color: 'bg-[#F98012]' },
   { score: '10–11', nclc: 7, color: 'bg-yellow-500' },
   { score: '7–9', nclc: 6, color: 'bg-orange-400' },
   { score: '4–6', nclc: 5, color: 'bg-orange-500' },
@@ -46,7 +46,7 @@ const TASKS_INFO = [
     pts: 7,
     mots: '120–150 mots',
     level: 'B1–B2',
-    levelColor: 'bg-violet-100 text-violet-800',
+    levelColor: 'bg-blue-100 text-blue-800',
     style: 'NARRATION — temps du passé obligatoires',
     desc: 'Raconter un événement passé, une expérience vécue, une anecdote, une situation problématique et sa résolution.',
     tips: [
@@ -103,7 +103,7 @@ function TaskAccordion({ task }) {
         className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors text-left"
       >
         <div className="flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full bg-[#7D3C98] text-white flex items-center justify-center font-extrabold shrink-0">
+          <div className="w-10 h-10 rounded-full bg-[#0F3D58] text-white flex items-center justify-center font-extrabold shrink-0">
             {task.num}
           </div>
           <div>
@@ -111,12 +111,12 @@ function TaskAccordion({ task }) {
             <div className="flex flex-wrap items-center gap-2 mt-1">
               <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${task.levelColor}`}>{task.level}</span>
               <span className="text-xs text-gray-500 flex items-center gap-0.5"><Clock size={12} /> {task.time}</span>
-              <span className="text-xs font-semibold text-[#7D3C98] flex items-center gap-0.5"><Trophy size={12} /> {task.pts} pts</span>
+              <span className="text-xs font-semibold text-[#0F3D58] flex items-center gap-0.5"><Trophy size={12} /> {task.pts} pts</span>
               <span className="text-xs text-gray-500 flex items-center gap-0.5"><FileText size={12} /> {task.mots}</span>
             </div>
           </div>
         </div>
-        <div className="text-[#7D3C98] shrink-0 ml-4">
+        <div className="text-[#0F3D58] shrink-0 ml-4">
           {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
         </div>
       </button>
@@ -124,7 +124,7 @@ function TaskAccordion({ task }) {
       {open && (
         <div className="border-t border-gray-100 px-6 pb-6 pt-4">
           {/* Style */}
-          <div className="bg-purple-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-sm font-semibold text-[#7D3C98]">
+          <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-sm font-semibold text-[#0F3D58]">
             <PenTool size={14} className="inline mr-1" /> {task.style}
           </div>
 
@@ -134,12 +134,12 @@ function TaskAccordion({ task }) {
             {/* Conseils */}
             <div className="md:col-span-1">
               <h4 className="font-bold text-gray-900 text-sm mb-3 flex items-center gap-2">
-                <Target size={15} className="text-[#7D3C98]" /> Conseils clés
+                <Target size={15} className="text-[#0F3D58]" /> Conseils clés
               </h4>
               <ul className="space-y-2">
                 {task.tips.map((tip, i) => (
                   <li key={i} className="flex items-start gap-2 text-xs text-gray-600">
-                    <span className="w-4 h-4 rounded-full bg-[#7D3C98] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                    <span className="w-4 h-4 rounded-full bg-[#0F3D58] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
                       {i + 1}
                     </span>
                     <span className="leading-relaxed">{tip}</span>
@@ -153,7 +153,7 @@ function TaskAccordion({ task }) {
               <h4 className="font-bold text-gray-900 text-sm mb-3"><Link2 size={14} className="inline mr-1" /> Connecteurs logiques</h4>
               <div className="flex flex-wrap gap-1.5">
                 {task.connectors.map(c => (
-                  <span key={c} className="bg-purple-50 border border-blue-200 text-[#7D3C98] text-xs font-medium px-2.5 py-1 rounded-lg">
+                  <span key={c} className="bg-blue-50 border border-blue-200 text-[#0F3D58] text-xs font-medium px-2.5 py-1 rounded-lg">
                     {c}
                   </span>
                 ))}
@@ -191,16 +191,16 @@ export default function EETipsPage() {
       {/* Gestion du temps */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Clock size={20} className="text-[#7D3C98]" /> Gestion du temps (60 min total)
+          <Clock size={20} className="text-[#0F3D58]" /> Gestion du temps (60 min total)
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {TASKS_INFO.map(t => (
-            <div key={t.num} className="border-2 border-purple-100 rounded-xl p-4 hover:border-purple-300 transition-colors">
+            <div key={t.num} className="border-2 border-blue-100 rounded-xl p-4 hover:border-blue-300 transition-colors">
               <div className="flex justify-between items-start mb-2">
-                <span className="w-7 h-7 rounded-full bg-[#7D3C98] text-white flex items-center justify-center font-bold text-sm">
+                <span className="w-7 h-7 rounded-full bg-[#0F3D58] text-white flex items-center justify-center font-bold text-sm">
                   {t.num}
                 </span>
-                <span className="text-[#7D3C98] font-extrabold text-lg">{t.pts} pts</span>
+                <span className="text-[#0F3D58] font-extrabold text-lg">{t.pts} pts</span>
               </div>
               <div className="text-base font-extrabold text-gray-900 mb-1">{t.time}</div>
               <div className="text-xs text-gray-500 mb-1">{t.mots}</div>
@@ -213,7 +213,7 @@ export default function EETipsPage() {
       {/* Barème */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
         <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Award size={20} className="text-[#7D3C98]" /> Barème officiel — Notation /20
+          <Award size={20} className="text-[#0F3D58]" /> Barème officiel — Notation /20
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Score table */}
@@ -235,12 +235,12 @@ export default function EETipsPage() {
                   <tr key={row.tache} className="border-b border-gray-100 hover:bg-gray-50">
                     <td className="py-3 px-3 font-semibold">{row.tache}</td>
                     <td className="py-3 px-3 text-gray-500 text-xs">{row.level}</td>
-                    <td className="py-3 px-3 text-right font-bold text-[#7D3C98]">{row.pts} / {row.pts}</td>
+                    <td className="py-3 px-3 text-right font-bold text-[#0F3D58]">{row.pts} / {row.pts}</td>
                   </tr>
                 ))}
-                <tr className="bg-purple-50 font-bold">
+                <tr className="bg-blue-50 font-bold">
                   <td className="py-3 px-3" colSpan={2}>TOTAL MAXIMUM</td>
-                  <td className="py-3 px-3 text-right text-[#7D3C98]">20 pts</td>
+                  <td className="py-3 px-3 text-right text-[#0F3D58]">20 pts</td>
                 </tr>
               </tbody>
             </table>
@@ -305,8 +305,8 @@ export default function EETipsPage() {
             desc: 'Chaque tâche doit avoir une introduction, un développement et une conclusion. Sautez des lignes entre les paragraphes.',
           },
         ].map(tip => (
-          <div key={tip.title} className="bg-purple-50 border border-purple-100 rounded-xl p-5">
-            <div className="text-2xl mb-2"><tip.IconComp size={24} className="text-[#7D3C98]" /></div>
+          <div key={tip.title} className="bg-blue-50 border border-blue-100 rounded-xl p-5">
+            <div className="text-2xl mb-2"><tip.IconComp size={24} className="text-[#0F3D58]" /></div>
             <h3 className="font-bold text-gray-900 mb-2">{tip.title}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{tip.desc}</p>
           </div>

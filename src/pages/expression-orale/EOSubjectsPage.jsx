@@ -130,7 +130,7 @@ export default function EOSubjectsPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#F98012', borderTopColor: 'transparent' }} />
           <p className="text-gray-500">Chargement des sujets...</p>
         </div>
       </div>
@@ -140,10 +140,10 @@ export default function EOSubjectsPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
       {/* Header */}
-      <div className="bg-gradient-to-br from-amber-500 to-blue-400 rounded-3xl p-8 text-white text-center mb-8">
-        <div className="text-4xl mb-2"><Mic size={40} className="mx-auto" /></div>
+      <div className="rounded-3xl p-8 text-white text-center mb-8" style={{ background: 'linear-gradient(145deg, #0F3D58, #164b6b)' }}>
+        <div className="text-4xl mb-2" style={{ color: '#F98012' }}><Mic size={40} className="mx-auto" /></div>
         <h1 className="text-3xl font-extrabold mb-2">Sujets Expression Orale</h1>
-        <p className="text-blue-100 text-sm">{sujets.length} sujets disponibles · 2023–2026</p>
+        <p className="text-sm" style={{ color: 'rgba(200, 215, 225, 0.85)' }}>{sujets.length} sujets disponibles · 2023–2026</p>
       </div>
 
       {/* Year selector */}
@@ -155,7 +155,7 @@ export default function EOSubjectsPage() {
             onClick={() => setSelectedYear(year)}
             className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
               selectedYear === year
-                ? 'bg-blue-500 text-white shadow-sm'
+                ? 'bg-[#0F3D58] text-white shadow-sm'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -179,8 +179,8 @@ export default function EOSubjectsPage() {
                 onClick={() => setSelectedMonth(slug)}
                 className={`py-3 px-3 rounded-xl text-sm font-semibold text-center transition-all ${
                   selectedMonth === slug
-                    ? 'bg-blue-500 text-white shadow-md scale-105'
-                    : 'bg-white border border-gray-200 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                    ? 'bg-[#0F3D58] text-white shadow-md scale-105'
+                    : 'bg-white border border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
                 }`}
               >
                 {formatMonthSlug(slug)}
@@ -199,7 +199,7 @@ export default function EOSubjectsPage() {
                     onClick={() => setActiveTask(n)}
                     className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                       activeTask === n
-                        ? 'bg-blue-500 text-white'
+                        ? 'bg-[#0F3D58] text-white'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >

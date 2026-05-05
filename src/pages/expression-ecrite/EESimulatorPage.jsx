@@ -57,7 +57,7 @@ function CircularTimer({ seconds, total }) {
         <circle cx="50" cy="50" r={r} fill="none" stroke="#e5e7eb" strokeWidth="6" />
         <circle
           cx="50" cy="50" r={r} fill="none"
-          stroke={urgent ? '#ef4444' : warning ? '#f97316' : 'oklch(48% 0.12 235)'}
+          stroke={urgent ? '#ef4444' : warning ? '#f97316' : '#0F3D58'}
           strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={circ}
@@ -79,12 +79,12 @@ function WordBar({ count, min, max }) {
   const pct = Math.min(100, Math.round((count / max) * 100))
   const inRange = count >= min && count <= max
   const over = count > max
-  const barColor = count === 0 ? 'bg-gray-200' : inRange ? 'bg-blue-500' : over ? 'bg-red-500' : 'bg-amber-400'
+  const barColor = count === 0 ? 'bg-gray-200' : inRange ? 'bg-[#0F3D58]' : over ? 'bg-red-500' : 'bg-[#F98012]'
 
   return (
     <div>
       <div className="flex items-center justify-between mb-1 text-xs">
-        <span className={`font-bold ${count === 0 ? 'text-gray-400' : inRange ? 'text-blue-600' : over ? 'text-red-600' : 'text-amber-600'}`}>
+        <span className={`font-bold ${count === 0 ? 'text-gray-400' : inRange ? 'text-[#0F3D58]' : over ? 'text-red-600' : 'text-[#F98012]'}`}>
           {count} mots {count > 0 && (inRange ? <Check size={12} className="inline" /> : over ? '(trop long)' : '(trop court)')}
         </span>
         <span className="text-gray-400">{min}–{max} mots</span>
@@ -206,11 +206,11 @@ export default function EESimulatorPage() {
   if (!id) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
-        <div className="text-5xl mb-4"><PenTool size={48} className="text-[oklch(48% 0.12 235)] mx-auto" /></div>
+        <div className="text-5xl mb-4"><PenTool size={48} className="text-[#0F3D58] mx-auto" /></div>
         <h2 className="text-xl font-bold text-gray-700 mb-2">Aucun sujet sélectionné</h2>
         <p className="text-gray-500 mb-6">Choisissez un sujet dans la liste pour commencer.</p>
         <Link to="/epreuve/expression-ecrite/sujets-actualites"
-          className="bg-[oklch(48% 0.12 235)] hover:bg-[#6C3483] text-white px-6 py-3 rounded-xl font-bold no-underline">
+          className="bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white px-6 py-3 rounded-xl font-bold no-underline">
           Voir les sujets →
         </Link>
       </div>
@@ -221,7 +221,7 @@ export default function EESimulatorPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-12 h-12 border-4 border-[oklch(48% 0.12 235)] border-t-transparent rounded-full animate-spin" />
+        <div className="w-12 h-12 border-4 border-[#0F3D58] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -230,14 +230,14 @@ export default function EESimulatorPage() {
   if (!started) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-5xl mb-4"><PenTool size={48} className="text-[oklch(48% 0.12 235)] mx-auto" /></div>
+        <div className="text-5xl mb-4"><PenTool size={48} className="text-[#0F3D58] mx-auto" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-1">Simulateur Expression Écrite</h1>
-        <p className="text-[oklch(48% 0.12 235)] font-semibold text-lg mb-6">{formatMonthSlug(combinaison?.month_slug)}</p>
+        <p className="text-[#0F3D58] font-semibold text-lg mb-6">{formatMonthSlug(combinaison?.month_slug)}</p>
 
         <div className="grid grid-cols-3 gap-3 mb-6">
           {[['clock', '60 min', 'Durée'], ['filetext', '3 tâches', 'À rédiger'], ['bot', 'Correction IA', 'Résultat']].map(([iconKey, val, label]) => (
             <div key={label} className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-              <div className="text-2xl mb-1">{iconKey === 'clock' ? <Clock size={24} className="text-[oklch(48% 0.12 235)]" /> : iconKey === 'filetext' ? <FileText size={24} className="text-[oklch(48% 0.12 235)]" /> : <BarChart2 size={24} className="text-[oklch(48% 0.12 235)]" />}</div>
+              <div className="text-2xl mb-1">{iconKey === 'clock' ? <Clock size={24} className="text-[#0F3D58]" /> : iconKey === 'filetext' ? <FileText size={24} className="text-[#0F3D58]" /> : <BarChart2 size={24} className="text-[#0F3D58]" />}</div>
               <div className="text-lg font-extrabold text-gray-900">{val}</div>
               <div className="text-xs text-gray-500 mt-0.5">{label}</div>
             </div>
@@ -262,7 +262,7 @@ export default function EESimulatorPage() {
 
         <button
           onClick={() => { setStarted(true); start() }}
-          className="bg-[oklch(48% 0.12 235)] hover:bg-[#6C3483] text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors"
+          className="bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors"
         >
           Commencer (60 min) →
         </button>
@@ -286,8 +286,8 @@ export default function EESimulatorPage() {
     return 'warn'
   }
 
-  const statusColor = { ok: 'text-blue-600', warn: 'text-amber-500', empty: 'text-gray-300' }
-  const statusDot = { ok: 'bg-blue-500', warn: 'bg-amber-400', empty: 'bg-gray-200' }
+  const statusColor = { ok: 'text-[#0F3D58]', warn: 'text-[#F98012]', empty: 'text-gray-300' }
+  const statusDot = { ok: 'bg-[#0F3D58]', warn: 'bg-[#F98012]', empty: 'bg-gray-200' }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -314,7 +314,7 @@ export default function EESimulatorPage() {
               return (
                 <button key={t.num} onClick={() => setActiveTask(t.num)}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-                    activeTask === t.num ? 'bg-[oklch(48% 0.12 235)] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    activeTask === t.num ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}>
                   <span className={`w-2 h-2 rounded-full ${statusDot[st]}`} />
                   T{t.num}
@@ -343,7 +343,7 @@ export default function EESimulatorPage() {
                 <button key={t.num} onClick={() => setActiveTask(t.num)}
                   className={`w-full text-left p-3 rounded-xl border-2 transition-all ${
                     isActive
-                      ? 'border-[oklch(48% 0.12 235)] bg-blue-50'
+                      ? 'border-[#0F3D58] bg-blue-50'
                       : 'border-gray-100 hover:border-gray-300 hover:bg-gray-50'
                   }`}>
                   <div className="flex items-center justify-between mb-1">
@@ -358,7 +358,7 @@ export default function EESimulatorPage() {
                   <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                     <div
                       className={`h-1.5 rounded-full transition-all ${
-                        st === 'ok' ? 'bg-blue-500' : st === 'warn' ? 'bg-amber-400' : 'bg-gray-200'
+                        st === 'ok' ? 'bg-[#0F3D58]' : st === 'warn' ? 'bg-[#F98012]' : 'bg-gray-200'
                       }`}
                       style={{ width: `${pct}%` }}
                     />
@@ -394,7 +394,7 @@ export default function EESimulatorPage() {
             </div>
             <button
               onClick={() => setShowSubject(v => !v)}
-              className="text-xs text-[oklch(48% 0.12 235)] font-semibold hover:underline flex-shrink-0"
+              className="text-xs text-[#0F3D58] font-semibold hover:underline flex-shrink-0"
             >
               {showSubject ? <><ChevronUp size={14} className="inline mr-1" /> Masquer sujet</> : <><ChevronDown size={14} className="inline mr-1" /> Afficher sujet</>}
             </button>
@@ -414,7 +414,7 @@ export default function EESimulatorPage() {
           <div className="flex-1 p-5">
             <textarea
               ref={taRefs[activeTask]}
-              className="w-full min-h-[320px] h-full border border-gray-200 rounded-xl p-4 text-sm text-gray-800 leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[oklch(48% 0.12 235)] focus:border-transparent font-sans"
+              className="w-full min-h-[320px] h-full border border-gray-200 rounded-xl p-4 text-sm text-gray-800 leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[#0F3D58] focus:border-transparent font-sans"
               placeholder={`Rédigez votre texte ici… (${currentTask.guide})`}
               value={texts[activeTask]}
               onChange={e => setTexts(prev => ({ ...prev, [activeTask]: e.target.value }))}
@@ -460,7 +460,7 @@ export default function EESimulatorPage() {
                       key={char}
                       onClick={() => insertChar(char)}
                       title={char}
-                      className="flex-1 py-1.5 bg-gray-50 hover:bg-[oklch(48% 0.12 235)] hover:text-white border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 transition-colors"
+                      className="flex-1 py-1.5 bg-gray-50 hover:bg-[#0F3D58] hover:text-white border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 transition-colors"
                     >
                       {char}
                     </button>
@@ -488,7 +488,7 @@ export default function EESimulatorPage() {
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div
                         className={`h-1.5 rounded-full transition-all ${
-                          st === 'ok' ? 'bg-blue-500' : st === 'warn' ? 'bg-amber-400' : 'bg-gray-200'
+                          st === 'ok' ? 'bg-[#0F3D58]' : st === 'warn' ? 'bg-[#F98012]' : 'bg-gray-200'
                         }`}
                         style={{ width: `${pct}%` }}
                       />

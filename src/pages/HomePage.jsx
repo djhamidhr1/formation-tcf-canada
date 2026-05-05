@@ -140,52 +140,56 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* HERO */}
+      {/* HERO — Beige Sable + Formes organiques */}
       <div style={{
-        background: 'linear-gradient(145deg, var(--navy) 0%, oklch(36% 0.12 240) 60%, oklch(28% 0.09 260) 100%)',
+        background: '#FDF2E9',
         position: 'relative', overflow: 'hidden', padding: '96px 24px 80px',
       }}>
-        <div style={{ position: 'absolute', top: -120, right: -80, width: 480, height: 480, borderRadius: '50%', background: 'oklch(100% 0 0 / 0.03)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', bottom: -60, left: -60, width: 320, height: 320, borderRadius: '50%', background: 'oklch(100% 0 0 / 0.04)', pointerEvents: 'none' }} />
-        <div style={{ position: 'absolute', top: 80, right: 200, width: 200, height: 200, borderRadius: '50%', background: 'var(--co-main)', opacity: 0.07, pointerEvents: 'none' }} />
+        {/* Organic circles */}
+        <div style={{ position: 'absolute', top: -120, right: -80, width: 480, height: 480, borderRadius: '50%', background: 'rgba(113, 201, 206, 0.12)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: -60, left: -60, width: 320, height: 320, borderRadius: '50%', background: 'rgba(249, 128, 18, 0.08)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', top: 80, right: 200, width: 200, height: 200, borderRadius: '50%', background: 'rgba(15, 61, 88, 0.05)', pointerEvents: 'none' }} />
 
         <div style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center', position: 'relative' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'oklch(52% 0.20 25 / 0.2)', border: '1px solid oklch(52% 0.20 25 / 0.4)',
-            color: 'oklch(80% 0.08 235)', padding: '6px 16px', borderRadius: 'var(--radius-full)',
+            background: '#F98012', color: 'white',
+            padding: '6px 16px', borderRadius: 'var(--radius-full)',
             fontSize: 13, fontWeight: 600, marginBottom: 28,
           }}>
-            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--blue-light)', display: 'inline-block', boxShadow: '0 0 0 3px oklch(58% 0.14 235 / 0.3)', animation: 'pulse 2s infinite' }} />
+            <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'white', display: 'inline-block', boxShadow: '0 0 0 3px rgba(255,255,255,0.3)', animation: 'pulse 2s infinite' }} />
             Sujets Recents d'Expression Ecrite & Orale — Mai 2026
           </div>
 
-          <h1 style={{ fontSize: 'clamp(36px, 5vw, 62px)', fontWeight: 900, color: 'white', letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: 20, margin: '0 0 20px' }}>
+          <h1 style={{ fontSize: 'clamp(36px, 5vw, 62px)', fontWeight: 900, color: '#0F3D58', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20, margin: '0 0 20px' }}>
             Se preparer au<br />TCF Canada – TCF Quebec
           </h1>
-          <p style={{ fontSize: 18, color: 'oklch(80% 0.04 240)', maxWidth: 520, margin: '0 auto 36px', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 18, color: '#3a5a6e', maxWidth: 520, margin: '0 auto 36px', lineHeight: 1.6 }}>
             Plateforme specialisee dans la preparation au TCF Canada. Tests en conditions reelles avec correction IA.
           </p>
 
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 56 }}>
+          <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 56 }}>
+            {/* Primary CTA — orange → turquoise on hover */}
             <Link to="/tarifs" style={{
               display: 'inline-flex', alignItems: 'center', gap: 8,
               padding: '17px 36px', fontSize: 16, fontWeight: 700,
-              background: 'white', color: 'var(--navy)', borderRadius: 'var(--radius-md)',
-              boxShadow: 'var(--shadow-sm)', transition: 'all 0.18s', textDecoration: 'none',
+              background: '#F98012', color: 'white', borderRadius: 999,
+              boxShadow: '0 4px 12px rgba(249, 128, 18, 0.3)', transition: 'all 0.3s ease', textDecoration: 'none',
+              border: 'none',
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.filter = 'brightness(0.95)' }}
-            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.filter = '' }}>
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.background = '#71C9CE'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(113, 201, 206, 0.35)' }}
+            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(249, 128, 18, 0.3)' }}>
               Choisir un forfait &rarr;
             </Link>
+            {/* Ghost CTA — navy border → orange fill on hover */}
             <Link to="/epreuve/comprehension-ecrite" style={{
               padding: '17px 36px', fontSize: 16, fontWeight: 700,
-              border: '1.5px solid oklch(100% 0 0 / 0.3)', color: 'white',
-              background: 'oklch(100% 0 0 / 0.08)', borderRadius: 'var(--radius-md)',
-              backdropFilter: 'blur(8px)', transition: 'all 0.18s', textDecoration: 'none',
+              border: '1.5px solid #0F3D58', color: '#0F3D58',
+              background: 'white', borderRadius: 999,
+              transition: 'all 0.3s ease', textDecoration: 'none',
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'oklch(100% 0 0 / 0.14)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'oklch(100% 0 0 / 0.08)'}>
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(249, 128, 18, 0.25)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = 'none' }}>
               Commencer gratuitement
             </Link>
           </div>
@@ -199,12 +203,13 @@ export default function HomePage() {
               [stats.sujets, 'Sujets Expression Orale'],
             ].map(([val, label]) => (
               <div key={label} style={{
-                background: 'oklch(100% 0 0 / 0.08)', backdropFilter: 'blur(12px)',
-                border: '1px solid oklch(100% 0 0 / 0.12)',
+                background: 'white',
+                border: '1px solid #e8e0d8',
                 borderRadius: 14, padding: '16px 8px', textAlign: 'center',
+                boxShadow: 'var(--shadow-sm)',
               }}>
-                <div style={{ fontSize: 28, fontWeight: 900, color: 'white', letterSpacing: '-0.03em' }}>{val}</div>
-                <div style={{ fontSize: 11, color: 'oklch(70% 0.04 240)', marginTop: 4, lineHeight: 1.3 }}>{label}</div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: '#0F3D58', letterSpacing: '-0.03em' }}>{val}</div>
+                <div style={{ fontSize: 11, color: '#6b8a9a', marginTop: 4, lineHeight: 1.3 }}>{label}</div>
               </div>
             ))}
           </div>
@@ -229,7 +234,7 @@ export default function HomePage() {
             inset: 0;
             border-radius: var(--radius-lg);
             padding: 2px;
-            background: linear-gradient(135deg, oklch(58% 0.14 235 / 0.5), oklch(48% 0.12 235 / 0.15), oklch(58% 0.14 235 / 0.5));
+            background: linear-gradient(135deg, rgba(249, 128, 18, 0.5), rgba(113, 201, 206, 0.3), rgba(15, 61, 88, 0.4));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
@@ -241,9 +246,22 @@ export default function HomePage() {
             opacity: 1;
           }
           .epreuve-card:hover {
-            box-shadow: 0 0 24px -4px oklch(55% 0.14 235 / 0.3), 0 8px 32px -8px oklch(0% 0 0 / 0.12);
+            box-shadow: 0 0 24px -4px rgba(249, 128, 18, 0.2), 0 8px 32px -8px rgba(15, 61, 88, 0.12);
             transform: translateY(-4px);
-            border-color: oklch(58% 0.14 235 / 0.3);
+            border-color: rgba(249, 128, 18, 0.3);
+          }
+          .btn-entrainer {
+            display: block; width: 100%; text-align: center;
+            background: #F98012; color: white;
+            padding: 11px 0; border-radius: 10px;
+            font-size: 14px; font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(249,128,18,0.3);
+          }
+          .btn-entrainer:hover {
+            background: #71C9CE; color: #0F3D58;
+            box-shadow: 0 4px 14px rgba(113,201,206,0.4);
+            transform: translateY(-1px);
           }
         `}</style>
         <SectionTitle title="Les 4 Epreuves du TCF Canada" subtitle="Preparez-vous a chaque competence avec des exercices authentiques et un simulateur en conditions reelles" />
@@ -269,9 +287,8 @@ export default function HomePage() {
                       <span style={{ background: 'var(--surface-2)', color: 'var(--text-3)', padding: '4px 12px', borderRadius: 'var(--radius-full)', fontSize: 12, fontWeight: 600 }}>{ep.score}</span>
                     </div>
                   </div>
-                  <div style={{ padding: '14px 24px', borderTop: '1px solid var(--border)', background: 'var(--surface)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: c.text }}>S'entrainer &rarr;</span>
-                    <div style={{ width: 32, height: 32, borderRadius: 8, background: c.light, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: c.text }}>&rarr;</div>
+                  <div style={{ padding: '12px 24px', borderTop: '1px solid var(--border)', background: 'var(--surface)' }}>
+                    <span className="btn-entrainer">S'entraîner →</span>
                   </div>
                 </div>
               </Link>
@@ -281,12 +298,16 @@ export default function HomePage() {
       </Section>
 
       {/* AVANTAGES */}
-      <Section bg="var(--surface-2)">
+      <Section bg="var(--surface-2)" style={{ position: 'relative', overflow: 'hidden' }}>
+        {/* Organic circles behind content */}
+        <div style={{ position: 'absolute', top: -60, right: -100, width: 350, height: 350, borderRadius: '50%', background: 'rgba(113, 201, 206, 0.08)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: -40, left: -80, width: 260, height: 260, borderRadius: '50%', background: 'rgba(249, 128, 18, 0.06)', pointerEvents: 'none' }} />
+
         <SectionTitle title="Pourquoi choisir Formation TCF Canada ?" subtitle="Tout ce dont vous avez besoin pour reussir votre TCF Canada au premier essai" />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, position: 'relative' }}>
           {AVANTAGES.map((a, i) => (
-            <Card key={i} style={{ padding: '24px 20px' }}>
-              <div style={{ marginBottom: 14, display: 'flex', width: 48, height: 48, background: 'var(--blue-pale)', borderRadius: 12, alignItems: 'center', justifyContent: 'center', color: 'var(--blue)' }}><a.icon size={24} /></div>
+            <Card key={i} style={{ padding: '24px 20px' }} hover>
+              <div style={{ marginBottom: 14, display: 'flex', width: 48, height: 48, background: i % 2 === 0 ? '#e8f7f8' : '#fef0e2', borderRadius: 12, alignItems: 'center', justifyContent: 'center', color: i % 2 === 0 ? '#0F3D58' : '#F98012' }}><a.icon size={24} /></div>
               <h4 style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-1)', marginBottom: 6, margin: '0 0 6px' }}>{a.title}</h4>
               <p style={{ fontSize: 13, color: 'var(--text-3)', lineHeight: 1.6, margin: 0 }}>{a.desc}</p>
             </Card>
@@ -302,23 +323,23 @@ export default function HomePage() {
             borderRadius: 24, padding: '48px 40px', color: 'white', textAlign: 'center',
             position: 'relative', overflow: 'hidden',
           }}>
-            <div style={{ position: 'absolute', top: -40, right: -40, width: 240, height: 240, borderRadius: '50%', background: 'oklch(100% 0 0 / 0.04)' }} />
-            <div style={{ position: 'absolute', bottom: -60, left: -30, width: 180, height: 180, borderRadius: '50%', background: 'var(--co-main)', opacity: 0.08 }} />
+            <div style={{ position: 'absolute', top: -40, right: -40, width: 240, height: 240, borderRadius: '50%', background: 'rgba(113, 201, 206, 0.12)', pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', bottom: -60, left: -30, width: 180, height: 180, borderRadius: '50%', background: 'rgba(249, 128, 18, 0.08)', pointerEvents: 'none' }} />
             <div style={{ position: 'relative' }}>
               <div style={{
                 width: 72, height: 72, borderRadius: '50%',
                 background: 'linear-gradient(135deg, var(--co-main), var(--blue))',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                margin: '0 auto 20px', boxShadow: '0 8px 24px oklch(0% 0 0 / 0.3)',
+                margin: '0 auto 20px', boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
                 color: 'white',
               }}><GraduationCap size={32} /></div>
               <h3 style={{ fontSize: 26, fontWeight: 900, marginBottom: 4, letterSpacing: '-0.03em', margin: '0 0 4px' }}>Hamid — Fondateur</h3>
-              <p style={{ color: 'oklch(75% 0.06 240)', marginBottom: 32, fontSize: 16, margin: '0 0 32px' }}>Expert TCF Canada depuis 2019</p>
+              <p style={{ color: 'rgba(160, 190, 210, 0.8)', marginBottom: 32, fontSize: 16, margin: '0 0 32px' }}>Expert TCF Canada depuis 2019</p>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
                 {[['5+', "Ans d'experience"], ['25 000+', 'Candidats accompagnes'], ['95%', 'Taux de reussite']].map(([v, l]) => (
                   <div key={l}>
                     <div style={{ fontSize: 36, fontWeight: 900, letterSpacing: '-0.04em' }}>{v}</div>
-                    <div style={{ fontSize: 13, color: 'oklch(68% 0.04 240)', marginTop: 4 }}>{l}</div>
+                    <div style={{ fontSize: 13, color: 'rgba(140, 175, 200, 0.8)', marginTop: 4 }}>{l}</div>
                   </div>
                 ))}
               </div>
@@ -350,15 +371,15 @@ export default function HomePage() {
                   background: 'var(--eo-main)', color: 'white',
                   padding: '4px 16px', borderRadius: 999, fontSize: 11, fontWeight: 800,
                   letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap',
-                  boxShadow: '0 4px 12px oklch(48% 0.12 235 / 0.4)',
+                  boxShadow: '0 4px 12px rgba(249, 128, 18, 0.35)',
                 }}>POPULAIRE</div>
               )}
-              <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 4, color: p.popular ? 'oklch(80% 0.04 240)' : 'var(--text-2)', margin: '0 0 4px' }}>{p.name}</h3>
+              <h3 style={{ fontSize: 17, fontWeight: 700, marginBottom: 4, color: p.popular ? 'rgba(200, 215, 225, 0.9)' : 'var(--text-2)', margin: '0 0 4px' }}>{p.name}</h3>
               <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 2, color: p.popular ? 'white' : 'var(--navy)' }}>${p.price}</div>
-              <div style={{ fontSize: 13, marginBottom: 24, color: p.popular ? 'oklch(65% 0.05 240)' : 'var(--text-3)' }}>/ {p.days} jours</div>
+              <div style={{ fontSize: 13, marginBottom: 24, color: p.popular ? 'rgba(249, 128, 18, 0.7)' : 'var(--text-3)' }}>/ {p.days} jours</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
                 {[`Acces toutes les epreuves`, `${p.credits} corrections IA Expression Ecrite`, `Suivi de progression`].map(f => (
-                  <div key={f} style={{ display: 'flex', gap: 10, fontSize: 13, color: p.popular ? 'oklch(78% 0.04 240)' : 'var(--text-2)', alignItems: 'flex-start' }}>
+                  <div key={f} style={{ display: 'flex', gap: 10, fontSize: 13, color: p.popular ? 'rgba(200, 215, 225, 0.85)' : 'var(--text-2)', alignItems: 'flex-start' }}>
                     <span style={{ color: 'var(--ce-main)', flexShrink: 0, fontWeight: 700 }}>&check;</span>{f}
                   </div>
                 ))}
@@ -368,10 +389,10 @@ export default function HomePage() {
                 background: p.popular ? 'white' : 'var(--navy)',
                 color: p.popular ? 'var(--navy)' : 'white',
                 borderRadius: 12, textAlign: 'center', textDecoration: 'none',
-                transition: 'filter 0.15s',
+                transition: 'all 0.3s ease',
               }}
-              onMouseEnter={e => e.currentTarget.style.filter = 'brightness(0.93)'}
-              onMouseLeave={e => e.currentTarget.style.filter = ''}>
+              onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(249,128,18,0.35)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = p.popular ? 'white' : 'var(--navy)'; e.currentTarget.style.color = p.popular ? 'var(--navy)' : 'white'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '' }}>
                 Choisir {p.name}
               </Link>
             </div>
@@ -431,32 +452,64 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* FAQ */}
-      <Section bg="var(--surface-2)">
-        <SectionTitle title="Questions frequentes" />
-        <div style={{ maxWidth: 760, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {FAQ.map((item, i) => (
-            <div key={i} style={{ background: 'var(--white)', borderRadius: 14, border: '1px solid var(--border)', overflow: 'hidden', boxShadow: 'var(--shadow-xs)' }}>
-              <button onClick={() => setFaqOpen(faqOpen === i ? null : i)} style={{
-                width: '100%', padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                textAlign: 'left', fontFamily: 'var(--font)',
-              }}>
-                <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-1)', paddingRight: 16, lineHeight: 1.4 }}>{item.q}</span>
-                <span style={{
-                  width: 28, height: 28, borderRadius: '50%',
-                  background: faqOpen === i ? 'var(--navy)' : 'var(--surface-2)',
-                  color: faqOpen === i ? 'white' : 'var(--text-2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16, fontWeight: 700, flexShrink: 0, transition: 'all 0.2s',
-                }}>{faqOpen === i ? '\u2212' : '+'}</span>
-              </button>
-              {faqOpen === i && (
-                <div style={{ padding: '0 22px 18px', fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, borderTop: '1px solid var(--border)' }}>
-                  <div style={{ paddingTop: 14 }}>{item.a}</div>
-                </div>
-              )}
-            </div>
-          ))}
+      {/* FAQ — Moodle layout: titre serif gauche + questions droite */}
+      <Section bg="var(--surface-2)" style={{ position: 'relative', overflow: 'hidden' }}>
+        {/* Organic circles */}
+        <div style={{ position: 'absolute', top: -80, left: -80, width: 300, height: 300, borderRadius: '50%', background: 'rgba(113, 201, 206, 0.08)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', bottom: -60, right: -60, width: 220, height: 220, borderRadius: '50%', background: 'rgba(249, 128, 18, 0.06)', pointerEvents: 'none' }} />
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.8fr', gap: 48, alignItems: 'flex-start', position: 'relative' }}>
+          {/* Left — Title + CTA */}
+          <div style={{ position: 'sticky', top: 120 }}>
+            <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(26px, 3vw, 36px)', fontWeight: 900, color: '#0F3D58', lineHeight: 1.2, margin: '0 0 16px' }}>
+              Questions frequemment posees
+            </h2>
+            <p style={{ fontSize: 15, color: 'var(--text-3)', lineHeight: 1.6, margin: '0 0 28px' }}>
+              Trouvez les reponses aux questions les plus courantes sur notre plateforme.
+            </p>
+            <Link to="/faq" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '14px 28px', fontSize: 14, fontWeight: 700,
+              border: '1.5px solid #0F3D58', color: '#0F3D58',
+              background: 'white', borderRadius: 999,
+              transition: 'all 0.3s ease', textDecoration: 'none',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = 'white' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' }}>
+              Voir toutes les FAQ &rarr;
+            </Link>
+          </div>
+
+          {/* Right — Numbered questions */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {FAQ.map((item, i) => (
+              <div key={i} style={{ background: 'var(--white)', borderRadius: 16, border: '1px solid var(--border)', overflow: 'hidden', boxShadow: 'var(--shadow-xs)', transition: 'box-shadow 0.3s' }}>
+                <button onClick={() => setFaqOpen(faqOpen === i ? null : i)} style={{
+                  width: '100%', padding: '18px 22px', display: 'flex', alignItems: 'center', gap: 16,
+                  textAlign: 'left', fontFamily: 'var(--font)',
+                }}>
+                  {/* Orange number */}
+                  <span style={{
+                    width: 32, height: 32, borderRadius: '50%',
+                    background: faqOpen === i ? '#F98012' : '#FDF2E9',
+                    color: faqOpen === i ? 'white' : '#F98012',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: 14, fontWeight: 800, flexShrink: 0, transition: 'all 0.3s',
+                  }}>{i + 1}</span>
+                  <span style={{ flex: 1, fontSize: 15, fontWeight: 600, color: 'var(--text-1)', lineHeight: 1.4 }}>{item.q}</span>
+                  {/* Chevron */}
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={faqOpen === i ? '#F98012' : '#9bb0bc'} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, transition: 'all 0.3s', transform: faqOpen === i ? 'rotate(180deg)' : 'rotate(0)' }}>
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+                {faqOpen === i && (
+                  <div style={{ padding: '0 22px 18px 70px', fontSize: 14, color: 'var(--text-2)', lineHeight: 1.7, borderTop: '1px solid var(--border)' }}>
+                    <div style={{ paddingTop: 14 }}>{item.a}</div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
 
@@ -467,30 +520,30 @@ export default function HomePage() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
               display: 'flex', alignItems: 'center', gap: 16,
-              background: 'var(--ce-main)', color: 'white', padding: '20px 24px',
-              borderRadius: 16, textDecoration: 'none', transition: 'filter 0.15s',
-              boxShadow: '0 4px 16px oklch(48% 0.12 235 / 0.35)',
+              background: 'white', color: '#0F3D58', padding: '20px 24px',
+              borderRadius: 16, textDecoration: 'none', transition: 'all 0.3s ease',
+              border: '2px solid #71C9CE', boxShadow: '0 2px 12px rgba(113,201,206,0.2)',
             }}
-            onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.1)'}
-            onMouseLeave={e => e.currentTarget.style.filter = ''}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><MessageCircle size={28} /></div>
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(249,128,18,0.35)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.borderColor = '#71C9CE'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 12px rgba(113,201,206,0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#71C9CE' }}><MessageCircle size={28} /></div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: 16 }}>WhatsApp</div>
-                <div style={{ fontSize: 14, opacity: 0.85 }}>+1 514 746 7431</div>
+                <div style={{ fontSize: 14, color: 'var(--text-3)' }}>+1 514 746 7431</div>
               </div>
             </a>
             <a href="mailto:hamid@formation-tcf.com" style={{
               display: 'flex', alignItems: 'center', gap: 16,
-              background: 'var(--navy)', color: 'white', padding: '20px 24px',
-              borderRadius: 16, textDecoration: 'none', transition: 'filter 0.15s',
-              boxShadow: 'var(--shadow-md)',
+              background: 'white', color: '#0F3D58', padding: '20px 24px',
+              borderRadius: 16, textDecoration: 'none', transition: 'all 0.3s ease',
+              border: '2px solid #71C9CE', boxShadow: '0 2px 12px rgba(113,201,206,0.2)',
             }}
-            onMouseEnter={e => e.currentTarget.style.filter = 'brightness(1.15)'}
-            onMouseLeave={e => e.currentTarget.style.filter = ''}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Mail size={28} /></div>
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(249,128,18,0.35)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.borderColor = '#71C9CE'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 12px rgba(113,201,206,0.2)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#71C9CE' }}><Mail size={28} /></div>
               <div>
                 <div style={{ fontWeight: 700, fontSize: 16 }}>Email</div>
-                <div style={{ fontSize: 14, opacity: 0.75 }}>hamid@formation-tcf.com</div>
+                <div style={{ fontSize: 14, color: 'var(--text-3)' }}>hamid@formation-tcf.com</div>
               </div>
             </a>
           </div>
@@ -506,11 +559,11 @@ export default function HomePage() {
               <button style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '11px 22px', fontSize: 14, fontWeight: 700,
-                background: 'var(--navy)', color: 'white', borderRadius: 'var(--radius-md)',
-                boxShadow: '0 2px 8px oklch(24% 0.08 240 / 0.35)', transition: 'all 0.18s',
+                background: '#F98012', color: 'white', borderRadius: 'var(--radius-md)',
+                boxShadow: '0 3px 10px rgba(249,128,18,0.35)', transition: 'all 0.3s ease',
               }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.filter = 'brightness(1.08)' }}
-              onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.filter = '' }}>
+              onMouseEnter={e => { e.currentTarget.style.background = '#71C9CE'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(113,201,206,0.4)' }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 3px 10px rgba(249,128,18,0.35)' }}>
                 Envoyer &rarr;
               </button>
             </div>

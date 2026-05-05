@@ -58,22 +58,22 @@ export default function Navbar() {
           transition: transform 0.3s cubic-bezier(.4,0,.2,1);
         }
         .nav-mobile-drawer.open { transform: translateX(0); }
-        .epreuve-bar-btn:hover { color: white !important; }
+        .epreuve-bar-btn:hover { color: #F98012 !important; }
       `}</style>
 
       <nav style={{
         position: 'sticky', top: 0, zIndex: 100,
-        background: scrolled ? 'oklch(24% 0.08 240 / 0.97)' : 'var(--navy)',
+        background: scrolled ? 'rgba(15, 61, 88, 0.97)' : 'var(--navy)',
         backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        boxShadow: scrolled ? '0 1px 24px oklch(0% 0 0 / 0.18)' : 'none',
+        boxShadow: scrolled ? '0 1px 24px rgba(0, 0, 0, 0.18)' : 'none',
         transition: 'all 0.3s ease',
-        borderBottom: '1px solid oklch(100% 0 0 / 0.08)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
       }}>
         {/* Primary Bar */}
         <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Logo */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{ background: 'white', borderRadius: 10, padding: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px oklch(0% 0 0 / 0.2)' }}>
+            <div style={{ background: 'white', borderRadius: 10, padding: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' }}>
               <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="TCF Canada" style={{ height: 44, width: 'auto', objectFit: 'contain' }} />
             </div>
             <span style={{ color: 'white', fontWeight: 800, fontSize: 16, letterSpacing: '-0.02em' }}>Formation TCF Canada</span>
@@ -87,23 +87,23 @@ export default function Navbar() {
               ['/calculateur-nclc', 'Calculateur NCLC'],
             ].map(([path, label]) => (
               <Link key={path} to={path} style={{
-                color: currentPath === path ? 'white' : 'oklch(80% 0.04 240)',
-                background: currentPath === path ? 'oklch(100% 0 0 / 0.12)' : 'none',
+                color: 'white',
+                background: currentPath === path ? 'rgba(255, 255, 255, 0.12)' : 'none',
                 padding: '8px 14px', borderRadius: 8, fontSize: 14, fontWeight: 600,
                 transition: 'all 0.15s', textDecoration: 'none',
               }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'white'; e.currentTarget.style.background = 'oklch(100% 0 0 / 0.1)' }}
-              onMouseLeave={e => { e.currentTarget.style.color = currentPath === path ? 'white' : 'oklch(80% 0.04 240)'; e.currentTarget.style.background = currentPath === path ? 'oklch(100% 0 0 / 0.12)' : 'none' }}>
+              onMouseEnter={e => { e.currentTarget.style.color = '#F98012'; e.currentTarget.style.background = 'rgba(249, 128, 18, 0.1)' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'white'; e.currentTarget.style.background = currentPath === path ? 'rgba(255, 255, 255, 0.12)' : 'none' }}>
                 {label}
               </Link>
             ))}
             <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
-              color: 'oklch(78% 0.18 145)', fontWeight: 700, fontSize: 14, padding: '8px 14px',
+              color: 'white', fontWeight: 700, fontSize: 14, padding: '8px 14px',
               borderRadius: 8, transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 6,
               textDecoration: 'none',
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'oklch(100% 0 0 / 0.08)' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'none' }}>
+            onMouseEnter={e => { e.currentTarget.style.color = '#F98012'; e.currentTarget.style.background = 'rgba(249, 128, 18, 0.1)' }}
+            onMouseLeave={e => { e.currentTarget.style.color = 'white'; e.currentTarget.style.background = 'none' }}>
               <MessageCircle size={14} /> WhatsApp
             </a>
           </div>
@@ -122,38 +122,38 @@ export default function Navbar() {
             {user ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Link to="/mon-compte" style={{
-                  background: 'oklch(100% 0 0 / 0.12)', color: 'white', padding: '8px 14px',
+                  background: 'rgba(255, 255, 255, 0.12)', color: 'white', padding: '8px 14px',
                   borderRadius: 8, fontSize: 14, fontWeight: 600, textDecoration: 'none',
                   display: 'flex', alignItems: 'center', gap: 6, transition: 'background 0.15s',
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = 'oklch(100% 0 0 / 0.18)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'oklch(100% 0 0 / 0.12)'}>
+                onMouseEnter={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.18)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.12)'}>
                   <User size={14} /> {profile?.full_name?.split(' ')[0] || 'Mon Compte'}
                 </Link>
                 <button onClick={handleSignOut} style={{
-                  color: 'oklch(80% 0.04 240)', padding: 8, borderRadius: 8, transition: 'color 0.15s',
-                }} onMouseEnter={e => e.currentTarget.style.color = 'white'}
-                   onMouseLeave={e => e.currentTarget.style.color = 'oklch(80% 0.04 240)'}>
+                  color: 'white', padding: 8, borderRadius: 8, transition: 'color 0.15s',
+                }} onMouseEnter={e => e.currentTarget.style.color = '#F98012'}
+                   onMouseLeave={e => e.currentTarget.style.color = 'white'}>
                   <LogOut size={18} />
                 </button>
               </div>
             ) : (
               <>
                 <button onClick={() => openModal('login')} style={{
-                  color: 'oklch(80% 0.04 240)', fontSize: 14, fontWeight: 600, padding: '8px 12px',
+                  color: 'white', fontSize: 14, fontWeight: 600, padding: '8px 12px',
                   borderRadius: 8, transition: 'color 0.15s',
                 }}
-                onMouseEnter={e => e.currentTarget.style.color = 'white'}
-                onMouseLeave={e => e.currentTarget.style.color = 'oklch(80% 0.04 240)'}>
+                onMouseEnter={e => e.currentTarget.style.color = '#F98012'}
+                onMouseLeave={e => e.currentTarget.style.color = 'white'}>
                   Connexion
                 </button>
                 <button onClick={() => openModal('signup')} style={{
-                  background: 'white', color: 'var(--navy)', padding: '9px 18px',
-                  borderRadius: 10, fontSize: 14, fontWeight: 700, transition: 'filter 0.15s',
-                  boxShadow: 'var(--shadow-sm)',
+                  background: '#F98012', color: 'white', padding: '9px 18px',
+                  borderRadius: 999, fontSize: 14, fontWeight: 700, transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 12px rgba(249, 128, 18, 0.3)',
                 }}
-                onMouseEnter={e => e.currentTarget.style.filter = 'brightness(0.95)'}
-                onMouseLeave={e => e.currentTarget.style.filter = ''}>
+                onMouseEnter={e => { e.currentTarget.style.background = '#71C9CE'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(113, 201, 206, 0.35)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 4px 12px rgba(249, 128, 18, 0.3)' }}>
                   Commencer gratuitement
                 </button>
               </>
@@ -176,21 +176,21 @@ export default function Navbar() {
         </div>
 
         {/* Epreuves Bar - desktop only */}
-        <div className="nav-epreuves-bar" style={{ borderTop: '1px solid oklch(100% 0 0 / 0.07)', background: 'oklch(20% 0.07 240 / 0.5)' }}>
+        <div className="nav-epreuves-bar" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', background: 'rgba(10, 48, 70, 0.6)' }}>
           <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', gap: 2 }}>
             <Link to="/" className="epreuve-bar-btn" style={{
-              color: currentPath === '/' ? 'white' : 'oklch(72% 0.04 240)',
-              background: currentPath === '/' ? 'oklch(100% 0 0 / 0.1)' : 'none',
+              color: 'white',
+              background: currentPath === '/' ? 'rgba(255, 255, 255, 0.1)' : 'none',
               padding: '9px 14px', fontSize: 13, fontWeight: 600,
               borderRadius: 6, transition: 'all 0.15s', display: 'flex', alignItems: 'center', gap: 6,
               textDecoration: 'none',
             }}><Home size={14} /> Accueil</Link>
-            <div style={{ width: 1, height: 18, background: 'oklch(100% 0 0 / 0.15)', margin: '0 4px' }} />
+            <div style={{ width: 1, height: 18, background: 'rgba(255, 255, 255, 0.15)', margin: '0 4px' }} />
             {epreuves.map(ep => {
               const active = currentPath.startsWith(ep.path)
               return (
                 <Link key={ep.path} to={ep.path} className="epreuve-bar-btn" style={{
-                  color: active ? 'white' : 'oklch(72% 0.04 240)',
+                  color: 'white',
                   background: active ? `color-mix(in srgb, ${ep.color} 20%, transparent)` : 'none',
                   padding: '9px 14px', fontSize: 13, fontWeight: 600,
                   borderRadius: 6, transition: 'all 0.15s', whiteSpace: 'nowrap',
@@ -206,23 +206,23 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div className={`nav-mobile-drawer${mobileOpen ? ' open' : ''}`}>
-        <div style={{ padding: '20px 24px', borderBottom: '1px solid oklch(100% 0 0 / 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <div style={{ background: 'white', borderRadius: 8, padding: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <img src={`${import.meta.env.BASE_URL}images/logo.png`} alt="TCF Canada" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
             </div>
             <span style={{ color: 'white', fontWeight: 800, fontSize: 15 }}>Formation TCF Canada</span>
           </div>
-          <button onClick={() => setMobileOpen(false)} style={{ background: 'oklch(100% 0 0 / 0.12)', color: 'white', width: 36, height: 36, borderRadius: 8, fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>&#x2715;</button>
+          <button onClick={() => setMobileOpen(false)} style={{ background: 'rgba(255, 255, 255, 0.12)', color: 'white', width: 36, height: 36, borderRadius: 8, fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>&#x2715;</button>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'oklch(55% 0.04 240)', textTransform: 'uppercase', marginBottom: 12 }}>Epreuves TCF</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'rgba(249, 128, 18, 0.7)', textTransform: 'uppercase', marginBottom: 12 }}>Epreuves TCF</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 28 }}>
             {epreuves.map(ep => (
               <button key={ep.path} onClick={() => nav(ep.path)} style={{
-                background: currentPath.startsWith(ep.path) ? `color-mix(in srgb, ${ep.color} 15%, transparent)` : 'oklch(100% 0 0 / 0.06)',
-                border: `1px solid ${currentPath.startsWith(ep.path) ? `color-mix(in srgb, ${ep.color} 30%, transparent)` : 'oklch(100% 0 0 / 0.1)'}`,
+                background: currentPath.startsWith(ep.path) ? `color-mix(in srgb, ${ep.color} 15%, transparent)` : 'rgba(255, 255, 255, 0.06)',
+                border: `1px solid ${currentPath.startsWith(ep.path) ? `color-mix(in srgb, ${ep.color} 30%, transparent)` : 'rgba(255, 255, 255, 0.1)'}`,
                 borderRadius: 14, padding: '14px 12px', textAlign: 'left',
               }}>
                 <div style={{ marginBottom: 6 }}><ep.icon size={22} style={{ color: 'white' }} /></div>
@@ -231,12 +231,12 @@ export default function Navbar() {
             ))}
           </div>
 
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'oklch(55% 0.04 240)', textTransform: 'uppercase', marginBottom: 12 }}>Navigation</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: 'rgba(249, 128, 18, 0.7)', textTransform: 'uppercase', marginBottom: 12 }}>Navigation</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4, marginBottom: 28 }}>
             {[['/', Home, 'Accueil'], ['/formations', GraduationCap, 'Formations Zoom'], ['/tarifs', DollarSign, 'Tarifs'], ['/calculateur-nclc', Calculator, 'Calculateur NCLC']].map(([path, Icon, label]) => (
               <button key={path} onClick={() => nav(path)} style={{
                 display: 'flex', alignItems: 'center', gap: 12,
-                background: currentPath === path ? 'oklch(100% 0 0 / 0.1)' : 'none',
+                background: currentPath === path ? 'rgba(255, 255, 255, 0.1)' : 'none',
                 padding: '12px 16px', borderRadius: 12,
                 color: 'white', fontSize: 15, fontWeight: 600, textAlign: 'left',
               }}>
@@ -249,18 +249,18 @@ export default function Navbar() {
             {user ? (
               <>
                 <button onClick={() => nav('/mon-compte')} style={{
-                  background: 'oklch(100% 0 0 / 0.1)', border: '1px solid oklch(100% 0 0 / 0.2)',
+                  background: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)',
                   color: 'white', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
                 }}>Mon Compte</button>
                 <button onClick={() => { handleSignOut(); setMobileOpen(false) }} style={{
-                  background: 'oklch(52% 0.20 25 / 0.2)', border: '1px solid oklch(52% 0.20 25 / 0.3)',
-                  color: 'oklch(80% 0.10 25)', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
+                  background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.3)',
+                  color: '#f87171', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
                 }}>Deconnexion</button>
               </>
             ) : (
               <>
                 <button onClick={() => { openModal('login'); setMobileOpen(false) }} style={{
-                  background: 'oklch(100% 0 0 / 0.1)', border: '1px solid oklch(100% 0 0 / 0.2)',
+                  background: 'rgba(255, 255, 255, 0.1)', border: '1px solid rgba(255, 255, 255, 0.2)',
                   color: 'white', padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700,
                 }}>Se connecter</button>
                 <button onClick={() => { openModal('signup'); setMobileOpen(false) }} style={{
@@ -271,7 +271,7 @@ export default function Navbar() {
             )}
             <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-              background: 'oklch(46% 0.17 145)', color: 'white',
+              background: '#25a56a', color: 'white',
               padding: 14, borderRadius: 12, fontSize: 15, fontWeight: 700, textDecoration: 'none',
             }}><MessageCircle size={16} /> WhatsApp</a>
           </div>

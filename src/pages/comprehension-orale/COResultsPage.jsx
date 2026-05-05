@@ -14,14 +14,14 @@ const LEVEL_COLORS = {
 }
 
 const NCLC_COLORS = {
-  10: 'bg-[oklch(48%_0.12_235)]',
-  9: 'bg-[oklch(50%_0.12_235)]',
-  8: 'bg-[oklch(53%_0.11_235)]',
-  7: 'bg-[oklch(56%_0.10_235)]',
-  6: 'bg-[oklch(59%_0.09_235)]',
-  5: 'bg-[oklch(62%_0.08_235)]',
-  4: 'bg-[oklch(65%_0.07_235)]',
-  3: 'bg-[oklch(68%_0.06_235)]',
+  10: 'bg-[#0F3D58]',
+  9: 'bg-[#F98012]',
+  8: 'bg-[#F98012]',
+  7: 'bg-[#71C9CE]',
+  6: 'bg-[#71C9CE]',
+  5: 'bg-[#71C9CE]',
+  4: 'bg-[#9bb0bc]',
+  3: 'bg-[#9bb0bc]',
 }
 
 const LEVEL_RANGES = [
@@ -61,7 +61,7 @@ export default function COResultsPage() {
         <h2 className="text-xl font-bold text-gray-700 mb-4">Résultats non disponibles</h2>
         <Link
           to="/epreuve/comprehension-orale/series"
-          className="bg-[#1A5276] text-white px-6 py-3 rounded-xl font-bold no-underline"
+          className="bg-[#0F3D58] text-white px-6 py-3 rounded-xl font-bold no-underline"
         >
           ← Retour aux séries
         </Link>
@@ -94,7 +94,7 @@ export default function COResultsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* En-tête résultat */}
-      <div className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] rounded-3xl p-8 text-white mb-6 text-center">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] rounded-3xl p-8 text-white mb-6 text-center">
         <div className="text-sm font-medium text-blue-200 mb-2">{seriesTitle}</div>
         <h1 className="text-2xl font-extrabold mb-6">Résultats — Compréhension Orale</h1>
 
@@ -121,7 +121,7 @@ export default function COResultsPage() {
             <div className="relative w-24 h-24 shrink-0">
               <svg className="w-24 h-24 -rotate-90" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e5e7eb" strokeWidth="3" />
-                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#1A5276" strokeWidth="3"
+                <circle cx="18" cy="18" r="15.9" fill="none" stroke="#0F3D58" strokeWidth="3"
                   strokeDasharray={`${pct} ${100 - pct}`} strokeLinecap="round" />
               </svg>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -170,7 +170,7 @@ export default function COResultsPage() {
               <div className="flex-1 bg-gray-100 rounded-full h-2.5 overflow-hidden">
                 <div
                   className={`h-2.5 rounded-full transition-all ${
-                    b.correct === b.count ? 'bg-blue-500' : b.correct === 0 ? 'bg-red-400' : 'bg-blue-400'
+                    b.correct === b.count ? 'bg-[#0F3D58]' : b.correct === 0 ? 'bg-red-400' : 'bg-[#F98012]'
                   }`}
                   style={{ width: b.count > 0 ? `${(b.correct / b.count) * 100}%` : '0%' }}
                 />
@@ -190,7 +190,7 @@ export default function COResultsPage() {
           className="w-full flex items-center justify-between p-6 hover:bg-gray-50 transition-colors"
         >
           <h3 className="font-bold text-gray-900 flex items-center gap-2"><ClipboardList size={16} /> Revue detaillee des questions</h3>
-          <span className="text-[#1A5276] text-xl">{openReview ? '−' : '+'}</span>
+          <span className="text-[#0F3D58] text-xl">{openReview ? '−' : '+'}</span>
         </button>
 
         {openReview && (
@@ -237,7 +237,7 @@ export default function COResultsPage() {
                         <span className="text-xs text-blue-500 font-medium inline-flex items-center gap-0.5"><Headphones size={12} /> Audio</span>
                       )}
                       {q.image_url && (
-                        <span className="text-xs text-purple-500 font-medium inline-flex items-center gap-0.5"><Image size={12} /> Image</span>
+                        <span className="text-xs text-blue-500 font-medium inline-flex items-center gap-0.5"><Image size={12} /> Image</span>
                       )}
                     </div>
 
@@ -281,13 +281,13 @@ export default function COResultsPage() {
       <div className="flex flex-col sm:flex-row gap-3">
         <Link
           to="/epreuve/comprehension-orale/series"
-          className="flex-1 bg-[#1A5276] hover:bg-[#154360] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-[#0F3D58] hover:bg-[#F98012] text-white text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Choisir une autre série
         </Link>
         <Link
           to={`/epreuve/comprehension-orale/entrainement/${seriesSlug || ''}`}
-          className="flex-1 bg-white border-2 border-[#1A5276] text-[#1A5276] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Refaire cette série
         </Link>

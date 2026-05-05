@@ -110,8 +110,8 @@ const CATEGORIES = [
 
 const COLOR_STYLES = {
   red:    { badge: 'bg-red-100 text-red-700', dot: 'bg-red-500' },
-  blue:   { badge: 'bg-blue-100 text-blue-700', dot: 'bg-blue-500' },
-  purple: { badge: 'bg-purple-100 text-purple-700', dot: 'bg-purple-500' },
+  blue:   { badge: 'bg-[#FDF2E9] text-[#0F3D58]', dot: 'bg-[#0F3D58]' },
+  purple: { badge: 'bg-[#FDF2E9] text-[#0F3D58]', dot: 'bg-[#F98012]' },
   green:  { badge: 'bg-green-100 text-green-700', dot: 'bg-green-500' },
   gray:   { badge: 'bg-gray-100 text-gray-600', dot: 'bg-gray-400' },
 }
@@ -123,7 +123,7 @@ function FAQItem({ q, a }) {
       <button onClick={() => setOpen(o => !o)}
         className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-gray-50 transition-colors gap-3">
         <span className="text-sm font-semibold text-gray-800 leading-snug">{q}</span>
-        {open ? <ChevronUp size={16} className="text-purple-500 shrink-0" /> : <ChevronDown size={16} className="text-gray-400 shrink-0" />}
+        {open ? <ChevronUp size={16} className="text-blue-500 shrink-0" /> : <ChevronDown size={16} className="text-gray-400 shrink-0" />}
       </button>
       {open && (
         <div className="px-5 pb-4 border-t border-gray-100 bg-gray-50/50">
@@ -146,7 +146,7 @@ export default function FAQPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] text-white py-14 px-4">
+      <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] text-white py-14 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <HelpCircle size={32} className="text-white" />
@@ -174,7 +174,7 @@ export default function FAQPage() {
             {filtered.length === 0 ? (
               <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
                 <p className="text-gray-400 text-sm">Aucune question trouvée.</p>
-                <button onClick={() => setSearch('')} className="mt-3 text-sm text-[#1A5276] font-semibold hover:underline">Effacer la recherche</button>
+                <button onClick={() => setSearch('')} className="mt-3 text-sm text-[#0F3D58] font-semibold hover:underline">Effacer la recherche</button>
               </div>
             ) : (
               <div className="bg-white rounded-2xl border border-gray-100 shadow-sm divide-y divide-gray-50 overflow-hidden">
@@ -206,7 +206,7 @@ export default function FAQPage() {
         })}
 
         {/* Contact CTA */}
-        <div className="bg-gradient-to-br from-[#1A5276] to-[#2E86C1] rounded-2xl p-6 text-white text-center">
+        <div className="bg-gradient-to-br from-[#0F3D58] to-[#164b6b] rounded-2xl p-6 text-white text-center">
           <MessageCircle size={28} className="mx-auto mb-3 opacity-80" />
           <h3 className="font-extrabold text-lg mb-1">Vous n'avez pas trouvé votre réponse ?</h3>
           <p className="text-blue-200 text-sm mb-4">Notre équipe répond en moins de 24h</p>
@@ -217,7 +217,7 @@ export default function FAQPage() {
               <MessageCircle size={16} /> WhatsApp
             </a>
             <a href="mailto:hamid@formation-tcf.com?subject=Question sur la plateforme TCF Canada"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#1A5276] font-bold px-5 py-2.5 rounded-xl text-sm no-underline hover:bg-blue-50 transition-colors">
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#0F3D58] font-bold px-5 py-2.5 rounded-xl text-sm no-underline hover:bg-blue-50 transition-colors">
               <Mail size={16} /> Email
             </a>
           </div>
@@ -225,11 +225,11 @@ export default function FAQPage() {
 
         {/* Back */}
         <div className="flex items-center justify-center gap-4 py-2 text-sm text-gray-400">
-          <Link to="/" className="hover:text-[#1A5276] no-underline transition-colors">← Accueil</Link>
+          <Link to="/" className="hover:text-[#0F3D58] no-underline transition-colors">← Accueil</Link>
           <span>·</span>
-          <Link to="/confidentialite" className="hover:text-[#1A5276] no-underline transition-colors">Confidentialité</Link>
+          <Link to="/confidentialite" className="hover:text-[#0F3D58] no-underline transition-colors">Confidentialité</Link>
           <span>·</span>
-          <Link to="/conditions" className="hover:text-[#1A5276] no-underline transition-colors">Conditions</Link>
+          <Link to="/conditions" className="hover:text-[#0F3D58] no-underline transition-colors">Conditions</Link>
         </div>
       </div>
     </div>

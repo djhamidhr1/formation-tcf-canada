@@ -42,13 +42,13 @@ export default function CETipsPage() {
                   <td className="py-3 px-3">
                     <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${b.color}`}>{b.level}</span>
                   </td>
-                  <td className="py-3 px-3 font-bold text-[oklch(48% 0.12 235)]">{b.pts} pts</td>
+                  <td className="py-3 px-3 font-bold text-[#0F3D58]">{b.pts} pts</td>
                   <td className="py-3 px-3 text-right text-gray-500">{b.pts * (b.range === 'Q1–4' ? 4 : b.range === 'Q5–10' ? 6 : b.range === 'Q11–19' ? 9 : b.range === 'Q20–29' ? 10 : b.range === 'Q30–35' ? 6 : 4)} pts</td>
                 </tr>
               ))}
               <tr className="bg-blue-50 font-bold">
                 <td className="py-3 px-3" colSpan={3}>TOTAL MAXIMUM</td>
-                <td className="py-3 px-3 text-right text-[oklch(48% 0.12 235)]">699 pts</td>
+                <td className="py-3 px-3 text-right text-[#0F3D58]">699 pts</td>
               </tr>
             </tbody>
           </table>

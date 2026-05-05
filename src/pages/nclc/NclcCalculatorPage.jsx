@@ -33,16 +33,16 @@ export default function NclcCalculatorPage() {
     <div>
       <div style={{ background: 'linear-gradient(145deg, var(--navy), var(--navy-mid))', padding: '64px 24px 48px', textAlign: 'center' }}>
         <h1 style={{ fontSize: 48, fontWeight: 900, color: 'white', letterSpacing: '-0.04em', marginBottom: 12, margin: '0 0 12px' }}>Calculateur NCLC</h1>
-        <p style={{ fontSize: 17, color: 'oklch(72% 0.04 240)', maxWidth: 500, margin: '0 auto' }}>Estimez votre niveau linguistique canadien (NCLC) selon vos scores aux 4 epreuves TCF.</p>
+        <p style={{ fontSize: 17, color: 'rgba(160, 190, 210, 0.85)', maxWidth: 500, margin: '0 auto' }}>Estimez votre niveau linguistique canadien (NCLC) selon vos scores aux 4 epreuves TCF.</p>
       </div>
 
       <section style={{ padding: '72px 24px' }}>
         <div style={{ maxWidth: 820, margin: '0 auto' }}>
           {minNclc && (
             <div style={{ background: 'var(--navy)', borderRadius: 20, padding: '28px 32px', textAlign: 'center', marginBottom: 32, color: 'white' }}>
-              <div style={{ fontSize: 14, color: 'oklch(72% 0.04 240)', marginBottom: 6 }}>Votre niveau NCLC minimum</div>
+              <div style={{ fontSize: 14, color: 'rgba(160, 190, 210, 0.85)', marginBottom: 6 }}>Votre niveau NCLC minimum</div>
               <div style={{ fontSize: 64, fontWeight: 900, letterSpacing: '-0.04em' }}>NCLC {minNclc}</div>
-              <div style={{ fontSize: 13, color: 'oklch(60% 0.04 240)', marginTop: 6 }}>Niveau le plus bas des 4 competences</div>
+              <div style={{ fontSize: 13, color: 'rgba(140, 175, 200, 0.75)', marginTop: 6 }}>Niveau le plus bas des 4 competences</div>
             </div>
           )}
 

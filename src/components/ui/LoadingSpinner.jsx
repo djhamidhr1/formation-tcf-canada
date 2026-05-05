@@ -1,4 +1,4 @@
-export default function LoadingSpinner({ size = 'md', color = '#1A5276' }) {
+export default function LoadingSpinner({ size = 'md', color = '#0F3D58' }) {
   const sizes = { sm: 20, md: 36, lg: 56 }
   const s = sizes[size] || sizes.md
   return (

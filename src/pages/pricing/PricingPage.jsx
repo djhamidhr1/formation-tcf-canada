@@ -129,7 +129,7 @@ export default function PricingPage() {
         <p
           style={{
             fontSize: '1.125rem',
-            color: 'oklch(90% 0.02 240)',
+            color: '#FDF2E9',
             maxWidth: 560,
             margin: '0 auto 40px',
             lineHeight: 1.6,
@@ -142,7 +142,7 @@ export default function PricingPage() {
         <div
           style={{
             display: 'inline-flex',
-            background: 'oklch(100% 0 0 / 0.1)',
+            background: 'rgba(255, 255, 255, 0.1)',
             borderRadius: 'var(--radius-lg)',
             padding: 4,
             gap: 4,
@@ -165,7 +165,7 @@ export default function PricingPage() {
                 fontFamily: 'var(--font)',
                 transition: 'all 0.2s',
                 background: tab === key ? 'var(--white)' : 'transparent',
-                color: tab === key ? 'var(--navy)' : 'oklch(100% 0 0 / 0.7)',
+                color: tab === key ? 'var(--navy)' : 'rgba(255, 255, 255, 0.7)',
                 boxShadow: tab === key ? 'var(--shadow-sm)' : 'none',
               }}
             >
@@ -214,7 +214,7 @@ export default function PricingPage() {
                       top: -14,
                       left: '50%',
                       transform: 'translateX(-50%)',
-                      background: '#f59e0b',
+                      background: '#F98012',
                       color: '#fff',
                       fontSize: '0.75rem',
                       fontWeight: 700,
@@ -252,7 +252,7 @@ export default function PricingPage() {
                   <span
                     style={{
                       fontSize: '0.875rem',
-                      color: isPopular ? 'oklch(100% 0 0 / 0.6)' : 'var(--text-3)',
+                      color: isPopular ? 'rgba(255, 255, 255, 0.6)' : 'var(--text-3)',
                     }}
                   >
                     USD
@@ -262,7 +262,7 @@ export default function PricingPage() {
                 <p
                   style={{
                     fontSize: '0.875rem',
-                    color: isPopular ? 'oklch(100% 0 0 / 0.6)' : 'var(--text-3)',
+                    color: isPopular ? 'rgba(255, 255, 255, 0.6)' : 'var(--text-3)',
                     margin: '0 0 24px',
                   }}
                 >
@@ -280,7 +280,7 @@ export default function PricingPage() {
                         alignItems: 'flex-start',
                         gap: 10,
                         fontSize: '0.875rem',
-                        color: isPopular ? 'oklch(100% 0 0 / 0.85)' : 'var(--text-2)',
+                        color: isPopular ? 'rgba(255, 255, 255, 0.85)' : 'var(--text-2)',
                         marginBottom: 10,
                         lineHeight: 1.5,
                       }}
@@ -292,10 +292,10 @@ export default function PricingPage() {
                         fill="none"
                         style={{ flexShrink: 0, marginTop: 2 }}
                       >
-                        <circle cx="8" cy="8" r="8" fill={isPopular ? 'oklch(85% 0.15 145)' : '#22c55e'} opacity="0.2" />
+                        <circle cx="8" cy="8" r="8" fill={isPopular ? '#71C9CE' : '#22c55e'} opacity="0.2" />
                         <path
                           d="M5 8l2 2 4-4"
-                          stroke={isPopular ? 'oklch(85% 0.15 145)' : '#22c55e'}
+                          stroke={isPopular ? '#71C9CE' : '#22c55e'}
                           strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -320,13 +320,15 @@ export default function PricingPage() {
                     fontSize: '0.875rem',
                     fontFamily: 'var(--font)',
                     textDecoration: 'none',
-                    transition: 'opacity 0.2s',
+                    transition: 'all 0.3s ease',
                     border: 'none',
                     cursor: 'pointer',
                     boxSizing: 'border-box',
                     background: isPopular ? 'var(--white)' : 'var(--navy)',
                     color: isPopular ? 'var(--navy)' : 'var(--white)',
                   }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = isPopular ? 'var(--white)' : 'var(--navy)'; e.currentTarget.style.color = isPopular ? 'var(--navy)' : 'var(--white)'; e.currentTarget.style.transform = '' }}
                 >
                   Choisir {plan.name} &rarr;
                 </a>
@@ -426,7 +428,7 @@ export default function PricingPage() {
         <p
           style={{
             fontSize: '1rem',
-            color: 'oklch(85% 0.02 240)',
+            color: '#e8e0d8',
             margin: '0 0 32px',
           }}
         >
@@ -460,7 +462,7 @@ export default function PricingPage() {
             target="_blank"
             rel="noreferrer"
             style={{
-              border: '2px solid oklch(100% 0 0 / 0.4)',
+              border: '2px solid rgba(255, 255, 255, 0.4)',
               background: 'transparent',
               color: 'var(--white)',
               fontWeight: 700,

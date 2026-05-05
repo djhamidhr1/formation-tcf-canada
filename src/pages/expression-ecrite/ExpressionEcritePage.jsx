@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { PenTool } from 'lucide-react'
 import { supabase } from '../../services/supabase'
 
-const C = { bg: '#F5EEF8', border: '#8E44AD', btn: '#7D3C98', text: '#7D3C98', light: '#EBD5F7' }
+const C = { bg: '#F5EEF8', border: '#164b6b', btn: '#0F3D58', text: '#0F3D58', light: '#EBD5F7' }
 
 export default function ExpressionEcritePage() {
   const navigate = useNavigate()
@@ -34,7 +34,7 @@ export default function ExpressionEcritePage() {
             <PenTool className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-extrabold m-0 mb-1.5 text-white">Expression Écrite</h1>
-              <p className="m-0 text-purple-200">
+              <p className="m-0 text-blue-200">
                 {selected ? `Combinaison #${selected.id}` : `${combinaisons.length} combinaisons disponibles · 60 min · 20 pts`}
               </p>
             </div>

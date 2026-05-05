@@ -162,7 +162,7 @@ export default function EOSimulatorPage() {
   if (!mediaSupported) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-6"><AlertTriangle size={56} className="text-amber-500 mx-auto" /></div>
+        <div className="text-6xl mb-6"><AlertTriangle size={56} className="text-[#F98012] mx-auto" /></div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Navigateur non compatible</h1>
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 text-blue-800 text-sm text-left">
           <p className="font-semibold mb-2">Votre navigateur ne supporte pas l'enregistrement audio (MediaRecorder API).</p>
@@ -176,7 +176,7 @@ export default function EOSimulatorPage() {
   if (phase === 'idle') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-6"><Mic size={56} className="text-amber-500 mx-auto" /></div>
+        <div className="text-6xl mb-6"><Mic size={56} className="text-[#F98012] mx-auto" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Simulateur Expression Orale</h1>
         <p className="text-gray-500 mb-8">Tâches 2 & 3 avec enregistrement audio</p>
 
@@ -204,7 +204,7 @@ export default function EOSimulatorPage() {
 
         <button
           onClick={loadSubjects}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+          className="bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
         >
           Tirer un sujet aléatoire →
         </button>
@@ -217,7 +217,7 @@ export default function EOSimulatorPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4" style={{ borderColor: '#F98012', borderTopColor: 'transparent' }} />
           <p className="text-gray-500">Chargement des sujets...</p>
         </div>
       </div>
@@ -228,7 +228,7 @@ export default function EOSimulatorPage() {
   if (phase === 'done') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-6"><Trophy size={56} className="text-amber-500 mx-auto" /></div>
+        <div className="text-6xl mb-6"><Trophy size={56} className="text-[#F98012] mx-auto" /></div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Entraînement terminé !</h1>
         <p className="text-gray-500 mb-8">Vous avez complété les tâches 2 et 3. Continuez à pratiquer régulièrement.</p>
 
@@ -250,7 +250,7 @@ export default function EOSimulatorPage() {
 
         <button
           onClick={() => { setPhase('idle'); setRecordings({ 2: null, 3: null }); setAudioUrl(null) }}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-3 rounded-xl transition-colors"
+          className="bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold px-8 py-3 rounded-xl transition-colors"
         >
           Recommencer
         </button>
@@ -265,7 +265,7 @@ export default function EOSimulatorPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       {/* Task header */}
-      <div className="bg-gradient-to-br from-amber-500 to-blue-400 rounded-3xl p-6 text-white text-center mb-6">
+      <div className="rounded-3xl p-6 text-white text-center mb-6" style={{ background: 'linear-gradient(145deg, #0F3D58, #164b6b)' }}>
         <div className="text-sm font-medium text-blue-100 mb-1">{config?.label}</div>
         <h2 className="text-xl font-bold mb-1">{config?.desc}</h2>
         <div className="text-blue-100 text-xs">
@@ -301,7 +301,7 @@ export default function EOSimulatorPage() {
         <div className="text-center">
           <button
             onClick={() => startPrep(currentTask)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            className="bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
             {currentTask === 2 ? <><Play size={16} className="inline mr-1" /> Commencer Tâche 2</> : <><Play size={16} className="inline mr-1" /> Commencer Tâche 3</>}
           </button>
@@ -341,7 +341,7 @@ export default function EOSimulatorPage() {
             </button>
             <button
               onClick={confirmRecording}
-              className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-colors"
+              className="flex-1 bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold py-3 rounded-xl transition-colors"
             >
               {currentTask === 2 ? 'Continuer → Tâche 3' : <><Check size={14} className="inline mr-1" /> Terminer</>}
             </button>

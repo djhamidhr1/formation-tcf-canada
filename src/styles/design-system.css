@@ -1,68 +1,78 @@
 /**
- * Formation TCF Canada — Design System v3 (Premium Redesign)
- * oklch-based color tokens, Plus Jakarta Sans, modern shadows
+ * Formation TCF Canada — Design System v5 (Moodle Style)
+ * Navy #0F3D58 + Orange #F98012, Merriweather headings + Inter body
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* -- Brand Blues -- */
-  --navy:       oklch(24% 0.08 240);
-  --navy-mid:   oklch(32% 0.10 240);
-  --blue:       oklch(44% 0.14 240);
-  --blue-light: oklch(58% 0.14 240);
-  --blue-pale:  oklch(94% 0.04 240);
-  --blue-ghost: oklch(97% 0.02 240);
+  /* -- Brand (Moodle) -- */
+  --navy:       #0F3D58;
+  --navy-mid:   #164b6b;
+  --blue:       #0F3D58;
+  --blue-light: #71C9CE;
+  --blue-pale:  #e8f7f8;
+  --blue-ghost: #f0fafb;
 
-  /* -- Epreuve Colors (palette bleue unifiee) -- */
-  --ce-main:   oklch(48% 0.12 235);
-  --ce-light:  oklch(95% 0.03 235);
-  --ce-text:   oklch(26% 0.08 235);
+  /* -- Orange Accent (CTA & Energy) -- */
+  --orange:     #F98012;
+  --orange-light: #fef0e2;
+  --orange-dark:  #d96a00;
 
-  --co-main:   oklch(48% 0.12 235);
-  --co-light:  oklch(95% 0.03 235);
-  --co-text:   oklch(26% 0.08 235);
+  /* -- Epreuve Colors (palette Moodle) -- */
+  --ce-main:   #0F3D58;
+  --ce-light:  #FDF2E9;
+  --ce-text:   #0F3D58;
 
-  --ee-main:   oklch(48% 0.12 235);
-  --ee-light:  oklch(95% 0.03 235);
-  --ee-text:   oklch(26% 0.08 235);
+  --co-main:   #0F3D58;
+  --co-light:  #FDF2E9;
+  --co-text:   #0F3D58;
 
-  --eo-main:   oklch(48% 0.12 235);
-  --eo-light:  oklch(95% 0.03 235);
-  --eo-text:   oklch(26% 0.08 235);
+  --ee-main:   #0F3D58;
+  --ee-light:  #FDF2E9;
+  --ee-text:   #0F3D58;
+
+  --eo-main:   #0F3D58;
+  --eo-light:  #FDF2E9;
+  --eo-text:   #0F3D58;
+
+  /* -- Accent (Turquoise) -- */
+  --accent:     #71C9CE;
+  --accent-light: #e0f5f6;
 
   /* -- Neutrals -- */
   --white:      #ffffff;
-  --surface:    oklch(98.5% 0.005 240);
-  --surface-2:  oklch(96% 0.008 240);
-  --border:     oklch(90% 0.01 240);
-  --border-med: oklch(83% 0.02 240);
-  --text-1:     oklch(18% 0.03 240);
-  --text-2:     oklch(40% 0.03 240);
-  --text-3:     oklch(60% 0.02 240);
-  --text-4:     oklch(72% 0.015 240);
+  --surface:    #fefcfa;
+  --surface-2:  #FDF2E9;
+  --border:     #e8e0d8;
+  --border-med: #d4c8be;
+  --text-1:     #0F3D58;
+  --text-2:     #3a5a6e;
+  --text-3:     #6b8a9a;
+  --text-4:     #9bb0bc;
 
   /* -- Semantic -- */
-  --success:     oklch(50% 0.14 145);
-  --warning:     oklch(62% 0.18 55);
-  --error:       oklch(52% 0.20 25);
+  --success:     #27ae60;
+  --warning:     #F98012;
+  --error:       #e74c3c;
 
-  /* -- Spacing / Radius -- */
-  --radius-sm:   8px;
-  --radius-md:   12px;
-  --radius-lg:   16px;
-  --radius-xl:   24px;
+  /* -- Spacing / Radius (Organic Geometric) -- */
+  --radius-sm:   10px;
+  --radius-md:   14px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
   --radius-full: 999px;
 
-  /* -- Shadows -- */
-  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 0.05);
-  --shadow-sm: 0 2px 8px -1px oklch(0% 0 0 / 0.08), 0 1px 2px -1px oklch(0% 0 0 / 0.04);
-  --shadow-md: 0 4px 16px -2px oklch(0% 0 0 / 0.10), 0 2px 4px -2px oklch(0% 0 0 / 0.05);
-  --shadow-lg: 0 8px 32px -4px oklch(0% 0 0 / 0.12), 0 4px 8px -4px oklch(0% 0 0 / 0.06);
-  --shadow-xl: 0 16px 48px -8px oklch(0% 0 0 / 0.14), 0 6px 12px -6px oklch(0% 0 0 / 0.08);
+  /* -- Shadows (soft & subtle) -- */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 61, 88, 0.04);
+  --shadow-sm: 0 2px 8px -1px rgba(15, 61, 88, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 16px -2px rgba(15, 61, 88, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 32px -4px rgba(15, 61, 88, 0.10), 0 4px 8px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 16px 48px -8px rgba(15, 61, 88, 0.12), 0 6px 12px -6px rgba(0, 0, 0, 0.05);
 
   /* -- Typography -- */
-  --font: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Merriweather', Georgia, serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -85,10 +95,13 @@ input, textarea, select { font-family: var(--font); }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-med); border-radius: 999px; }
 
+/* Headings — Serif */
+h1, h2, h3 { font-family: var(--font-heading); }
+
 /* Animations */
 @keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 3px oklch(65% 0.18 55 / 0.3); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 6px oklch(65% 0.18 55 / 0.1); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 3px rgba(249, 128, 18, 0.3); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(249, 128, 18, 0.1); }
 }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
@@ -98,8 +111,194 @@ input, textarea, select { font-family: var(--font); }
 
 /* Utility */
 .gradient-text {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--ee-main) 50%, var(--error) 100%);
+  background: linear-gradient(135deg, #0F3D58 0%, #F98012 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Moodle Pill Badge (orange) */
+.badge-pill {
+  display: inline-flex; align-items: center;
+  background: var(--orange); color: white;
+  padding: 4px 14px; border-radius: var(--radius-full);
+  font-size: 12px; font-weight: 600;
+}
+
+/* Ghost Button (Moodle — hover orange) */
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1.5px solid var(--navy); color: var(--navy);
+  background: white; padding: 12px 24px;
+  border-radius: var(--radius-full); font-weight: 600;
+  font-size: 14px; transition: all 0.3s ease;
+}
+.btn-ghost:hover {
+  background: var(--orange); border-color: var(--orange);
+  color: white; transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(249, 128, 18, 0.25);
+}
+
+/* Primary CTA Button (orange → turquoise on hover) */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange); color: white;
+  padding: 14px 28px; border-radius: var(--radius-full);
+  font-weight: 700; font-size: 15px;
+  box-shadow: 0 4px 12px rgba(249, 128, 18, 0.3);
+  transition: all 0.3s ease; border: none;
+}
+.btn-primary:hover {
+  background: var(--accent); color: var(--navy);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(113, 201, 206, 0.35);
+}
+
+/* ═══════════════════════════════════════════════
+   INTERACTIVE SYSTEM — Navy ↔ Orange ↔ Turquoise
+   ═══════════════════════════════════════════════ */
+
+/* Filter tabs (Toutes / Non faites / Terminees) */
+.filter-tab {
+  padding: 8px 18px; font-size: 13px; font-weight: 700;
+  border-radius: var(--radius-sm);
+  background: var(--white); color: var(--text-2);
+  border: 1px solid var(--border-med);
+  transition: all 0.3s ease; cursor: pointer;
+}
+.filter-tab:hover { background: var(--orange-light); color: var(--orange); border-color: var(--orange); }
+.filter-tab.active { background: var(--orange); color: white; border-color: var(--orange); }
+
+/* Navy → Orange on hover (card actions, "Commencer", "Recommencer") */
+.btn-navy {
+  background: var(--navy); color: white; border: none;
+  border-radius: var(--radius-sm); padding: 9px 14px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  text-align: center; text-decoration: none;
+  display: block; width: 100%;
+  transition: all 0.3s ease;
+}
+.btn-navy:hover {
+  background: var(--orange); color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 128, 18, 0.35);
+}
+
+/* Inline-flex variant of btn-navy */
+.btn-navy-flex {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: var(--navy); color: white; border: none;
+  border-radius: var(--radius-sm); padding: 9px 14px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  text-decoration: none; flex: 1;
+  transition: all 0.3s ease;
+}
+.btn-navy-flex:hover {
+  background: var(--orange); color: white;
+  box-shadow: 0 4px 12px rgba(249, 128, 18, 0.35);
+}
+
+/* Secondary / "Resultats" button (gray → orange tint) */
+.btn-secondary {
+  background: var(--surface-2); color: var(--text-2); border: none;
+  border-radius: var(--radius-sm); padding: 9px 14px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  flex: 1; transition: all 0.3s ease;
+}
+.btn-secondary:hover { background: var(--orange-light); color: var(--orange); }
+
+/* Serie / exercise card */
+.serie-card {
+  background: var(--white); border-radius: var(--radius-lg);
+  border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+  padding: 20px; transition: all 0.3s ease;
+}
+.serie-card:hover {
+  box-shadow: var(--shadow-lg); transform: translateY(-3px);
+  border-color: rgba(249, 128, 18, 0.3);
+}
+
+/* Navigation/feature card */
+.nav-card {
+  background: var(--white); border-radius: 14px; padding: 22px;
+  border: 1px solid var(--border); text-decoration: none;
+  text-align: center; box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease; display: block;
+}
+.nav-card:hover {
+  box-shadow: 0 0 20px -4px rgba(249,128,18,0.25), var(--shadow-lg);
+  transform: translateY(-3px); border-color: rgba(249,128,18,0.3);
+}
+.nav-card .nav-card-icon { color: var(--navy); transition: color 0.3s ease; }
+.nav-card:hover .nav-card-icon { color: var(--orange); }
+
+/* Icon button (edit, view, delete) */
+.icon-btn {
+  padding: 6px 8px; border-radius: 8px;
+  transition: all 0.3s ease; cursor: pointer;
+  color: var(--text-2); background: transparent; border: none;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.icon-btn:hover { background: var(--orange-light); color: var(--orange); }
+
+/* Back link in hero */
+.btn-back {
+  background: rgba(255,255,255,0.15); color: white;
+  border-radius: 8px; padding: 6px 14px;
+  font-size: 13px; font-weight: 600;
+  display: inline-block; margin-bottom: 16px;
+  text-decoration: none; transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+.btn-back:hover { background: rgba(255,255,255,0.28); border-color: rgba(255,255,255,0.4); }
+
+/* Hero CTA white button (→ orange text on hover) */
+.btn-hero-white {
+  background: white; color: var(--navy);
+  font-weight: 700; padding: 12px 28px;
+  border-radius: var(--radius-md); font-size: 16px;
+  text-decoration: none; display: inline-block;
+  transition: all 0.3s ease; border: none;
+}
+.btn-hero-white:hover { background: var(--orange); color: white; box-shadow: 0 4px 16px rgba(249,128,18,0.35); }
+
+/* Hero CTA outline button (white border → orange on hover) */
+.btn-hero-outline {
+  border: 2px solid rgba(255,255,255,0.5); color: white;
+  font-weight: 600; padding: 11px 24px;
+  border-radius: var(--radius-md); font-size: 15px;
+  text-decoration: none; display: inline-block;
+  background: transparent; transition: all 0.3s ease;
+}
+.btn-hero-outline:hover { border-color: var(--orange); background: var(--orange); color: white; }
+
+/* Session start button (inside tips cards) */
+.btn-start-session {
+  display: inline-block; margin-top: 12px;
+  background: var(--navy); color: white;
+  font-weight: 700; padding: 10px 24px;
+  border-radius: 10px; font-size: 14px;
+  text-decoration: none; transition: all 0.3s ease; border: none;
+}
+.btn-start-session:hover { background: var(--orange); box-shadow: 0 4px 12px rgba(249,128,18,0.3); }
+
+/* Badge orange pill */
+.badge-orange {
+  background: var(--orange); color: white;
+  padding: 4px 10px; border-radius: 8px;
+  font-weight: 800; font-size: 13px;
+  display: inline-block;
+}
+.badge-score-good {
+  background: var(--orange-light); color: var(--orange);
+  padding: 4px 10px; border-radius: 8px;
+  font-weight: 800; font-size: 13px;
+}
+
+/* Avatar circle / number circle */
+.avatar-circle {
+  background: var(--navy); color: white;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
 }

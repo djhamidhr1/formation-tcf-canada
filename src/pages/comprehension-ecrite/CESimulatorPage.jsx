@@ -153,7 +153,7 @@ export default function CESimulatorPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-[oklch(48% 0.12 235)] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-12 h-12 border-4 border-[#0F3D58] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-500">Chargement de la série...</p>
         </div>
       </div>
@@ -163,7 +163,7 @@ export default function CESimulatorPage() {
   if (!started) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="flex justify-center mb-6"><BookOpen size={48} className="text-[oklch(48% 0.12 235)]" /></div>
+        <div className="flex justify-center mb-6"><BookOpen size={48} className="text-[#0F3D58]" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{series?.title}</h1>
         <p className="text-gray-500 mb-8">Compréhension Écrite — Entraînement</p>
 
@@ -174,7 +174,7 @@ export default function CESimulatorPage() {
             [<Trophy size={28} />, '699 pts', 'Score max'],
           ].map(([icon, val, label]) => (
             <div key={label} className="bg-blue-50 border border-blue-200 rounded-xl p-5">
-              <div className="flex justify-center mb-1 text-[oklch(48% 0.12 235)]">{icon}</div>
+              <div className="flex justify-center mb-1 text-[#0F3D58]">{icon}</div>
               <div className="text-2xl font-extrabold text-gray-900">{val}</div>
               <div className="text-xs text-gray-500 mt-1">{label}</div>
             </div>
@@ -193,7 +193,7 @@ export default function CESimulatorPage() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => { setStarted(true); start() }}
-            className="bg-[oklch(48% 0.12 235)] hover:bg-[oklch(38% 0.10 235)] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            className="bg-[#0F3D58] hover:bg-[#0F3D58] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
             Commencer l'entraînement →
           </button>
@@ -202,7 +202,7 @@ export default function CESimulatorPage() {
               setStarted(true)
               handleAutoFillAndCorrect()
             }}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            className="bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
             <Search size={16} className="inline -mt-0.5" /> Voir le corrige directement
           </button>
@@ -222,7 +222,7 @@ export default function CESimulatorPage() {
 
       {/* Bandeau correction mode */}
       {isCorrectionMode && (
-        <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md">
+        <div className="text-white rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md" style={{ background: 'linear-gradient(to right, #0F3D58, #164b6b)' }}>
           <div className="flex items-center gap-3">
             <Search size={24} />
             <div>
@@ -262,7 +262,7 @@ export default function CESimulatorPage() {
             <div className="flex items-center gap-3 mt-0.5">
               <div className="w-32 bg-gray-200 rounded-full h-1.5">
                 <div
-                  className="bg-[oklch(48% 0.12 235)] h-1.5 rounded-full transition-all"
+                  className="bg-[#0F3D58] h-1.5 rounded-full transition-all"
                   style={{ width: `${(answeredCount / questions.length) * 100}%` }}
                 />
               </div>
@@ -277,7 +277,7 @@ export default function CESimulatorPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleAutoFillAndCorrect}
-              className="px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-300 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors"
+              className="px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-300 rounded-lg text-xs font-bold hover:bg-orange-100 transition-colors"
             >
               <Search size={14} className="inline -mt-0.5" /> Corrige
             </button>
@@ -286,7 +286,7 @@ export default function CESimulatorPage() {
               disabled={submitting}
               className={`px-5 py-2 rounded-xl font-bold text-sm transition-colors ${
                 answeredCount === questions.length
-                  ? 'bg-[oklch(48% 0.12 235)] text-white hover:bg-[oklch(38% 0.10 235)]'
+                  ? 'bg-[#0F3D58] text-white hover:bg-[#0F3D58]'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -310,7 +310,7 @@ export default function CESimulatorPage() {
                   onClick={() => setQIdx(i)}
                   className={`w-8 h-8 rounded-lg text-xs font-bold transition-all ${
                     i === qIdx
-                      ? 'bg-[oklch(48% 0.12 235)] text-white shadow-md scale-110'
+                      ? 'bg-[#0F3D58] text-white shadow-md scale-110'
                       : isCorrectionMode
                       ? wasWrong
                         ? 'bg-red-100 text-red-700 border border-red-300'
@@ -328,7 +328,7 @@ export default function CESimulatorPage() {
           {!isCorrectionMode && (
             <div className="mt-3 space-y-1.5 text-xs text-gray-400">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-[oklch(48% 0.12 235)]"></div>
+                <div className="w-4 h-4 rounded bg-[#0F3D58]"></div>
                 <span>Actuelle</span>
               </div>
               <div className="flex items-center gap-2">
@@ -413,7 +413,7 @@ export default function CESimulatorPage() {
                     }`}
                   >
                     <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-2 ${
-                      isCorrectOpt ? 'bg-blue-500 text-white'
+                      isCorrectOpt ? 'bg-[#0F3D58] text-white'
                       : wasUserWrong ? 'bg-red-400 text-white'
                       : 'bg-gray-100 text-gray-500'
                     }`}>
@@ -433,12 +433,12 @@ export default function CESimulatorPage() {
                   onClick={() => handleAnswer(i)}
                   className={`w-full text-left px-4 py-3.5 rounded-xl border-2 text-sm font-medium transition-all hover:shadow-sm ${
                     chosen
-                      ? 'border-[oklch(48% 0.12 235)] bg-blue-50 text-blue-900 shadow-sm'
+                      ? 'border-[#0F3D58] bg-blue-50 text-blue-900 shadow-sm'
                       : 'border-gray-200 bg-white text-gray-800 hover:border-gray-300 hover:bg-gray-50'
                   }`}
                 >
                   <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-2 ${
-                    chosen ? 'bg-[oklch(48% 0.12 235)] text-white' : 'bg-gray-100 text-gray-600'
+                    chosen ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600'
                   }`}>
                     {String.fromCharCode(65 + i)}
                   </span>

@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { Headphones, Zap } from 'lucide-react'
 import { supabase } from '../../services/supabase'
 
-const C = { bg: '#EBF5FB', border: '#2E86C1', btn: '#1A5276', text: '#1A5276', light: '#D6EAF8' }
+const C = { bg: '#fef0e2', border: '#F98012', btn: '#0F3D58', text: '#0F3D58', light: '#FDF2E9' }
 
 const LEVEL_COLORS = {
   A1: 'bg-blue-100 text-blue-800',
@@ -25,7 +25,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-4">
-        <span className="bg-blue-50 text-[#1A5276] rounded-lg px-3 py-1 font-bold text-sm">
+        <span className="bg-blue-50 text-[#0F3D58] rounded-lg px-3 py-1 font-bold text-sm">
           Question {idx + 1} / {total}
         </span>
         {question.level && (
@@ -37,7 +37,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
 
       {question.audio_url && (
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
-          <div className="text-sm text-[#1A5276] font-bold mb-2 flex items-center gap-1.5"><Headphones className="w-4 h-4" /> Enregistrement audio</div>
+          <div className="text-sm text-[#0F3D58] font-bold mb-2 flex items-center gap-1.5"><Headphones className="w-4 h-4" /> Enregistrement audio</div>
           <audio controls className="w-full h-9" src={question.audio_url}>
             Votre navigateur ne supporte pas la lecture audio.
           </audio>
@@ -56,7 +56,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
       )}
 
       {question.prompt && (
-        <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 mb-3 text-sm text-[#1A5276] font-medium">
+        <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 mb-3 text-sm text-[#0F3D58] font-medium">
           {question.prompt}
         </div>
       )}
@@ -72,7 +72,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
             if (i === correct) cls = 'border-green-500 bg-blue-50 text-blue-900'
             else if (i === chosen) cls = 'border-red-400 bg-red-50 text-red-800'
           } else if (i === chosen) {
-            cls = 'border-[#2E86C1] bg-blue-50 text-[#1A5276]'
+            cls = 'border-[#F98012] bg-blue-50 text-[#0F3D58]'
           }
           const optText = typeof opt === 'object' ? (opt.text || opt.label || JSON.stringify(opt)) : opt
           return (
@@ -95,7 +95,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
 
         {!revealed && chosen !== null && (
           <button onClick={() => setRevealed(true)}
-            className="flex-1 py-2.5 bg-[#1A5276] text-white rounded-lg font-bold text-sm hover:bg-[#154360] transition-colors">
+            className="flex-1 py-2.5 bg-[#0F3D58] text-white rounded-lg font-bold text-sm hover:bg-[#F98012] transition-colors">
             Vérifier ma réponse
           </button>
         )}
@@ -166,9 +166,9 @@ export default function ComprehensionOralePage() {
         ) : !selectedSeries ? (
           <>
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#1A5276]">Choisissez une série</h2>
+              <h2 className="text-xl font-bold text-[#0F3D58]">Choisissez une série</h2>
               <Link to="/epreuve/comprehension-orale/astuces"
-                className="text-sm text-[#1A5276] font-medium no-underline hover:underline">
+                className="text-sm text-[#0F3D58] font-medium no-underline hover:underline">
                 <Zap className="w-4 h-4 inline" /> Astuces →
               </Link>
             </div>
@@ -198,7 +198,7 @@ export default function ComprehensionOralePage() {
                 {questions.map((_, i) => (
                   <button key={i} onClick={() => setQIdx(i)}
                     className={`w-8 h-8 rounded-lg text-xs font-bold transition-colors ${
-                      i === qIdx ? 'bg-[#1A5276] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      i === qIdx ? 'bg-[#0F3D58] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}>
                     {i + 1}
                   </button>
