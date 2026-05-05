@@ -153,11 +153,15 @@ export default function EOSubjectsPage() {
           <button
             key={year}
             onClick={() => setSelectedYear(year)}
-            className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
-              selectedYear === year
-                ? 'bg-[#0F3D58] text-white shadow-sm'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
+            style={{
+              background: selectedYear === year ? '#0F3D58' : 'white',
+              color: selectedYear === year ? 'white' : '#0F3D58',
+              border: `2px solid ${selectedYear === year ? '#0F3D58' : '#0F3D58'}`,
+              padding: '7px 18px', borderRadius: 8, fontWeight: 600, fontSize: 14,
+              transition: 'all 0.2s ease', cursor: 'pointer',
+            }}
+            onMouseEnter={e => { if (selectedYear !== year) { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = 'white' } }}
+            onMouseLeave={e => { if (selectedYear !== year) { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' } }}
           >
             {year}
           </button>
@@ -177,11 +181,17 @@ export default function EOSubjectsPage() {
               <button
                 key={slug}
                 onClick={() => setSelectedMonth(slug)}
-                className={`py-3 px-3 rounded-xl text-sm font-semibold text-center transition-all ${
-                  selectedMonth === slug
-                    ? 'bg-[#0F3D58] text-white shadow-md scale-105'
-                    : 'bg-white border border-gray-200 text-gray-700 hover:border-orange-300 hover:bg-orange-50'
-                }`}
+                style={{
+                  background: selectedMonth === slug ? '#0F3D58' : 'white',
+                  color: selectedMonth === slug ? 'white' : '#0F3D58',
+                  border: `2px solid #0F3D58`,
+                  padding: '12px', borderRadius: 12, fontSize: 14, fontWeight: 600,
+                  textAlign: 'center', transition: 'all 0.2s ease', cursor: 'pointer',
+                  transform: selectedMonth === slug ? 'scale(1.05)' : 'none',
+                  boxShadow: selectedMonth === slug ? '0 4px 12px rgba(15,61,88,0.25)' : 'none',
+                }}
+                onMouseEnter={e => { if (selectedMonth !== slug) { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = 'white' } }}
+                onMouseLeave={e => { if (selectedMonth !== slug) { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' } }}
               >
                 {formatMonthSlug(slug)}
               </button>
@@ -197,14 +207,18 @@ export default function EOSubjectsPage() {
                   <button
                     key={n}
                     onClick={() => setActiveTask(n)}
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-                      activeTask === n
-                        ? 'bg-[#0F3D58] text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
+                    style={{
+                      background: activeTask === n ? '#0F3D58' : 'white',
+                      color: activeTask === n ? 'white' : '#0F3D58',
+                      border: '2px solid #0F3D58',
+                      padding: '7px 16px', borderRadius: 8, fontSize: 14, fontWeight: 600,
+                      transition: 'all 0.2s ease', cursor: 'pointer',
+                    }}
+                    onMouseEnter={e => { if (activeTask !== n) { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = 'white' } }}
+                    onMouseLeave={e => { if (activeTask !== n) { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' } }}
                   >
                     Tâche {n}
-                    <span className="ml-1 text-xs opacity-75">({TASK_DURATIONS[n]})</span>
+                    <span style={{ marginLeft: 4, fontSize: 12, opacity: 0.75 }}>({TASK_DURATIONS[n]})</span>
                   </button>
                 ))}
               </div>

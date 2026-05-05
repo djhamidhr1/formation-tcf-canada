@@ -49,7 +49,14 @@ function CircularTimer({ seconds, total }) {
   const progress = seconds / total
   const offset = circ * (1 - progress)
   const urgent = seconds < 300
-  const warning = seconds < 600
+
+  // Interpolation navy #0F3D58 → orange #F98012 au fil du temps
+  const t = 1 - progress // 0 = début, 1 = fin
+  const rC = Math.round(15 + (249 - 15) * t)
+  const gC = Math.round(61 + (128 - 61) * t)
+  const bC = Math.round(88 + (18 - 88) * t)
+  const strokeColor = urgent ? '#ef4444' : `rgb(${rC},${gC},${bC})`
+  const textColor = urgent ? '#ef4444' : strokeColor
 
   return (
     <div className="relative w-20 h-20 flex-shrink-0">
@@ -57,16 +64,16 @@ function CircularTimer({ seconds, total }) {
         <circle cx="50" cy="50" r={r} fill="none" stroke="#e5e7eb" strokeWidth="6" />
         <circle
           cx="50" cy="50" r={r} fill="none"
-          stroke={urgent ? '#ef4444' : warning ? '#f97316' : '#0F3D58'}
+          stroke={strokeColor}
           strokeWidth="6"
           strokeLinecap="round"
           strokeDasharray={circ}
           strokeDashoffset={offset}
-          style={{ transition: 'stroke-dashoffset 1s linear' }}
+          style={{ transition: 'stroke-dashoffset 1s linear, stroke 1s linear' }}
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`text-sm font-extrabold font-mono ${urgent ? 'text-red-600' : warning ? 'text-orange-500' : 'text-blue-700'}`}>
+        <span style={{ color: textColor, transition: 'color 1s linear' }} className="text-sm font-extrabold font-mono">
           {formatTime(seconds)}
         </span>
       </div>
@@ -79,18 +86,25 @@ function WordBar({ count, min, max }) {
   const pct = Math.min(100, Math.round((count / max) * 100))
   const inRange = count >= min && count <= max
   const over = count > max
-  const barColor = count === 0 ? 'bg-gray-200' : inRange ? 'bg-[#0F3D58]' : over ? 'bg-red-500' : 'bg-[#F98012]'
+
+  // Interpolation navy #0F3D58 → orange #F98012 au fur et à mesure du remplissage
+  const t = count === 0 ? 0 : Math.min(count / min, 1)
+  const rC = Math.round(15 + (249 - 15) * t)
+  const gC = Math.round(61 + (128 - 61) * t)
+  const bC = Math.round(88 + (18 - 88) * t)
+  const barColor = count === 0 ? '#e5e7eb' : over ? '#ef4444' : `rgb(${rC},${gC},${bC})`
+  const textColor = count === 0 ? '#9ca3af' : over ? '#dc2626' : `rgb(${rC},${gC},${bC})`
 
   return (
     <div>
       <div className="flex items-center justify-between mb-1 text-xs">
-        <span className={`font-bold ${count === 0 ? 'text-gray-400' : inRange ? 'text-[#0F3D58]' : over ? 'text-red-600' : 'text-[#F98012]'}`}>
+        <span style={{ color: textColor, fontWeight: 700, transition: 'color 0.3s ease' }}>
           {count} mots {count > 0 && (inRange ? <Check size={12} className="inline" /> : over ? '(trop long)' : '(trop court)')}
         </span>
         <span className="text-gray-400">{min}–{max} mots</span>
       </div>
       <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-        <div className={`h-2 rounded-full transition-all duration-300 ${barColor}`} style={{ width: `${pct}%` }} />
+        <div style={{ width: `${pct}%`, height: '100%', borderRadius: 999, background: barColor, transition: 'width 0.3s ease, background 0.3s ease' }} />
       </div>
     </div>
   )
@@ -262,7 +276,15 @@ export default function EESimulatorPage() {
 
         <button
           onClick={() => { setStarted(true); start() }}
-          className="bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white font-bold px-10 py-4 rounded-xl text-lg shadow-lg transition-colors"
+          style={{
+            background: 'white', color: '#0F3D58',
+            border: '2px solid #0F3D58',
+            fontWeight: 700, padding: '16px 40px', borderRadius: 12,
+            fontSize: 18, boxShadow: '0 4px 12px rgba(15,61,88,0.15)',
+            transition: 'all 0.3s ease', cursor: 'pointer',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(249,128,18,0.4)' }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.boxShadow = '0 4px 12px rgba(15,61,88,0.15)' }}
         >
           Commencer (60 min) →
         </button>

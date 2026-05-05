@@ -300,7 +300,7 @@ function CombiCard({ combi, number, monthLabel }) {
           </p>
           <Link
             to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
-            className="mt-auto w-full inline-flex items-center justify-center gap-2 bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
+            className="mt-auto w-full inline-flex items-center justify-center gap-2 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-[#F98012] hover:border-[#F98012] hover:text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-all"
           >
             <PenTool size={14} className="inline mr-1" /> S'entraîner
           </Link>
@@ -372,7 +372,7 @@ function CombiCard({ combi, number, monthLabel }) {
           <div className="px-4 py-4 mt-auto">
             <Link
               to={`/epreuve/expression-ecrite/simulateur?id=${combi.id}`}
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#0F3D58] hover:bg-[#F98012] hover:text-white text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-colors"
+              className="w-full inline-flex items-center justify-center gap-2 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-[#F98012] hover:border-[#F98012] hover:text-white font-bold py-2.5 rounded-xl text-sm no-underline transition-all"
             >
               <PenTool size={14} className="inline mr-1" /> S'entraîner
             </Link>

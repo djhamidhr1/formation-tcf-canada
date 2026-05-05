@@ -177,7 +177,7 @@ export default function Navbar() {
 
         {/* Epreuves Bar - desktop only */}
         <div className="nav-epreuves-bar" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)', background: 'rgba(10, 48, 70, 0.6)' }}>
-          <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', gap: 2 }}>
+          <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
             <Link to="/" className="epreuve-bar-btn" style={{
               color: 'white',
               background: currentPath === '/' ? 'rgba(255, 255, 255, 0.1)' : 'none',

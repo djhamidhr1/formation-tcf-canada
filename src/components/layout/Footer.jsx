@@ -98,7 +98,10 @@ export default function Footer() {
             <div style={{ background: 'rgba(255, 255, 255, 0.06)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: 12, padding: 14, marginBottom: 10 }}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, fontSize: 11, color: 'rgba(140, 175, 200, 0.8)' }}>
                 {['Western Union', 'Ria', 'Orange Money', 'MTN', 'Wave', 'PayPal'].map(m => (
-                  <div key={m} style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: 6, padding: '4px 8px', textAlign: 'center', fontWeight: 600 }}>{m}</div>
+                  <div key={m} style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: 6, padding: '4px 8px', textAlign: 'center', fontWeight: 600, transition: 'all 0.2s ease', cursor: 'default' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.color = 'rgba(140, 175, 200, 0.8)' }}
+                  >{m}</div>
                 ))}
               </div>
             </div>
