@@ -302,3 +302,131 @@ h1, h2, h3 { font-family: var(--font-heading); }
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 13px; font-weight: 700; flex-shrink: 0;
 }
+
+/* ═══════════════════════════════════════════════════════
+   OUTLINE BUTTON — blanc + bordure navy → orange au hover
+   Usage universel : S'entraîner, Commencer, filtres, CTA
+   ═══════════════════════════════════════════════════════ */
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  background: white; color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 10px 24px; border-radius: var(--radius-md);
+  font-size: 14px; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: var(--orange); border-color: var(--orange); color: white;
+  box-shadow: 0 4px 16px rgba(249, 128, 18, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ═══════════════════════════════════════════════════════
+   FILTER BUTTON — boutons Année / Mois / Tâche
+   Non sélectionné : blanc + bordure navy → orange hover
+   Sélectionné     : navy plein + blanc
+   ═══════════════════════════════════════════════════════ */
+.btn-filter {
+  background: white; color: var(--navy);
+  border: 2px solid var(--navy);
+  padding: 7px 18px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.btn-filter:hover {
+  background: var(--orange); border-color: var(--orange); color: white;
+}
+.btn-filter.active {
+  background: var(--navy); color: white; border-color: var(--navy);
+  box-shadow: 0 4px 12px rgba(15, 61, 88, 0.25);
+}
+.btn-filter.active:hover {
+  background: var(--navy); border-color: var(--navy); color: white;
+  transform: none; box-shadow: 0 4px 12px rgba(15, 61, 88, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════
+   CONTACT CARD — fond blanc + bordure turquoise → orange
+   Usage : boutons WhatsApp / Email section Contact
+   ═══════════════════════════════════════════════════════ */
+.btn-contact {
+  display: flex; align-items: center; gap: 16px;
+  background: white; color: var(--navy);
+  border: 2px solid var(--accent);
+  padding: 20px 24px; border-radius: 16px;
+  text-decoration: none; cursor: pointer;
+  box-shadow: 0 2px 12px rgba(113, 201, 206, 0.2);
+  transition: all 0.3s ease;
+}
+.btn-contact:hover {
+  background: var(--orange); color: white; border-color: var(--orange);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(249, 128, 18, 0.35);
+}
+
+/* ═══════════════════════════════════════════════════════
+   NAVBAR LINKS — texte blanc → orange au hover
+   Usage : liens desktop + barre épreuves + footer
+   ═══════════════════════════════════════════════════════ */
+.nav-link {
+  color: white; font-size: 14px; font-weight: 600;
+  padding: 8px 14px; border-radius: 8px;
+  text-decoration: none; transition: all 0.15s ease;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.nav-link:hover { color: var(--orange); background: rgba(249, 128, 18, 0.1); }
+.nav-link.active { color: white; background: rgba(255, 255, 255, 0.12); }
+
+.epreuve-bar-btn:hover { color: var(--orange) !important; }
+
+/* Footer links */
+.footer-link {
+  color: white; font-size: 13px; font-weight: 500;
+  text-decoration: none; transition: color 0.15s ease;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.footer-link:hover { color: var(--orange); }
+
+/* ═══════════════════════════════════════════════════════
+   PAYMENT BADGE — hover orange
+   ═══════════════════════════════════════════════════════ */
+.payment-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px; padding: 4px 8px;
+  text-align: center; font-weight: 600;
+  font-size: 11px; color: rgba(140, 175, 200, 0.8);
+  transition: all 0.2s ease; cursor: default;
+}
+.payment-badge:hover { background: var(--orange); color: white; }
+
+/* ═══════════════════════════════════════════════════════
+   PROGRESS BAR — générique (utilisé dans simulateurs)
+   ═══════════════════════════════════════════════════════ */
+.progress-track {
+  background: #e5e7eb; border-radius: 999px;
+  overflow: hidden; height: 8px;
+}
+.progress-fill {
+  height: 100%; border-radius: 999px;
+  background: var(--navy);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SÉRIE CARD HOVER — ombre + bordure orange
+   ═══════════════════════════════════════════════════════ */
+.card-hover {
+  transition: all 0.3s ease;
+}
+.card-hover:hover {
+  box-shadow: 0 8px 32px rgba(249, 128, 18, 0.15), 0 2px 8px rgba(15, 61, 88, 0.08);
+  transform: translateY(-3px);
+  border-color: rgba(249, 128, 18, 0.3) !important;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCROLLBAR — orange accent
+   ═══════════════════════════════════════════════════════ */
+::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--orange); }
