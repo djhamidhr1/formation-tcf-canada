@@ -193,16 +193,22 @@ export default function CESimulatorPage() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => { setStarted(true); start() }}
-            className="bg-[#0F3D58] hover:bg-[#0F3D58] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            style={{ background: '#fff', color: '#0F3D58', border: '2px solid #0F3D58' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' }}
+            className="font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
-            Commencer l'entraînement →
+            <Clock size={18} className="inline -mt-0.5 mr-1" /> Commencer 60 min
           </button>
           <button
             onClick={() => {
               setStarted(true)
               handleAutoFillAndCorrect()
             }}
-            className="bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            style={{ background: '#fff', color: '#0F3D58', border: '2px solid #0F3D58' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' }}
+            className="font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
             <Search size={16} className="inline -mt-0.5" /> Voir le corrige directement
           </button>
