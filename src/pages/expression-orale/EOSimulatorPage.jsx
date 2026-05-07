@@ -164,7 +164,7 @@ export default function EOSimulatorPage() {
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
         <div className="text-6xl mb-6"><AlertTriangle size={56} className="text-[#F98012] mx-auto" /></div>
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Navigateur non compatible</h1>
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 text-blue-800 text-sm text-left">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-5 text-[#0F3D58] text-sm text-left">
           <p className="font-semibold mb-2">Votre navigateur ne supporte pas l'enregistrement audio (MediaRecorder API).</p>
           <p>Essayez avec <strong>Chrome</strong>, <strong>Firefox</strong> ou <strong>Edge</strong> à jour.</p>
         </div>
@@ -182,20 +182,20 @@ export default function EOSimulatorPage() {
 
         <div className="grid grid-cols-2 gap-4 mb-8">
           {Object.entries(TASK_CONFIG).map(([num, cfg]) => (
-            <div key={num} className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+            <div key={num} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-5">
               <div className="font-bold text-gray-900 mb-1">{cfg.label}</div>
               <div className="text-xs text-gray-500 mb-2">{cfg.desc}</div>
               {cfg.prep > 0 && (
-                <div className="text-xs text-blue-700 flex items-center gap-1"><Clock size={12} /> Préparation : {formatTime(cfg.prep)}</div>
+                <div className="text-xs text-[#3a5a6e] flex items-center gap-1"><Clock size={12} /> Préparation : {formatTime(cfg.prep)}</div>
               )}
-              <div className="text-xs text-blue-700 flex items-center gap-1"><Mic size={12} /> Enregistrement : {formatTime(cfg.record)}</div>
+              <div className="text-xs text-[#3a5a6e] flex items-center gap-1"><Mic size={12} /> Enregistrement : {formatTime(cfg.record)}</div>
             </div>
           ))}
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8 text-left text-sm text-blue-800">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-8 text-left text-sm text-[#0F3D58]">
           <p className="font-semibold mb-1"><Zap size={16} className="inline mr-1" /> Conseils :</p>
-          <ul className="list-disc pl-4 space-y-1 text-blue-700">
+          <ul className="list-disc pl-4 space-y-1 text-[#3a5a6e]">
             <li>Autorisez l'accès au microphone quand le navigateur vous le demande</li>
             <li>Parlez clairement et à un rythme naturel</li>
             <li>Pour la tâche 3 : structurez votre réponse (introduction, arguments, conclusion)</li>
@@ -234,11 +234,11 @@ export default function EOSimulatorPage() {
 
         <div className="grid grid-cols-2 gap-4 mb-8">
           {[2, 3].map(n => (
-            <div key={n} className={`rounded-xl p-4 border ${recordings[n] ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-200'}`}>
+            <div key={n} className={`rounded-xl p-4 border ${recordings[n] ? 'bg-[#FDF2E9] border-[#e8e0d8]' : 'bg-gray-50 border-gray-200'}`}>
               <div className="font-semibold mb-1">Tâche {n}</div>
               {recordings[n] ? (
                 <>
-                  <p className="text-xs text-blue-700 mb-2">Enregistrement sauvegardé</p>
+                  <p className="text-xs text-[#3a5a6e] mb-2">Enregistrement sauvegardé</p>
                   <audio controls src={URL.createObjectURL(recordings[n])} className="w-full" />
                 </>
               ) : (
@@ -265,10 +265,10 @@ export default function EOSimulatorPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
       {/* Task header */}
-      <div className="rounded-3xl p-6 text-white text-center mb-6" style={{ background: 'linear-gradient(145deg, #0F3D58, #164b6b)' }}>
-        <div className="text-sm font-medium text-blue-100 mb-1">{config?.label}</div>
+      <div className="rounded-3xl p-6 text-white text-center mb-6" style={{ background: 'linear-gradient(145deg, #0F3D58, #0F3D58)' }}>
+        <div className="text-sm font-medium text-[#e8f7f8] mb-1">{config?.label}</div>
         <h2 className="text-xl font-bold mb-1">{config?.desc}</h2>
-        <div className="text-blue-100 text-xs">
+        <div className="text-[#e8f7f8] text-xs">
           {phase === 'prep' && `Temps de préparation : ${formatTime(timeLeft)}`}
           {phase === 'recording' && `Temps d'enregistrement : ${formatTime(timeLeft)}`}
           {phase === 'review' && 'Enregistrement terminé'}
@@ -286,8 +286,8 @@ export default function EOSimulatorPage() {
 
       {/* Timer display */}
       {(phase === 'prep' || phase === 'recording') && (
-        <div className={`rounded-2xl p-8 text-center mb-6 ${phase === 'recording' ? 'bg-red-50 border-2 border-red-300' : 'bg-blue-50 border-2 border-blue-300'}`}>
-          <div className={`text-5xl font-mono font-bold mb-2 ${timeLeft < 30 ? 'text-red-600 animate-pulse' : phase === 'recording' ? 'text-red-700' : 'text-blue-700'}`}>
+        <div className={`rounded-2xl p-8 text-center mb-6 ${phase === 'recording' ? 'bg-red-50 border-2 border-red-300' : 'bg-[#FDF2E9] border-2 border-[#71C9CE]'}`}>
+          <div className={`text-5xl font-mono font-bold mb-2 ${timeLeft < 30 ? 'text-red-600 animate-pulse' : phase === 'recording' ? 'text-red-700' : 'text-[#3a5a6e]'}`}>
             {formatTime(timeLeft)}
           </div>
           <p className="text-sm font-medium text-gray-600">

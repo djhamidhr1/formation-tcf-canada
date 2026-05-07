@@ -160,7 +160,7 @@ export default function ExpressionOralePage() {
                   <div className="flex-1">
                     <p className="m-0 text-sm text-gray-700 leading-relaxed">{s.title}</p>
                     {s.correction_exemple && (
-                      <span className="text-xs text-blue-600 font-semibold mt-1 block">Correction disponible</span>
+                      <span className="text-xs text-[#6b8a9a] font-semibold mt-1 block">Correction disponible</span>
                     )}
                   </div>
                   <span className="text-gray-300 text-base">→</span>

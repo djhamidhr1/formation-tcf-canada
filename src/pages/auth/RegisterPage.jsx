@@ -28,7 +28,7 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-gradient-to-br from-[#0F3D58] to-[#164b6b] flex items-center justify-center">
       <div className="text-center text-white">
         <div className="mb-4"><Leaf size={40} /></div>
-        <p className="text-blue-200 text-sm">Inscription en cours…</p>
+        <p className="text-[#e8f7f8] text-sm">Inscription en cours…</p>
       </div>
     </div>
   )

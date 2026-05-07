@@ -9,12 +9,12 @@ import { Headphones, Clock, HelpCircle, Trophy, Zap, Search, Loader, BarChart2, 
 const CO_DURATION = 35 * 60 // 2100 seconds
 
 const LEVEL_COLORS = {
-  A1: 'bg-blue-50 text-blue-700 border-blue-200',
-  A2: 'bg-blue-100 text-blue-800 border-blue-200',
-  B1: 'bg-blue-100 text-blue-800 border-blue-300',
-  B2: 'bg-blue-200 text-blue-900 border-blue-300',
-  C1: 'bg-blue-200 text-blue-900 border-blue-400',
-  C2: 'bg-blue-300 text-blue-950 border-blue-400',
+  A1: 'bg-[#FDF2E9] text-[#0F3D58] border-[#e8e0d8]',
+  A2: 'bg-[#FDF2E9] text-[#0F3D58] border-[#e8e0d8]',
+  B1: 'bg-[#e8f7f8] text-[#0F3D58] border-[#71C9CE]',
+  B2: 'bg-[#e8f7f8] text-[#0F3D58] border-[#71C9CE]',
+  C1: 'bg-[#0F3D58]/10 text-[#0F3D58] border-[#0F3D58]/30',
+  C2: 'bg-[#0F3D58]/10 text-[#0F3D58] border-[#0F3D58]/30',
 }
 
 function AudioPlayer({ audioUrl, questionIndex }) {
@@ -70,7 +70,7 @@ function AudioPlayer({ audioUrl, questionIndex }) {
   }
 
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+    <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-4">
       <div className="flex items-center gap-3 mb-3">
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
@@ -86,7 +86,7 @@ function AudioPlayer({ audioUrl, questionIndex }) {
           {finished ? <Check size={16} /> : playing ? <Play size={16} /> : <Headphones size={16} />}
         </div>
         <div className="flex-1">
-          <p className="text-sm font-semibold text-blue-900">
+          <p className="text-sm font-semibold text-[#0F3D58]">
             {finished
               ? 'Audio terminé'
               : played && !playing
@@ -95,7 +95,7 @@ function AudioPlayer({ audioUrl, questionIndex }) {
               ? 'Lecture en cours...'
               : 'Document sonore'}
           </p>
-          <p className="text-xs text-blue-600">
+          <p className="text-xs text-[#6b8a9a]">
             {finished
               ? 'Une seule écoute autorisée.'
               : 'Une seule écoute — pas de retour arrière possible.'}
@@ -110,12 +110,12 @@ function AudioPlayer({ audioUrl, questionIndex }) {
           </button>
         )}
         {played && playing && (
-          <div className="text-xs font-medium text-blue-700 bg-blue-100 px-3 py-1.5 rounded-lg">
+          <div className="text-xs font-medium text-[#3a5a6e] bg-[#e8f7f8] px-3 py-1.5 rounded-lg">
             En cours...
           </div>
         )}
         {played && !playing && !finished && (
-          <div className="text-xs font-medium text-blue-800 bg-blue-100 px-3 py-1.5 rounded-lg">
+          <div className="text-xs font-medium text-[#0F3D58] bg-[#e8f7f8] px-3 py-1.5 rounded-lg">
             Déjà écouté
           </div>
         )}
@@ -132,7 +132,7 @@ function AudioPlayer({ audioUrl, questionIndex }) {
       />
 
       {played && (
-        <div className="w-full bg-blue-200 rounded-full h-1.5 overflow-hidden">
+        <div className="w-full bg-[#71C9CE]/20 rounded-full h-1.5 overflow-hidden">
           <div
             className={`h-1.5 rounded-full transition-all duration-500 ${
               finished ? 'bg-[#0F3D58] w-full' : 'bg-[#0F3D58]/60 w-1/2'
@@ -293,7 +293,7 @@ export default function COSimulatorPage() {
   if (!started) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="flex justify-center mb-6"><Headphones size={48} className="text-[#0F3D58]" /></div>
+        <div className="flex justify-center mb-6"><Headphones size={48} className="text-[#F98012]" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{series?.title}</h1>
         <p className="text-gray-500 mb-8">Compréhension Orale — Entraînement</p>
 
@@ -303,26 +303,26 @@ export default function COSimulatorPage() {
             [<HelpCircle size={28} />, questions.length, 'Questions'],
             [<Trophy size={28} />, '699 pts', 'Score max'],
           ].map(([icon, val, label]) => (
-            <div key={label} className="bg-blue-50 border border-blue-200 rounded-xl p-5">
-              <div className="flex justify-center mb-1 text-[#0F3D58]">{icon}</div>
+            <div key={label} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-5">
+              <div className="flex justify-center mb-1 text-[#F98012]">{icon}</div>
               <div className="text-2xl font-extrabold text-gray-900">{val}</div>
               <div className="text-xs text-gray-500 mt-1">{label}</div>
             </div>
           ))}
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 text-left text-sm text-blue-800">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-6 text-left text-sm text-[#0F3D58]">
           <p className="font-semibold mb-1 flex items-center gap-1"><Volume2 size={14} /> Regle d'or — Audio unique :</p>
-          <ul className="list-disc pl-4 space-y-1 text-blue-700">
+          <ul className="list-disc pl-4 space-y-1 text-[#3a5a6e]">
             <li>Chaque document audio ne peut être écouté <strong>qu'une seule fois</strong></li>
             <li>Aucun retour arrière possible — concentrez-vous dès le premier passage</li>
             <li>Lisez la question AVANT de lancer l'audio pour anticiper les informations clés</li>
           </ul>
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8 text-left text-sm text-blue-800">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-8 text-left text-sm text-[#0F3D58]">
           <p className="font-semibold mb-1 flex items-center gap-1"><Zap size={14} /> Conseils avant de commencer :</p>
-          <ul className="list-disc pl-4 space-y-1 text-blue-700">
+          <ul className="list-disc pl-4 space-y-1 text-[#3a5a6e]">
             <li>Le timer (35 min) démarrera dès que vous cliquerez sur "Commencer"</li>
             <li>Prenez des notes pendant l'écoute (noms, chiffres, actions)</li>
             <li>Les questions C2 (Q36-39) valent 33 pts — concentrez-vous bien sur ces extraits</li>
@@ -332,16 +332,22 @@ export default function COSimulatorPage() {
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={() => { setStarted(true); start() }}
-            className="bg-[#0F3D58] hover:bg-[#F98012] text-white font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            style={{ background: '#fff', color: '#0F3D58', border: '2px solid #0F3D58' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' }}
+            className="font-bold px-10 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
-            Commencer l'entraînement →
+            <Clock size={18} className="inline -mt-0.5 mr-1" /> Commencer 35 min
           </button>
           <button
             onClick={() => {
               setStarted(true)
               handleAutoFillAndCorrect()
             }}
-            className="bg-[#0F3D58]/80 hover:bg-[#0F3D58] text-white font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
+            style={{ background: '#fff', color: '#0F3D58', border: '2px solid #0F3D58' }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = '#fff' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' }}
+            className="font-bold px-8 py-4 rounded-xl text-lg transition-colors shadow-lg"
           >
             <Search size={16} className="inline -mt-0.5" /> Voir le corrige directement
           </button>
@@ -366,7 +372,7 @@ export default function COSimulatorPage() {
             <Search size={24} />
             <div>
               <p className="font-extrabold text-lg">Mode Correction</p>
-              <p className="text-blue-200 text-xs">Les bonnes réponses sont affichées · Écoutez les audios pour comprendre les réponses</p>
+              <p className="text-[#e8f7f8] text-xs">Les bonnes réponses sont affichées · Écoutez les audios pour comprendre les réponses</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -384,7 +390,7 @@ export default function COSimulatorPage() {
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="bg-white text-[#0F3D58] hover:bg-blue-50 px-4 py-2 rounded-lg text-xs font-bold transition-colors disabled:opacity-60"
+                className="bg-white text-[#0F3D58] hover:bg-[#FDF2E9] px-4 py-2 rounded-lg text-xs font-bold transition-colors disabled:opacity-60"
               >
                 {submitting ? <Loader size={14} className="inline animate-spin" /> : <><BarChart2 size={14} className="inline -mt-0.5" /> Resultats complets</>}
               </button>
@@ -414,7 +420,7 @@ export default function COSimulatorPage() {
               seconds < 180
                 ? 'bg-red-100 text-red-700 animate-pulse'
                 : seconds < 300
-                ? 'bg-blue-100 text-blue-800'
+                ? 'bg-[#e8f7f8] text-[#0F3D58]'
                 : 'bg-gray-100 text-gray-800'
             }`}
           >
@@ -424,7 +430,7 @@ export default function COSimulatorPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleAutoFillAndCorrect}
-              className="px-3 py-1.5 bg-blue-100 text-blue-700 border border-blue-300 rounded-lg text-xs font-bold hover:bg-blue-200 transition-colors"
+              className="px-3 py-1.5 bg-[#e8f7f8] text-[#3a5a6e] border border-[#71C9CE] rounded-lg text-xs font-bold hover:bg-[#71C9CE]/20 transition-colors"
             >
               <Search size={14} className="inline -mt-0.5" /> Corrige
             </button>
@@ -464,9 +470,9 @@ export default function COSimulatorPage() {
                       : isCorrectionMode
                       ? wasWrong
                         ? 'bg-red-100 text-red-700 border border-red-300'
-                        : 'bg-blue-100 text-blue-700 border border-blue-300'
+                        : 'bg-[#e8f7f8] text-[#3a5a6e] border border-[#71C9CE]'
                       : answers[i] !== null
-                      ? 'bg-blue-100 text-blue-700 border border-blue-200'
+                      ? 'bg-[#e8f7f8] text-[#3a5a6e] border border-[#e8e0d8]'
                       : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                   }`}
                 >
@@ -482,7 +488,7 @@ export default function COSimulatorPage() {
                 <span>Actuelle</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-blue-100 border border-blue-200" />
+                <div className="w-4 h-4 rounded bg-[#e8f7f8] border border-[#e8e0d8]" />
                 <span>Répondu</span>
               </div>
               <div className="flex items-center gap-2">
@@ -494,7 +500,7 @@ export default function COSimulatorPage() {
           {isCorrectionMode && (
             <div className="mt-3 space-y-1.5 text-xs text-gray-400">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-blue-100 border border-blue-300 flex items-center justify-center text-blue-700 font-bold text-[10px]"><Check size={10} /></div>
+                <div className="w-4 h-4 rounded bg-[#e8f7f8] border border-[#71C9CE] flex items-center justify-center text-[#3a5a6e] font-bold text-[10px]"><Check size={10} /></div>
                 <span>Correct</span>
               </div>
               <div className="flex items-center gap-2">
@@ -534,7 +540,7 @@ export default function COSimulatorPage() {
 
           {/* Prompt */}
           {question?.prompt && (
-            <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 mb-3 text-sm text-blue-800 font-medium">
+            <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl px-4 py-3 mb-3 text-sm text-[#0F3D58] font-medium">
               {question.prompt}
             </div>
           )}
@@ -558,7 +564,7 @@ export default function COSimulatorPage() {
                     key={i}
                     className={`w-full text-left px-4 py-3.5 rounded-xl border-2 text-sm font-medium ${
                       isCorrectOpt
-                        ? 'border-blue-500 bg-blue-50 text-blue-900'
+                        ? 'border-[#0F3D58] bg-[#FDF2E9] text-[#0F3D58]'
                         : wasUserWrong
                         ? 'border-red-300 bg-red-50 text-red-700'
                         : 'border-gray-200 bg-white text-gray-500'
@@ -572,7 +578,7 @@ export default function COSimulatorPage() {
                       {String.fromCharCode(65 + i)}
                     </span>
                     {optText}
-                    {isCorrectOpt && <span className="ml-2 text-blue-700 font-bold inline-flex items-center gap-0.5"><Check size={14} /> Bonne reponse</span>}
+                    {isCorrectOpt && <span className="ml-2 text-[#3a5a6e] font-bold inline-flex items-center gap-0.5"><Check size={14} /> Bonne reponse</span>}
                     {wasUserWrong && <span className="ml-2 text-red-500 font-bold inline-flex items-center gap-0.5"><X size={14} /> Votre choix</span>}
                   </div>
                 )
@@ -585,7 +591,7 @@ export default function COSimulatorPage() {
                   onClick={() => handleAnswer(i)}
                   className={`w-full text-left px-4 py-3.5 rounded-xl border-2 text-sm font-medium transition-all hover:shadow-sm ${
                     chosen
-                      ? 'border-[#0F3D58] bg-blue-50 text-blue-900 shadow-sm'
+                      ? 'border-[#0F3D58] bg-[#FDF2E9] text-[#0F3D58] shadow-sm'
                       : 'border-gray-200 bg-white text-gray-800 hover:border-gray-300 hover:bg-gray-50'
                   }`}
                 >
@@ -604,7 +610,7 @@ export default function COSimulatorPage() {
 
           {/* Explication en mode correction */}
           {isCorrectionMode && question?.explanation && (
-            <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
+            <div className="mt-4 bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 text-sm text-[#0F3D58]">
               <p className="font-semibold mb-1 flex items-center gap-1"><Zap size={14} /> Explication</p>
               <p>{question.explanation}</p>
             </div>

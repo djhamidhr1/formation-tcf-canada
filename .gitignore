@@ -17,3 +17,17 @@ create_folders.js
 deploy.bat
 .claude/
 "Nouveau Document texte (9).txt"
+"clek api.txt"
+DATABASE_DOCUMENTATION.md
+extract_ce_texts.py
+generate_all_missing_data.py
+__pycache__/
+extraction_output.log
+images_co_check/
+images_co_descriptions.json
+ANALYSE_IMAGES_CO.txt
+RAPPORT_DOUBLONS_CE.html
+RAPPORT_DOUBLONS_CE.txt
+EXEMPLES_CODE_PROTECTION.zip
+GUIDE_ANTI_SCRAPING_POUR_AYOUB.md
+tmp_screen1.png

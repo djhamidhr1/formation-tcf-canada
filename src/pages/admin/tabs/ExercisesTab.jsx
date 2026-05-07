@@ -222,7 +222,7 @@ function SeriesSection({ type }) {
   const filteredSeries = series.filter(s => !search || s.title?.toLowerCase().includes(search.toLowerCase()) || s.slug?.toLowerCase().includes(search.toLowerCase()) || String(s.order_index).includes(search))
   const filteredQ = questions.filter(q => !qSearch || q.question_text?.toLowerCase().includes(qSearch.toLowerCase()) || q.prompt?.toLowerCase().includes(qSearch.toLowerCase()) || String(q.order_index).includes(qSearch))
 
-  const LEVEL_COLORS = { A1:'bg-gray-100 text-gray-600', A2:'bg-blue-100 text-[#0F3D58]', B1:'bg-green-100 text-green-700', B2:'bg-yellow-100 text-yellow-700', C1:'bg-orange-100 text-orange-700', C2:'bg-red-100 text-red-700' }
+  const LEVEL_COLORS = { A1:'bg-gray-100 text-gray-600', A2:'bg-[#e8f7f8] text-[#0F3D58]', B1:'bg-green-100 text-green-700', B2:'bg-yellow-100 text-yellow-700', C1:'bg-orange-100 text-orange-700', C2:'bg-red-100 text-red-700' }
 
   return (
     <div className="space-y-4">
@@ -241,7 +241,7 @@ function SeriesSection({ type }) {
         </div>
 
         {loading ? (
-          <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
+          <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -274,7 +274,7 @@ function SeriesSection({ type }) {
                         <button onClick={()=>openEditSeries(s)} className="p-1.5 rounded-lg hover:bg-orange-50 text-gray-400 hover:text-[#F98012]" title="Modifier la série"><Edit2 size={13}/></button>
                         <button onClick={()=>{ setCurrent(s); setModal('delSeries') }} className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500" title="Supprimer la série"><Trash2 size={13}/></button>
                         <button onClick={()=>setSelectedSeries(selectedSeries?.id===s.id?null:s)}
-                          className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 rounded-lg text-xs font-semibold hover:bg-orange-100">
+                          className="flex items-center gap-1 px-2 py-1 bg-[#FDF2E9] text-[#3a5a6e] rounded-lg text-xs font-semibold hover:bg-orange-100">
                           Questions {selectedSeries?.id===s.id ? <ChevronUp size={11}/> : <ChevronRight size={11}/>}
                         </button>
                       </div>
@@ -289,8 +289,8 @@ function SeriesSection({ type }) {
 
       {/* ── Questions panel ── */}
       {selectedSeries && (
-        <div className="bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
-          <div className="px-5 py-3 border-b border-blue-100 bg-blue-50 flex items-center gap-3 flex-wrap">
+        <div className="bg-white rounded-2xl border border-[#e8e0d8] shadow-sm overflow-hidden">
+          <div className="px-5 py-3 border-b border-[#e8e0d8] bg-[#FDF2E9] flex items-center gap-3 flex-wrap">
             <button onClick={()=>setSelectedSeries(null)} className="p-1 rounded hover:bg-orange-100 text-[#0F3D58]"><ChevronLeft size={15}/></button>
             <div>
               <h3 className="font-extrabold text-[#0F3D58] text-sm">Test {selectedSeries.order_index} — {selectedSeries.title}</h3>
@@ -303,7 +303,7 @@ function SeriesSection({ type }) {
           </div>
 
           {qLoading ? (
-            <div className="flex justify-center py-8"><div className="w-5 h-5 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
+            <div className="flex justify-center py-8"><div className="w-5 h-5 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -419,7 +419,7 @@ function SeriesSection({ type }) {
                 <div>
                   <label className="text-xs font-bold text-gray-700 block mb-1">Audio (MP3)</label>
                   <div className="flex items-center gap-3 flex-wrap">
-                    <label className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer ${uploading?'bg-gray-100 text-gray-400':'bg-blue-50 text-blue-700 hover:bg-orange-100'}`}>
+                    <label className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer ${uploading?'bg-gray-100 text-gray-400':'bg-[#FDF2E9] text-[#3a5a6e] hover:bg-orange-100'}`}>
                       <Upload size={13}/>{uploading?'Upload…':'Choisir MP3'}
                       <input type="file" accept="audio/*" className="hidden" disabled={uploading} onChange={e=>{ if(e.target.files[0]) uploadFile(e.target.files[0],'audio_url') }}/>
                     </label>
@@ -432,7 +432,7 @@ function SeriesSection({ type }) {
                 <div>
                   <label className="text-xs font-bold text-gray-700 block mb-1">Image (optionnel)</label>
                   <div className="flex items-center gap-3">
-                    <label className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer bg-blue-50 text-blue-700 hover:bg-orange-100">
+                    <label className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold cursor-pointer bg-[#FDF2E9] text-[#3a5a6e] hover:bg-orange-100">
                       <Upload size={13}/>Image
                       <input type="file" accept="image/*" className="hidden" onChange={e=>{ if(e.target.files[0]) uploadFile(e.target.files[0],'image_url') }}/>
                     </label>
@@ -570,7 +570,7 @@ function EESection() {
         </button>
       </div>
 
-      {loading ? <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div> : (
+      {loading ? <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div> : (
         Object.keys(byYear).sort().map(year => (
           <div key={year} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="px-5 py-2.5 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
@@ -632,7 +632,7 @@ function EESection() {
               { label:'Tâche 3 — Document 2', field:'tache3_document2', color:'orange' },
               { label:'Tâche 3 — Correction', field:'tache3_correction', color:'orange' },
             ].map(({ label, field, color }) => (
-              <div key={field} className={`border-l-4 ${color==='blue'?'border-blue-300':color==='green'?'border-green-300':'border-orange-300'} pl-3`}>
+              <div key={field} className={`border-l-4 ${color==='blue'?'border-[#71C9CE]':color==='green'?'border-green-300':'border-orange-300'} pl-3`}>
                 <label className="text-xs font-bold text-gray-700 block mb-1">{label}</label>
                 <RichEditor value={form[field]} onChange={v=>setForm(f=>({...f,[field]:v}))} rows={3}/>
               </div>
@@ -731,7 +731,7 @@ function EOSection() {
         </button>
       </div>
 
-      {loading ? <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div> : (
+      {loading ? <div className="flex justify-center py-8"><div className="w-6 h-6 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div> : (
         Object.keys(byYear).sort().map(year => (
           <div key={year} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div className="px-5 py-2.5 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
@@ -826,8 +826,8 @@ export default function ExercisesTab() {
   const [section, setSection] = useState('co')
 
   const COLOR = {
-    blue:   { active:'bg-[#0F3D58] text-white',   inactive:'bg-white border border-blue-200 text-[#0F3D58] hover:bg-orange-50' },
-    purple: { active:'bg-[#0F3D58] text-white',  inactive:'bg-white border border-blue-200 text-blue-700 hover:bg-orange-50' },
+    blue:   { active:'bg-[#0F3D58] text-white',   inactive:'bg-white border border-[#e8e0d8] text-[#0F3D58] hover:bg-orange-50' },
+    purple: { active:'bg-[#0F3D58] text-white',  inactive:'bg-white border border-[#e8e0d8] text-[#3a5a6e] hover:bg-orange-50' },
     green:  { active:'bg-green-600 text-white',  inactive:'bg-white border border-green-200 text-green-700 hover:bg-green-50' },
     orange: { active:'bg-orange-500 text-white', inactive:'bg-white border border-orange-200 text-orange-600 hover:bg-orange-50' },
   }

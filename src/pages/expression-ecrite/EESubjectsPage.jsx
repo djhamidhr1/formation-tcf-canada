@@ -34,25 +34,25 @@ const TACHE_META = [
 
 const COLOR_MAP = {
   blue: {
-    badge: 'bg-blue-100 text-blue-700',
-    border: 'border-blue-300',
-    header: 'bg-blue-50',
-    corrBtn: 'text-blue-600 border-blue-300 hover:bg-blue-50',
-    corrBox: 'bg-blue-50 border-blue-200',
+    badge: 'bg-[#e8f7f8] text-[#3a5a6e]',
+    border: 'border-[#71C9CE]',
+    header: 'bg-[#FDF2E9]',
+    corrBtn: 'text-[#6b8a9a] border-[#71C9CE] hover:bg-[#FDF2E9]',
+    corrBox: 'bg-[#FDF2E9] border-[#e8e0d8]',
   },
   green: {
-    badge: 'bg-blue-100 text-blue-700',
-    border: 'border-blue-300',
-    header: 'bg-blue-50',
-    corrBtn: 'text-blue-600 border-blue-300 hover:bg-blue-50',
-    corrBox: 'bg-blue-50 border-blue-200',
+    badge: 'bg-[#e8f7f8] text-[#3a5a6e]',
+    border: 'border-[#71C9CE]',
+    header: 'bg-[#FDF2E9]',
+    corrBtn: 'text-[#6b8a9a] border-[#71C9CE] hover:bg-[#FDF2E9]',
+    corrBox: 'bg-[#FDF2E9] border-[#e8e0d8]',
   },
   orange: {
-    badge: 'bg-blue-100 text-blue-700',
+    badge: 'bg-[#e8f7f8] text-[#3a5a6e]',
     border: 'border-orange-300',
     header: 'bg-orange-50',
-    corrBtn: 'text-blue-600 border-orange-300 hover:bg-orange-50',
-    corrBox: 'bg-orange-50 border-blue-200',
+    corrBtn: 'text-[#6b8a9a] border-orange-300 hover:bg-orange-50',
+    corrBox: 'bg-orange-50 border-[#e8e0d8]',
   },
 }
 
@@ -128,7 +128,7 @@ export default function EESubjectsPage() {
         <div className="max-w-5xl mx-auto">
           <Link
             to="/epreuve/expression-ecrite"
-            className="inline-flex items-center gap-1.5 text-blue-200 hover:text-white text-sm mb-4 no-underline transition-colors"
+            className="inline-flex items-center gap-1.5 text-[#e8f7f8] hover:text-white text-sm mb-4 no-underline transition-colors"
           >
             ← Expression Écrite
           </Link>
@@ -136,7 +136,7 @@ export default function EESubjectsPage() {
             <FileText size={40} className="shrink-0 opacity-90" />
             <div>
               <h1 className="text-3xl font-extrabold mb-1">Sujets d'actualités</h1>
-              <p className="text-blue-200 text-sm">
+              <p className="text-[#e8f7f8] text-sm">
                 {loading ? 'Chargement...' : `${combinaisons.length} combinaisons disponibles · 60 min · 3 tâches`}
               </p>
             </div>
@@ -211,7 +211,7 @@ export default function EESubjectsPage() {
                   <h2 className="text-lg font-extrabold text-gray-900">
                     {formatMonthSlug(monthSlug)}
                   </h2>
-                  <span className="bg-blue-100 text-[#0F3D58] text-xs font-bold px-2.5 py-1 rounded-full">
+                  <span className="bg-[#e8f7f8] text-[#0F3D58] text-xs font-bold px-2.5 py-1 rounded-full">
                     {groupedVisible[monthSlug].length} combinaison{groupedVisible[monthSlug].length !== 1 ? 's' : ''}
                   </span>
                   <div className="flex-1 h-px bg-gray-200" />
@@ -230,7 +230,7 @@ export default function EESubjectsPage() {
               <div className="text-center mt-6">
                 <button
                   onClick={() => setPage(p => p + 1)}
-                  className="inline-flex items-center gap-2 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-blue-50 font-bold px-8 py-3 rounded-xl text-sm transition-colors"
+                  className="inline-flex items-center gap-2 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-[#FDF2E9] font-bold px-8 py-3 rounded-xl text-sm transition-colors"
                 >
                   <ChevronDown size={16} />
                   Charger plus ({filtered.length - page * PAGE_SIZE} restants)
@@ -264,7 +264,7 @@ function CombiCard({ combi, number, monthLabel }) {
   ]
 
   return (
-    <div className="bg-white rounded-2xl border border-blue-100 shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
+    <div className="bg-white rounded-2xl border border-[#e8e0d8] shadow-sm hover:shadow-md transition-all overflow-hidden flex flex-col">
       {/* Card header — click to expand/collapse */}
       <button
         onClick={() => setExpanded(e => !e)}
@@ -273,7 +273,7 @@ function CombiCard({ combi, number, monthLabel }) {
         <div className="bg-gradient-to-r from-[#0F3D58] to-[#164b6b] px-4 py-3 flex items-center justify-between">
           <div>
             <span className="text-white font-extrabold text-base">Combinaison {number}</span>
-            <span className="text-blue-200 text-xs ml-2 block sm:inline">{monthLabel}</span>
+            <span className="text-[#e8f7f8] text-xs ml-2 block sm:inline">{monthLabel}</span>
           </div>
           <div className="flex items-center gap-1.5 shrink-0">
             {['T1', 'T2', 'T3'].map(t => (
@@ -293,7 +293,7 @@ function CombiCard({ combi, number, monthLabel }) {
       {!expanded && (
         <div className="px-4 py-4 flex flex-col gap-3 flex-1">
           <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">
-            <span className="font-semibold text-blue-700">T1 : </span>
+            <span className="font-semibold text-[#3a5a6e]">T1 : </span>
             {combi.tache1_sujet
               ? combi.tache1_sujet.substring(0, 130) + (combi.tache1_sujet.length > 130 ? '…' : '')
               : 'Sujet non disponible'}
@@ -358,7 +358,7 @@ function CombiCard({ combi, number, monthLabel }) {
 
                     {showCorr[idx] && tache.correction && (
                       <div className={`mt-2 p-3 rounded-xl border text-xs text-gray-700 leading-relaxed whitespace-pre-line ${c.corrBox}`}>
-                        <span className="font-bold text-blue-700 block mb-1"><Check size={14} className="inline mr-1" /> Correction :</span>
+                        <span className="font-bold text-[#3a5a6e] block mb-1"><Check size={14} className="inline mr-1" /> Correction :</span>
                         {tache.correction}
                       </div>
                     )}

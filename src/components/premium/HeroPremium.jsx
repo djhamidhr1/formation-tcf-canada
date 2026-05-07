@@ -131,7 +131,7 @@ const AnimatedStat = ({ value, label, suffix = '', delay = 0 }) => {
             <CountUp end={value} duration={2.5} separator=" " suffix={suffix} />
           )}
         </div>
-        <div className="text-sm text-blue-200 font-medium">{label}</div>
+        <div className="text-sm text-[#e8f7f8] font-medium">{label}</div>
       </div>
     </motion.div>
   )
@@ -259,7 +259,7 @@ export default function HeroPremium({ stats }) {
           {/* Sous-titre */}
           <motion.p
             variants={itemVariants}
-            className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-4 leading-relaxed font-medium"
+            className="text-xl md:text-2xl text-[#e8f7f8] max-w-3xl mx-auto mb-4 leading-relaxed font-medium"
           >
             Plateforme IA pour maximiser vos chances de réussir.
             <br />

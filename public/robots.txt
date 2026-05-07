@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://djhamidhr1.github.io/formation-tcf-canada/sitemap.xml

@@ -122,8 +122,8 @@ export default function PricingCardPremium({ plan, index }) {
         {/* Decorative circles */}
         {popular && (
           <>
-            <div className="absolute -right-10 -top-10 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl" />
-            <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-400/10 rounded-full blur-2xl" />
+            <div className="absolute -right-10 -top-10 w-32 h-32 bg-[#71C9CE]/10 rounded-full blur-2xl" />
+            <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-[#71C9CE]/10 rounded-full blur-2xl" />
           </>
         )}
       </div>

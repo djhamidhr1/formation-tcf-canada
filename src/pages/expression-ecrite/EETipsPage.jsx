@@ -20,7 +20,7 @@ const TASKS_INFO = [
     pts: 6,
     mots: '60–120 mots',
     level: 'A2–B1',
-    levelColor: 'bg-blue-100 text-blue-800',
+    levelColor: 'bg-[#e8f7f8] text-[#0F3D58]',
     style: 'Style convivial, ton informel/amical',
     desc: 'Répondre à un message, rédiger une invitation, remercier, s\'excuser ou donner des informations à un proche.',
     tips: [
@@ -46,7 +46,7 @@ const TASKS_INFO = [
     pts: 7,
     mots: '120–150 mots',
     level: 'B1–B2',
-    levelColor: 'bg-blue-100 text-blue-800',
+    levelColor: 'bg-[#e8f7f8] text-[#0F3D58]',
     style: 'NARRATION — temps du passé obligatoires',
     desc: 'Raconter un événement passé, une expérience vécue, une anecdote, une situation problématique et sa résolution.',
     tips: [
@@ -124,7 +124,7 @@ function TaskAccordion({ task }) {
       {open && (
         <div className="border-t border-gray-100 px-6 pb-6 pt-4">
           {/* Style */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 mb-5 text-sm font-semibold text-[#0F3D58]">
+          <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl px-4 py-3 mb-5 text-sm font-semibold text-[#0F3D58]">
             <PenTool size={14} className="inline mr-1" /> {task.style}
           </div>
 
@@ -153,7 +153,7 @@ function TaskAccordion({ task }) {
               <h4 className="font-bold text-gray-900 text-sm mb-3"><Link2 size={14} className="inline mr-1" /> Connecteurs logiques</h4>
               <div className="flex flex-wrap gap-1.5">
                 {task.connectors.map(c => (
-                  <span key={c} className="bg-blue-50 border border-blue-200 text-[#0F3D58] text-xs font-medium px-2.5 py-1 rounded-lg">
+                  <span key={c} className="bg-[#FDF2E9] border border-[#e8e0d8] text-[#0F3D58] text-xs font-medium px-2.5 py-1 rounded-lg">
                     {c}
                   </span>
                 ))}
@@ -195,7 +195,7 @@ export default function EETipsPage() {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {TASKS_INFO.map(t => (
-            <div key={t.num} className="border-2 border-blue-100 rounded-xl p-4 hover:border-blue-300 transition-colors">
+            <div key={t.num} className="border-2 border-[#e8e0d8] rounded-xl p-4 hover:border-[#71C9CE] transition-colors">
               <div className="flex justify-between items-start mb-2">
                 <span className="w-7 h-7 rounded-full bg-[#0F3D58] text-white flex items-center justify-center font-bold text-sm">
                   {t.num}
@@ -238,7 +238,7 @@ export default function EETipsPage() {
                     <td className="py-3 px-3 text-right font-bold text-[#0F3D58]">{row.pts} / {row.pts}</td>
                   </tr>
                 ))}
-                <tr className="bg-blue-50 font-bold">
+                <tr className="bg-[#FDF2E9] font-bold">
                   <td className="py-3 px-3" colSpan={2}>TOTAL MAXIMUM</td>
                   <td className="py-3 px-3 text-right text-[#0F3D58]">20 pts</td>
                 </tr>
@@ -305,7 +305,7 @@ export default function EETipsPage() {
             desc: 'Chaque tâche doit avoir une introduction, un développement et une conclusion. Sautez des lignes entre les paragraphes.',
           },
         ].map(tip => (
-          <div key={tip.title} className="bg-blue-50 border border-blue-100 rounded-xl p-5">
+          <div key={tip.title} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-5">
             <div className="text-2xl mb-2"><tip.IconComp size={24} className="text-[#0F3D58]" /></div>
             <h3 className="font-bold text-gray-900 mb-2">{tip.title}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{tip.desc}</p>

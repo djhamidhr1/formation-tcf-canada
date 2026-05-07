@@ -252,7 +252,7 @@ function OverviewTab() {
     { icon: Mic,         label: 'Séries CO',          value: stats.co,          color: 'red' },
   ] : []
 
-  if (loading) return <div className="flex items-center justify-center py-20"><div className="w-8 h-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
+  if (loading) return <div className="flex items-center justify-center py-20"><div className="w-8 h-8 border-4 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div>
 
   return (
     <div className="space-y-6">
@@ -504,7 +504,7 @@ function MembersTab() {
             <tbody className="divide-y divide-gray-50">
               {loading && (
                 <tr><td colSpan={7} className="py-10 text-center">
-                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
+                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div>
                 </td></tr>
               )}
               {!loading && paginated.map(m => {
@@ -703,7 +703,7 @@ function SubmissionsTab() {
             <tbody className="divide-y divide-gray-50">
               {loading && (
                 <tr><td colSpan={5} className="py-10 text-center">
-                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
+                  <div className="flex justify-center"><div className="w-6 h-6 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div>
                 </td></tr>
               )}
               {!loading && filtered.length === 0 && (
@@ -792,7 +792,7 @@ function SubmissionsTab() {
             <div className="flex gap-3 justify-end">
               <button onClick={() => setSelected(null)} className="px-5 py-2 text-sm border border-gray-200 rounded-xl hover:bg-gray-50">Fermer</button>
               <button onClick={handleReply} disabled={sending || !reply.trim()}
-                className="flex items-center gap-2 px-5 py-2 text-sm bg-blue-600 text-white rounded-xl font-bold hover:bg-[#F98012] disabled:opacity-50">
+                className="flex items-center gap-2 px-5 py-2 text-sm bg-[#0F3D58] text-white rounded-xl font-bold hover:bg-[#F98012] disabled:opacity-50">
                 <Send size={14} /> {sending ? 'Envoi...' : 'Envoyer le feedback'}
               </button>
             </div>
@@ -872,7 +872,7 @@ function VisitorsTab() {
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-gray-400">{c.visits.toLocaleString()}</span>
-                    <span className="text-xs font-bold text-blue-600 w-8 text-right">{c.pct}%</span>
+                    <span className="text-xs font-bold text-[#6b8a9a] w-8 text-right">{c.pct}%</span>
                   </div>
                 </div>
                 <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
@@ -932,7 +932,7 @@ function VisitorsTab() {
       </div>
 
       {/* Info banner */}
-      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-start gap-3">
+      <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-2xl p-4 flex items-start gap-3">
         <AlertCircle size={16} className="text-[#0F3D58] shrink-0 mt-0.5" />
         <div>
           <p className="text-sm font-bold text-[#0F3D58]">Données simulées</p>
@@ -1016,7 +1016,7 @@ function FollowUpTab() {
       <SearchInput value={search} onChange={setSearch} placeholder="Rechercher un membre..." />
 
       {loading ? (
-        <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full animate-spin"/></div>
+        <div className="flex justify-center py-10"><div className="w-6 h-6 border-2 border-[#71C9CE] border-t-transparent rounded-full animate-spin"/></div>
       ) : (
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
@@ -1046,7 +1046,7 @@ function FollowUpTab() {
                     <tr key={it.id || i} className="hover:bg-gray-50">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-[#0F3D58] text-xs font-bold">
+                          <div className="w-7 h-7 rounded-full bg-[#e8f7f8] flex items-center justify-center text-[#0F3D58] text-xs font-bold">
                             {name[0]?.toUpperCase()}
                           </div>
                           <div>
@@ -1072,7 +1072,7 @@ function FollowUpTab() {
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-1 justify-end">
                           <a href={`mailto:${email}?subject=Formation TCF Canada&body=Bonjour ${name},`}
-                            className="flex items-center gap-1 px-2.5 py-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs font-semibold hover:bg-orange-100">
+                            className="flex items-center gap-1 px-2.5 py-1.5 bg-[#FDF2E9] text-[#6b8a9a] rounded-lg text-xs font-semibold hover:bg-orange-100">
                             <Mail size={11} /> Email
                           </a>
                           <button onClick={() => { setNoteModal(it); setNote('') }}
@@ -1201,7 +1201,7 @@ export default function AdminDashboard() {
   if (authLoading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-[#71C9CE] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }

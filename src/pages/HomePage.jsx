@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 import { supabase } from '../services/supabase'
 import { BookOpen, Headphones, PenTool, Mic, TrendingUp, Brain, Calendar, Users, Shield, Clock, MessageCircle, Mail, GraduationCap, Zap, Check } from 'lucide-react'
 
@@ -138,8 +139,35 @@ export default function HomePage() {
     eo: nclc.eo ? getNclcEeEo(+nclc.eo) : null,
   }
 
+  const handleContactSubmit = (e) => {
+    e.preventDefault()
+    const { nom, email, message } = contactForm
+    if (!nom || !email || !message) { toast?.('Veuillez remplir tous les champs'); return }
+    const text = `Bonjour, je suis ${nom} (${email}).%0A%0A${message}`
+    window.open(`https://wa.me/15147467431?text=${text}`, '_blank')
+    setContactForm({ nom: '', email: '', message: '' })
+  }
+
   return (
     <div>
+      <style>{`
+        @media (max-width: 768px) {
+          .hp-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .hp-epreuves-grid { grid-template-columns: 1fr !important; }
+          .hp-avantages-grid { grid-template-columns: 1fr !important; }
+          .hp-pricing-grid { grid-template-columns: 1fr !important; }
+          .hp-nclc-grid { grid-template-columns: 1fr !important; }
+          .hp-faq-grid { grid-template-columns: 1fr !important; }
+          .hp-contact-grid { grid-template-columns: 1fr !important; }
+          .hp-fondateur-stats { grid-template-columns: repeat(3, 1fr) !important; }
+          .hp-temoignages-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .hp-stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+          .hp-fondateur-stats { gap: 10px !important; }
+        }
+      `}</style>
+
       {/* HERO — Beige Sable + Formes organiques */}
       <div style={{
         background: '#FDF2E9',
@@ -195,7 +223,7 @@ export default function HomePage() {
           </div>
 
           {/* Stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+          <div className="hp-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
             {[
               [stats.questions, 'Questions C. Orale + Ecrite'],
               [stats.series, "Series d'entrainement"],
@@ -265,7 +293,7 @@ export default function HomePage() {
           }
         `}</style>
         <SectionTitle title="Les 4 Epreuves du TCF Canada" subtitle="Preparez-vous a chaque competence avec des exercices authentiques et un simulateur en conditions reelles" />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
+        <div className="hp-epreuves-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 20 }}>
           {EPREUVES.map(ep => {
             const c = epreuveColors[ep.ekey]
             return (
@@ -304,7 +332,7 @@ export default function HomePage() {
         <div style={{ position: 'absolute', bottom: -40, left: -80, width: 260, height: 260, borderRadius: '50%', background: 'rgba(249, 128, 18, 0.06)', pointerEvents: 'none' }} />
 
         <SectionTitle title="Pourquoi choisir Formation TCF Canada ?" subtitle="Tout ce dont vous avez besoin pour reussir votre TCF Canada au premier essai" />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, position: 'relative' }}>
+        <div className="hp-avantages-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, position: 'relative' }}>
           {AVANTAGES.map((a, i) => (
             <Card key={i} style={{ padding: '24px 20px' }} hover>
               <div style={{ marginBottom: 14, display: 'flex', width: 48, height: 48, background: i % 2 === 0 ? '#e8f7f8' : '#fef0e2', borderRadius: 12, alignItems: 'center', justifyContent: 'center', color: i % 2 === 0 ? '#0F3D58' : '#F98012' }}><a.icon size={24} /></div>
@@ -335,7 +363,7 @@ export default function HomePage() {
               }}><GraduationCap size={32} /></div>
               <h3 style={{ fontSize: 26, fontWeight: 900, marginBottom: 4, letterSpacing: '-0.03em', margin: '0 0 4px' }}>Hamid — Fondateur</h3>
               <p style={{ color: 'rgba(160, 190, 210, 0.8)', marginBottom: 32, fontSize: 16, margin: '0 0 32px' }}>Expert TCF Canada depuis 2019</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+              <div className="hp-fondateur-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
                 {[['5+', "Ans d'experience"], ['25 000+', 'Candidats accompagnes'], ['95%', 'Taux de reussite']].map(([v, l]) => (
                   <div key={l}>
                     <div style={{ fontSize: 36, fontWeight: 900, letterSpacing: '-0.04em' }}>{v}</div>
@@ -351,7 +379,7 @@ export default function HomePage() {
       {/* PRICING APERCU */}
       <Section bg="var(--surface-2)">
         <SectionTitle title="Nos Forfaits" subtitle="Choisissez le forfait adapte a votre objectif d'examen" />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, maxWidth: 900, margin: '0 auto' }}>
+        <div className="hp-pricing-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, maxWidth: 900, margin: '0 auto' }}>
           {[
             { name: 'Bronze', price: '14,99', days: 5, credits: 3, popular: false },
             { name: 'Silver', price: '29,99', days: 30, credits: 8, popular: true },
@@ -406,7 +434,7 @@ export default function HomePage() {
       {/* CALCULATEUR NCLC */}
       <Section>
         <SectionTitle title="Calculateur NCLC" subtitle="Estimez votre niveau linguistique canadien (NCLC) selon vos scores TCF" />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, maxWidth: 900, margin: '0 auto' }}>
+        <div className="hp-nclc-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, maxWidth: 900, margin: '0 auto' }}>
           <Card style={{ padding: 32 }}>
             <h4 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20, color: 'var(--text-1)', margin: '0 0 20px' }}>Entrez vos scores</h4>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
@@ -458,7 +486,7 @@ export default function HomePage() {
         <div style={{ position: 'absolute', top: -80, left: -80, width: 300, height: 300, borderRadius: '50%', background: 'rgba(113, 201, 206, 0.08)', pointerEvents: 'none' }} />
         <div style={{ position: 'absolute', bottom: -60, right: -60, width: 220, height: 220, borderRadius: '50%', background: 'rgba(249, 128, 18, 0.06)', pointerEvents: 'none' }} />
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.8fr', gap: 48, alignItems: 'flex-start', position: 'relative' }}>
+        <div className="hp-faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.8fr', gap: 48, alignItems: 'flex-start', position: 'relative' }}>
           {/* Left — Title + CTA */}
           <div style={{ position: 'sticky', top: 120 }}>
             <h2 style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(26px, 3vw, 36px)', fontWeight: 900, color: '#0F3D58', lineHeight: 1.2, margin: '0 0 16px' }}>
@@ -513,10 +541,40 @@ export default function HomePage() {
         </div>
       </Section>
 
+      {/* TEMOIGNAGES */}
+      <Section bg="#FDF2E9">
+        <SectionTitle title="Ils ont reussi leur TCF" subtitle="94% de nos candidats prepares atteignent le NCLC requis pour Express Entry." />
+        <div className="hp-temoignages-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 24 }}>
+          {[
+            { quote: "Le simulateur EE m'a fait gagner deux niveaux — la correction IA me reprenait sur des fautes que personne ne m'avait jamais signalees.", name: "Fatou K.", from: "Dakar → Montreal · Express Entry", score: "NCLC 9", initials: "FK" },
+            { quote: "Les sujets d'actualite d'EO sont les vrais. J'ai eu mon theme exactement tel qu'il etait liste sur la plateforme la semaine d'avant.", name: "Adama M.", from: "Abidjan → Sherbrooke · PEQ", score: "NCLC 8", initials: "AM", dark: true },
+          ].map((t, i) => (
+            <div key={i} style={{
+              background: t.dark ? '#0F3D58' : 'white',
+              borderRadius: 20, padding: 36, border: t.dark ? 'none' : '1px solid #e8e0d8',
+              position: 'relative',
+            }}>
+              <div style={{ fontFamily: "inherit", fontSize: 80, lineHeight: 0.8, color: '#F98012', fontWeight: 800, marginBottom: 4 }}>"</div>
+              <p style={{ fontFamily: "inherit", fontSize: 20, fontWeight: 500, lineHeight: 1.4, color: t.dark ? 'white' : '#0F3D58', marginBottom: 24, letterSpacing: '-0.01em' }}>
+                {t.quote}
+              </p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, paddingTop: 20, borderTop: `1px solid ${t.dark ? 'rgba(255,255,255,0.15)' : '#e8e0d8'}` }}>
+                <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#F98012', display: 'grid', placeItems: 'center', color: 'white', fontWeight: 700, fontFamily: "inherit", fontSize: 18 }}>{t.initials}</div>
+                <div style={{ flex: 1 }}>
+                  <strong style={{ display: 'block', fontSize: 15, color: t.dark ? 'white' : '#0F3D58' }}>{t.name}</strong>
+                  <span style={{ fontSize: 12, color: t.dark ? 'rgba(255,255,255,0.6)' : '#6b8a9a' }}>{t.from}</span>
+                </div>
+                <div style={{ fontFamily: "inherit", fontSize: 22, fontWeight: 700, color: '#F98012' }}>{t.score}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       {/* CONTACT */}
       <Section>
         <SectionTitle title="Contactez-nous" />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, maxWidth: 840, margin: '0 auto' }}>
+        <div className="hp-contact-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, maxWidth: 840, margin: '0 auto' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
               display: 'flex', alignItems: 'center', gap: 16,
@@ -549,14 +607,14 @@ export default function HomePage() {
           </div>
           <Card style={{ padding: 28 }}>
             <h4 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20, margin: '0 0 20px' }}>Envoyer un message</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <input placeholder="Votre nom" value={contactForm.nom} onChange={e => setContactForm(p => ({ ...p, nom: e.target.value }))}
+            <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+              <input placeholder="Votre nom" required value={contactForm.nom} onChange={e => setContactForm(p => ({ ...p, nom: e.target.value }))}
                 style={{ width: '100%', padding: '11px 14px', fontSize: 14, border: '1.5px solid var(--border-med)', borderRadius: 'var(--radius-md)', background: 'var(--white)', color: 'var(--text-1)', outline: 'none', fontFamily: 'var(--font)' }} />
-              <input type="email" placeholder="Votre email" value={contactForm.email} onChange={e => setContactForm(p => ({ ...p, email: e.target.value }))}
+              <input type="email" placeholder="Votre email" required value={contactForm.email} onChange={e => setContactForm(p => ({ ...p, email: e.target.value }))}
                 style={{ width: '100%', padding: '11px 14px', fontSize: 14, border: '1.5px solid var(--border-med)', borderRadius: 'var(--radius-md)', background: 'var(--white)', color: 'var(--text-1)', outline: 'none', fontFamily: 'var(--font)' }} />
-              <textarea placeholder="Votre message..." rows={4} value={contactForm.message} onChange={e => setContactForm(p => ({ ...p, message: e.target.value }))}
+              <textarea placeholder="Votre message..." rows={4} required value={contactForm.message} onChange={e => setContactForm(p => ({ ...p, message: e.target.value }))}
                 style={{ width: '100%', padding: '11px 14px', fontSize: 14, border: '1.5px solid var(--border-med)', borderRadius: 'var(--radius-md)', resize: 'none', outline: 'none', fontFamily: 'var(--font)', color: 'var(--text-1)', background: 'var(--white)' }} />
-              <button style={{
+              <button type="submit" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '11px 22px', fontSize: 14, fontWeight: 700,
                 background: '#F98012', color: 'white', borderRadius: 'var(--radius-md)',
@@ -564,12 +622,75 @@ export default function HomePage() {
               }}
               onMouseEnter={e => { e.currentTarget.style.background = '#71C9CE'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 14px rgba(113,201,206,0.4)' }}
               onMouseLeave={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 3px 10px rgba(249,128,18,0.35)' }}>
-                Envoyer &rarr;
+                Envoyer via WhatsApp &rarr;
               </button>
-            </div>
+            </form>
           </Card>
         </div>
       </Section>
+
+      {/* CTA FINAL */}
+      <section style={{
+        background: '#0A2D43', position: 'relative', overflow: 'hidden',
+        padding: '110px 24px', textAlign: 'center',
+      }}>
+        {/* Demi-cercle orange bas gauche */}
+        <div style={{ position: 'absolute', bottom: -140, left: -80, width: 320, height: 320, borderRadius: '50%', background: '#F98012', opacity: 0.9 }} />
+        {/* Deuxième cercle orange */}
+        <div style={{ position: 'absolute', top: -100, right: -100, width: 280, height: 280, borderRadius: '50%', background: '#F98012', opacity: 0.15 }} />
+        {/* Cercles décoratifs haut droite */}
+        <div style={{ position: 'absolute', top: 60, right: '10%', width: 300, height: 300, borderRadius: '50%', border: '1.5px solid rgba(255,255,255,0.08)' }} />
+        <div style={{ position: 'absolute', top: 120, right: '15%', width: 180, height: 180, borderRadius: '50%', border: '1.5px solid rgba(255,255,255,0.05)' }} />
+        {/* Arc turquoise */}
+        <div style={{ position: 'absolute', top: '30%', right: -100, width: 360, height: 360, borderRadius: '50%', border: '2px dashed rgba(113,201,206,0.3)' }} />
+
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 720, margin: '0 auto' }}>
+          <p style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.14em', color: '#F98012', marginBottom: 16 }}>
+            Pret a commencer ?
+          </p>
+          <h2 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 800, color: 'white', lineHeight: 1.1, marginBottom: 20, letterSpacing: '-0.02em' }}>
+            Ton TCF Canada commence <span style={{ color: '#F98012' }}>aujourd'hui</span>.
+          </h2>
+          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.8)', lineHeight: 1.55, marginBottom: 36, maxWidth: 580, margin: '0 auto 36px' }}>
+            Cree ton compte gratuitement en 30 secondes. Tu accedes immediatement a un sujet d'entrainement par epreuve, sans carte bancaire.
+          </p>
+          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 36 }}>
+            <Link to="/tarifs" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '16px 32px', fontSize: 16, fontWeight: 700,
+              background: '#F98012', color: 'white', borderRadius: 999,
+              textDecoration: 'none', transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#71C9CE'; e.currentTarget.style.color = '#0F3D58'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+            onMouseLeave={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = '' }}>
+              Creer mon compte gratuit &rarr;
+            </Link>
+            <a href="https://wa.me/15147467431" target="_blank" rel="noreferrer" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              padding: '16px 32px', fontSize: 16, fontWeight: 600,
+              background: 'transparent', color: 'white', borderRadius: 999,
+              border: '1.5px solid rgba(255,255,255,0.5)',
+              textDecoration: 'none', transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)' }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9s-.5-.1-.7.1-.8.9-.9 1.1-.3.2-.5.1c-1.5-.7-2.4-1.3-3.4-3-.3-.5.3-.4.7-1.4.1-.2.1-.3 0-.5s-.7-1.6-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.4 1 2.8 1.1 3 2 3.1 4.9 4.4c1.8.8 2.5.8 3.4.7.6 0 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.1-.3-.2-.6-.1zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.5.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+              Parler a Hamid sur WhatsApp
+            </a>
+          </div>
+          <div style={{ display: 'flex', gap: 32, justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Shield size={14} /> Paiement securise
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Clock size={14} /> Activation automatique
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <Users size={14} /> 1 200+ avis
+            </span>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

@@ -6,12 +6,12 @@ import { supabase } from '../../services/supabase'
 const C = { bg: '#fef0e2', border: '#F98012', btn: '#0F3D58', text: '#0F3D58', light: '#FDF2E9' }
 
 const LEVEL_COLORS = {
-  A1: 'bg-blue-100 text-blue-800',
-  A2: 'bg-blue-100 text-blue-800',
-  B1: 'bg-blue-50 text-blue-800',
-  B2: 'bg-blue-100 text-blue-800',
+  A1: 'bg-[#e8f7f8] text-[#0F3D58]',
+  A2: 'bg-[#e8f7f8] text-[#0F3D58]',
+  B1: 'bg-[#FDF2E9] text-[#0F3D58]',
+  B2: 'bg-[#e8f7f8] text-[#0F3D58]',
   C1: 'bg-red-100 text-red-800',
-  C2: 'bg-blue-100 text-blue-800',
+  C2: 'bg-[#e8f7f8] text-[#0F3D58]',
 }
 
 function QuestionViewer({ question, idx, total, onPrev, onNext }) {
@@ -25,7 +25,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center justify-between mb-4">
-        <span className="bg-blue-50 text-[#0F3D58] rounded-lg px-3 py-1 font-bold text-sm">
+        <span className="bg-[#FDF2E9] text-[#0F3D58] rounded-lg px-3 py-1 font-bold text-sm">
           Question {idx + 1} / {total}
         </span>
         {question.level && (
@@ -36,7 +36,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
       </div>
 
       {question.audio_url && (
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-4">
           <div className="text-sm text-[#0F3D58] font-bold mb-2 flex items-center gap-1.5"><Headphones className="w-4 h-4" /> Enregistrement audio</div>
           <audio controls className="w-full h-9" src={question.audio_url}>
             Votre navigateur ne supporte pas la lecture audio.
@@ -56,7 +56,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
       )}
 
       {question.prompt && (
-        <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 mb-3 text-sm text-[#0F3D58] font-medium">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl px-4 py-3 mb-3 text-sm text-[#0F3D58] font-medium">
           {question.prompt}
         </div>
       )}
@@ -69,10 +69,10 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
         {options.map((opt, i) => {
           let cls = 'border-gray-200 bg-white text-gray-800 hover:border-gray-300'
           if (revealed) {
-            if (i === correct) cls = 'border-green-500 bg-blue-50 text-blue-900'
+            if (i === correct) cls = 'border-green-500 bg-[#FDF2E9] text-[#0F3D58]'
             else if (i === chosen) cls = 'border-red-400 bg-red-50 text-red-800'
           } else if (i === chosen) {
-            cls = 'border-[#F98012] bg-blue-50 text-[#0F3D58]'
+            cls = 'border-[#F98012] bg-[#FDF2E9] text-[#0F3D58]'
           }
           const optText = typeof opt === 'object' ? (opt.text || opt.label || JSON.stringify(opt)) : opt
           return (
@@ -101,7 +101,7 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
         )}
 
         {revealed && question.explanation && (
-          <div className="flex-1 bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-xs text-blue-800">
+          <div className="flex-1 bg-[#FDF2E9] border border-[#e8e0d8] rounded-lg px-3 py-2 text-xs text-[#0F3D58]">
             {question.explanation}
           </div>
         )}
@@ -150,7 +150,7 @@ export default function ComprehensionOralePage() {
             <Headphones className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-extrabold m-0 mb-1.5 text-white">Compréhension Orale</h1>
-              <p className="m-0 text-blue-200">
+              <p className="m-0 text-[#e8f7f8]">
                 {selectedSeries
                   ? `Série ${selectedSeries.title || selectedSeries.slug} — ${questions.length} questions`
                   : `${series.length} séries disponibles · 35 minutes · 699 pts`}

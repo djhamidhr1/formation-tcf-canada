@@ -165,8 +165,8 @@ export default function NclcCalculatorSection() {
           </div>
 
           {/* Info supplémentaire */}
-          <div className="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl">
-            <p className="text-sm text-blue-800 leading-relaxed">
+          <div className="mt-6 p-4 bg-[#FDF2E9] border-2 border-[#e8e0d8] rounded-xl">
+            <p className="text-sm text-[#0F3D58] leading-relaxed">
               <strong>💡 Bon à savoir :</strong> Pour l'Expression Écrite et Orale, le barème est différent (sur /20). Le calculateur ajuste automatiquement.
             </p>
           </div>

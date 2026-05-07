@@ -57,11 +57,11 @@ function TaskAccordion({ task, text, index }) {
           {/* Positives */}
           {task.positives && task.positives.length > 0 && (
             <div className="px-5 pt-4">
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                <h4 className="text-sm font-bold text-blue-800 mb-2"><Check size={16} className="inline mr-1" /> Points positifs</h4>
+              <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4">
+                <h4 className="text-sm font-bold text-[#0F3D58] mb-2"><Check size={16} className="inline mr-1" /> Points positifs</h4>
                 <ul className="space-y-1">
                   {task.positives.map((p, i) => (
-                    <li key={i} className="text-sm text-blue-700 flex gap-2">
+                    <li key={i} className="text-sm text-[#3a5a6e] flex gap-2">
                       <span className="shrink-0">•</span>
                       <span>{p}</span>
                     </li>
@@ -152,7 +152,7 @@ export default function EEResultsPage() {
       {/* Header */}
       <div className="bg-gradient-to-br from-[#0F3D58] to-[#71C9CE] rounded-3xl p-8 text-white mb-6 text-center">
         {combinaison?.month_slug && (
-          <div className="text-sm font-medium text-blue-200 mb-2">{combinaison.month_slug}</div>
+          <div className="text-sm font-medium text-[#e8f7f8] mb-2">{combinaison.month_slug}</div>
         )}
         <h1 className="text-2xl font-extrabold mb-6">Résultats — Expression Écrite</h1>
 
@@ -164,7 +164,7 @@ export default function EEResultsPage() {
           ].map(item => (
             <div key={item.label} className="bg-white/20 rounded-2xl p-4">
               <div className="text-2xl font-extrabold">{item.val}</div>
-              <div className="text-blue-200 text-xs mt-1">{item.sub}</div>
+              <div className="text-[#e8f7f8] text-xs mt-1">{item.sub}</div>
             </div>
           ))}
         </div>
@@ -229,7 +229,7 @@ export default function EEResultsPage() {
           />
         ))}
         {(!aiResult.tasks || aiResult.tasks.length === 0) && (
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-blue-800 text-sm">
+          <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 text-[#0F3D58] text-sm">
             Le détail par tâche n'est pas disponible. Score global : {score}/20.
           </div>
         )}
@@ -245,7 +245,7 @@ export default function EEResultsPage() {
         </Link>
         <Link
           to="/epreuve/expression-ecrite/sujets-actualites"
-          className="flex-1 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-blue-50 text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
+          className="flex-1 bg-white border-2 border-[#0F3D58] text-[#0F3D58] hover:bg-[#FDF2E9] text-center py-3.5 rounded-xl font-bold no-underline transition-colors"
         >
           Voir les sujets
         </Link>

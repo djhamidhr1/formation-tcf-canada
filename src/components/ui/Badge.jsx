@@ -1,11 +1,11 @@
 const COLORS = {
-  blue: 'bg-blue-100 text-blue-800',
+  blue: 'bg-[#e8f7f8] text-[#0F3D58]',
   green: 'bg-green-100 text-green-800',
-  purple: 'bg-blue-100 text-blue-800',
+  purple: 'bg-[#e8f7f8] text-[#0F3D58]',
   yellow: 'bg-yellow-100 text-yellow-800',
   red: 'bg-red-100 text-red-800',
   gray: 'bg-gray-100 text-gray-700',
-  orange: 'bg-orange-100 text-orange-800',
+  orange: 'bg-[#F98012]/10 text-[#F98012]',
 }
 
 export default function Badge({ children, color = 'blue', className = '' }) {

@@ -59,8 +59,8 @@ Nous n'utilisons pas de cookies publicitaires ou de tracking tiers.`,
 ]
 
 const COLOR = {
-  blue:   'bg-blue-50 text-blue-600 border-blue-200',
-  purple: 'bg-blue-50 text-blue-600 border-blue-200',
+  blue:   'bg-[#FDF2E9] text-[#6b8a9a] border-[#e8e0d8]',
+  purple: 'bg-[#FDF2E9] text-[#6b8a9a] border-[#e8e0d8]',
   green:  'bg-green-50 text-green-600 border-green-200',
   orange: 'bg-orange-50 text-orange-600 border-orange-200',
   red:    'bg-red-50 text-red-600 border-red-200',
@@ -76,7 +76,7 @@ export default function ConfidentialitePage() {
             <Shield size={32} className="text-white" />
           </div>
           <h1 className="text-3xl font-extrabold mb-2">Politique de confidentialité</h1>
-          <p className="text-blue-200 text-sm">Dernière mise à jour : Avril 2026 · Formation TCF Canada</p>
+          <p className="text-[#e8f7f8] text-sm">Dernière mise à jour : Avril 2026 · Formation TCF Canada</p>
         </div>
       </div>
 
@@ -111,9 +111,9 @@ export default function ConfidentialitePage() {
         <div className="bg-[#0F3D58] rounded-2xl p-6 text-white text-center">
           <MapPin size={24} className="mx-auto mb-2 opacity-80" />
           <p className="font-extrabold text-lg mb-1">Nous contacter</p>
-          <p className="text-blue-200 text-sm mb-3">Pour toute question relative à vos données personnelles</p>
+          <p className="text-[#e8f7f8] text-sm mb-3">Pour toute question relative à vos données personnelles</p>
           <a href="mailto:hamid@formation-tcf.com"
-            className="inline-block bg-white text-[#0F3D58] font-bold px-6 py-2.5 rounded-xl text-sm no-underline hover:bg-blue-50 transition-colors">
+            className="inline-block bg-white text-[#0F3D58] font-bold px-6 py-2.5 rounded-xl text-sm no-underline hover:bg-[#FDF2E9] transition-colors">
             hamid@formation-tcf.com
           </a>
         </div>

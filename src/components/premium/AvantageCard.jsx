@@ -44,7 +44,7 @@ export default function AvantageCard({ icon, title, desc, index }) {
         </div>
 
         {/* Border glow on hover */}
-        <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-blue-300/30 transition-all duration-300" />
+        <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#71C9CE]/30 transition-all duration-300" />
       </div>
 
       {/* Floating background circle */}

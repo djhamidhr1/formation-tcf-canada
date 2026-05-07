@@ -7,12 +7,12 @@ import toast from 'react-hot-toast'
 import { BookOpen, Clock, HelpCircle, Trophy, Zap, Search, Loader, BarChart2, Check, X } from 'lucide-react'
 
 const LEVEL_COLORS = {
-  A1: 'bg-blue-50 text-blue-700 border-blue-200',
-  A2: 'bg-blue-100 text-blue-800 border-blue-200',
-  B1: 'bg-blue-100 text-blue-800 border-blue-300',
-  B2: 'bg-blue-200 text-blue-900 border-blue-300',
-  C1: 'bg-blue-200 text-blue-900 border-blue-400',
-  C2: 'bg-blue-300 text-blue-950 border-blue-400',
+  A1: 'bg-[#FDF2E9] text-[#0F3D58] border-[#e8e0d8]',
+  A2: 'bg-[#FDF2E9] text-[#0F3D58] border-[#e8e0d8]',
+  B1: 'bg-[#e8f7f8] text-[#0F3D58] border-[#71C9CE]',
+  B2: 'bg-[#e8f7f8] text-[#0F3D58] border-[#71C9CE]',
+  C1: 'bg-[#0F3D58]/10 text-[#0F3D58] border-[#0F3D58]/30',
+  C2: 'bg-[#0F3D58]/10 text-[#0F3D58] border-[#0F3D58]/30',
 }
 
 export default function CESimulatorPage() {
@@ -26,6 +26,7 @@ export default function CESimulatorPage() {
   const [answers, setAnswers] = useState([])
   const [submitting, setSubmitting] = useState(false)
   const [started, setStarted] = useState(false)
+  const [showImage, setShowImage] = useState(true)
 
   // Correction mode
   const [isCorrectionMode, setIsCorrectionMode] = useState(false)
@@ -163,7 +164,7 @@ export default function CESimulatorPage() {
   if (!started) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <div className="flex justify-center mb-6"><BookOpen size={48} className="text-[#0F3D58]" /></div>
+        <div className="flex justify-center mb-6"><BookOpen size={48} className="text-[#F98012]" /></div>
         <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{series?.title}</h1>
         <p className="text-gray-500 mb-8">Compréhension Écrite — Entraînement</p>
 
@@ -173,17 +174,17 @@ export default function CESimulatorPage() {
             [<HelpCircle size={28} />, questions.length, 'Questions'],
             [<Trophy size={28} />, '699 pts', 'Score max'],
           ].map(([icon, val, label]) => (
-            <div key={label} className="bg-blue-50 border border-blue-200 rounded-xl p-5">
-              <div className="flex justify-center mb-1 text-[#0F3D58]">{icon}</div>
+            <div key={label} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-5">
+              <div className="flex justify-center mb-1 text-[#F98012]">{icon}</div>
               <div className="text-2xl font-extrabold text-gray-900">{val}</div>
               <div className="text-xs text-gray-500 mt-1">{label}</div>
             </div>
           ))}
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-8 text-left text-sm text-blue-800">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-8 text-left text-sm text-[#0F3D58]">
           <p className="font-semibold mb-1 flex items-center gap-1"><Zap size={14} /> Conseils avant de commencer :</p>
-          <ul className="list-disc pl-4 space-y-1 text-blue-700">
+          <ul className="list-disc pl-4 space-y-1 text-[#3a5a6e]">
             <li>Le timer démarrera dès que vous cliquerez sur "Commencer"</li>
             <li>Lisez d'abord la question, puis repérez la réponse dans le texte</li>
             <li>Les questions C2 (Q36-39) valent 33 pts — commencez par elles si vous manquez de temps</li>
@@ -228,12 +229,12 @@ export default function CESimulatorPage() {
 
       {/* Bandeau correction mode */}
       {isCorrectionMode && (
-        <div className="text-white rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md" style={{ background: 'linear-gradient(to right, #0F3D58, #164b6b)' }}>
+        <div className="text-white rounded-2xl p-4 mb-4 flex flex-wrap items-center justify-between gap-3 shadow-md" style={{ background: 'linear-gradient(to right, #0F3D58, #0F3D58)' }}>
           <div className="flex items-center gap-3">
             <Search size={24} />
             <div>
               <p className="font-extrabold text-lg">Mode Correction</p>
-              <p className="text-blue-100 text-xs">Les bonnes réponses sont affichées en vert · Navigation libre entre les questions</p>
+              <p className="text-[#e8f7f8] text-xs">Les bonnes réponses sont affichées en vert · Navigation libre entre les questions</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -251,7 +252,7 @@ export default function CESimulatorPage() {
               <button
                 onClick={handleSubmit}
                 disabled={submitting}
-                className="bg-white text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg text-xs font-bold transition-colors disabled:opacity-60"
+                className="bg-white text-[#6b8a9a] hover:bg-[#FDF2E9] px-4 py-2 rounded-lg text-xs font-bold transition-colors disabled:opacity-60"
               >
                 {submitting ? <Loader size={14} className="inline animate-spin" /> : <><BarChart2 size={14} className="inline -mt-0.5" /> Resultats complets</>}
               </button>
@@ -276,14 +277,14 @@ export default function CESimulatorPage() {
             </div>
           </div>
 
-          <div className={`text-xl font-bold font-mono px-4 py-2 rounded-xl ${seconds < 300 ? 'bg-red-100 text-red-700 animate-pulse' : seconds < 600 ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-800'}`}>
+          <div className={`text-xl font-bold font-mono px-4 py-2 rounded-xl ${seconds < 300 ? 'bg-red-100 text-red-700 animate-pulse' : seconds < 600 ? 'bg-[#e8f7f8] text-[#3a5a6e]' : 'bg-gray-100 text-gray-800'}`}>
             <Clock size={16} className="inline -mt-0.5" /> {formatTime(seconds)}
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleAutoFillAndCorrect}
-              className="px-3 py-1.5 bg-blue-50 text-blue-700 border border-blue-300 rounded-lg text-xs font-bold hover:bg-orange-100 transition-colors"
+              className="px-3 py-1.5 bg-[#FDF2E9] text-[#3a5a6e] border border-[#71C9CE] rounded-lg text-xs font-bold hover:bg-[#F98012]/10 transition-colors"
             >
               <Search size={14} className="inline -mt-0.5" /> Corrige
             </button>
@@ -320,9 +321,9 @@ export default function CESimulatorPage() {
                       : isCorrectionMode
                       ? wasWrong
                         ? 'bg-red-100 text-red-700 border border-red-300'
-                        : 'bg-blue-100 text-blue-700 border border-blue-300'
+                        : 'bg-[#e8f7f8] text-[#3a5a6e] border border-[#71C9CE]'
                       : answers[i] !== null
-                      ? 'bg-blue-100 text-blue-700 border border-blue-200'
+                      ? 'bg-[#e8f7f8] text-[#3a5a6e] border border-[#e8e0d8]'
                       : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                   }`}
                 >
@@ -338,7 +339,7 @@ export default function CESimulatorPage() {
                 <span>Actuelle</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-blue-100 border border-blue-200"></div>
+                <div className="w-4 h-4 rounded bg-[#e8f7f8] border border-[#e8e0d8]"></div>
                 <span>Répondu</span>
               </div>
               <div className="flex items-center gap-2">
@@ -350,7 +351,7 @@ export default function CESimulatorPage() {
           {isCorrectionMode && (
             <div className="mt-3 space-y-1.5 text-xs text-gray-400">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded bg-blue-100 border border-blue-300 flex items-center justify-center text-blue-700 font-bold text-[10px]"><Check size={10} /></div>
+                <div className="w-4 h-4 rounded bg-[#e8f7f8] border border-[#71C9CE] flex items-center justify-center text-[#3a5a6e] font-bold text-[10px]"><Check size={10} /></div>
                 <span>Correct</span>
               </div>
               <div className="flex items-center gap-2">
@@ -375,22 +376,45 @@ export default function CESimulatorPage() {
           </div>
 
           {question?.image_url && (
-            <img
-              src={question.image_url}
-              alt=""
-              className="w-full max-h-72 object-contain rounded-xl mb-4 border border-gray-100"
-            />
+            <div className="mb-4">
+              <button
+                onClick={() => setShowImage(prev => !prev)}
+                style={{ background: '#fff', color: '#0F3D58', border: '2px solid #0F3D58' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#F98012'; e.currentTarget.style.borderColor = '#F98012'; e.currentTarget.style.color = '#fff' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.borderColor = '#0F3D58'; e.currentTarget.style.color = '#0F3D58' }}
+                className="mb-2 px-4 py-1.5 rounded-full text-xs font-bold transition-colors"
+              >
+                {showImage ? 'Masquer l\'image' : 'Afficher l\'image'}
+              </button>
+              {showImage && (
+                <img
+                  src={question.image_url}
+                  alt=""
+                  className="w-full max-h-72 object-contain rounded-xl border border-gray-100"
+                />
+              )}
+            </div>
           )}
 
           {question?.content_html && (
             <div
               className="bg-gray-50 border border-gray-200 rounded-xl px-5 py-4 mb-4 text-sm leading-relaxed prose prose-sm max-w-none"
-              dangerouslySetInnerHTML={{ __html: question.content_html }}
+              dangerouslySetInnerHTML={{ __html: question.content_html.includes('<') ? question.content_html : question.content_html.split('\n').filter(line => {
+                const t = line.trim().toLowerCase()
+                return t && !t.includes('www.tcf') && !t.includes('tcfcatest') && !t.includes('tcf-canada') && !/^question\s*[:：]?\s*\d+$/i.test(line.trim()) && !/^canada\.?$/i.test(line.trim()) && !/^\s*canada\s*\.?\s*$/i.test(line.trim())
+              }).map(l => l.replace(/\s*www\.tcfcatest\.com\s*/gi, '').replace(/\s*CANADA\.?\s*$/g, '').replace(/\s*Canada\.?\s*$/g, '')).filter(l => l.trim()).map(line => {
+                const trimmed = line.trim()
+                if (!trimmed) return ''
+                if (trimmed.endsWith('?')) return `<p class="font-bold text-gray-900 mb-2 text-base mt-3">${trimmed}</p>`
+                if (trimmed.length < 100 && trimmed === trimmed.toUpperCase() && trimmed.length > 3) return `<p class="font-bold text-gray-900 mb-2 text-base">${trimmed}</p>`
+                if (trimmed.length < 100 && /^[A-ZÀÉÈÊËÏÔÙÛÜÇ][^.]*$/.test(trimmed) && !trimmed.includes(',')) return `<p class="font-semibold text-gray-800 mb-2">${trimmed}</p>`
+                return `<p class="mb-2">${trimmed}</p>`
+              }).join('') }}
             />
           )}
 
           {question?.prompt && (
-            <div className="bg-blue-50 border border-blue-100 rounded-xl px-4 py-3 mb-3 text-sm text-blue-800 font-medium">
+            <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl px-4 py-3 mb-3 text-sm text-[#0F3D58] font-medium">
               {question.prompt}
             </div>
           )}
@@ -412,7 +436,7 @@ export default function CESimulatorPage() {
                     key={i}
                     className={`w-full text-left px-4 py-3.5 rounded-xl border-2 text-sm font-medium ${
                       isCorrectOpt
-                        ? 'border-green-500 bg-blue-50 text-blue-900'
+                        ? 'border-green-500 bg-[#FDF2E9] text-[#0F3D58]'
                         : wasUserWrong
                         ? 'border-red-300 bg-red-50 text-red-700'
                         : 'border-gray-200 bg-white text-gray-500'
@@ -426,7 +450,7 @@ export default function CESimulatorPage() {
                       {String.fromCharCode(65 + i)}
                     </span>
                     {optText}
-                    {isCorrectOpt && <span className="ml-2 text-blue-600 font-bold inline-flex items-center gap-0.5"><Check size={14} /> Bonne reponse</span>}
+                    {isCorrectOpt && <span className="ml-2 text-[#6b8a9a] font-bold inline-flex items-center gap-0.5"><Check size={14} /> Bonne reponse</span>}
                     {wasUserWrong && <span className="ml-2 text-red-500 font-bold inline-flex items-center gap-0.5"><X size={14} /> Votre choix</span>}
                   </div>
                 )
@@ -439,7 +463,7 @@ export default function CESimulatorPage() {
                   onClick={() => handleAnswer(i)}
                   className={`w-full text-left px-4 py-3.5 rounded-xl border-2 text-sm font-medium transition-all hover:shadow-sm ${
                     chosen
-                      ? 'border-[#0F3D58] bg-blue-50 text-blue-900 shadow-sm'
+                      ? 'border-[#0F3D58] bg-[#FDF2E9] text-[#0F3D58] shadow-sm'
                       : 'border-gray-200 bg-white text-gray-800 hover:border-gray-300 hover:bg-gray-50'
                   }`}
                 >
@@ -456,7 +480,7 @@ export default function CESimulatorPage() {
 
           {/* Explication en mode correction */}
           {isCorrectionMode && question?.explanation && (
-            <div className="mt-4 bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm text-blue-800">
+            <div className="mt-4 bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 text-sm text-[#0F3D58]">
               <p className="font-semibold mb-1 flex items-center gap-1"><Zap size={14} /> Explication</p>
               <p>{question.explanation}</p>
             </div>

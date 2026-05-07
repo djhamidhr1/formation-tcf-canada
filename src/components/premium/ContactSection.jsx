@@ -97,7 +97,7 @@ export default function ContactSection() {
                 </motion.div>
                 <div className="flex-1">
                   <div className="font-black text-2xl mb-2">Email</div>
-                  <div className="text-blue-100 font-medium mb-4">
+                  <div className="text-[#e8f7f8] font-medium mb-4">
                     Support professionnel
                   </div>
                   <div className="text-lg font-bold bg-white/20 backdrop-blur-md border border-white/30 rounded-xl px-4 py-2 inline-block">

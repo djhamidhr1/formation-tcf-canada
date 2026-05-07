@@ -12,9 +12,9 @@ const TASK_DURATIONS = {
 }
 
 const TASK_COLORS = {
-  1: 'bg-blue-50 text-blue-800 border-blue-200',
-  2: 'bg-blue-100 text-blue-800 border-blue-200',
-  3: 'bg-blue-50 text-blue-800 border-blue-200',
+  1: 'bg-[#FDF2E9] text-[#0F3D58] border-[#e8e0d8]',
+  2: 'bg-[#e8f7f8] text-[#0F3D58] border-[#e8e0d8]',
+  3: 'bg-[#FDF2E9] text-[#0F3D58] border-[#e8e0d8]',
 }
 
 function extractYear(slug) {
@@ -53,12 +53,12 @@ function SubjectCard({ sujet }) {
         <div>
           <button
             onClick={() => setShowCorrection(!showCorrection)}
-            className="text-xs font-medium text-blue-700 hover:text-amber-900 underline transition-colors"
+            className="text-xs font-medium text-[#3a5a6e] hover:text-amber-900 underline transition-colors"
           >
             {showCorrection ? 'Masquer la correction' : 'Voir la correction →'}
           </button>
           {showCorrection && (
-            <div className="mt-2 bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-amber-900 leading-relaxed">
+            <div className="mt-2 bg-[#FDF2E9] border border-[#e8e0d8] rounded-lg p-3 text-xs text-amber-900 leading-relaxed">
               {sujet.correction_exemple}
             </div>
           )}

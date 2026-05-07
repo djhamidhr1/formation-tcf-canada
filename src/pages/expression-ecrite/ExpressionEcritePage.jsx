@@ -34,7 +34,7 @@ export default function ExpressionEcritePage() {
             <PenTool className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-extrabold m-0 mb-1.5 text-white">Expression Écrite</h1>
-              <p className="m-0 text-blue-200">
+              <p className="m-0 text-[#e8f7f8]">
                 {selected ? `Combinaison #${selected.id}` : `${combinaisons.length} combinaisons disponibles · 60 min · 20 pts`}
               </p>
             </div>

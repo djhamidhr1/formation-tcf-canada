@@ -2,21 +2,21 @@ import { Link } from 'react-router-dom'
 import { Headphones, AlertTriangle, BarChart2, Award, Zap, Eye, PenLine, Volume2, Globe, XCircle } from 'lucide-react'
 
 const BAREME = [
-  { range: 'Q1–4', level: 'A1', pts: 3, count: 4, color: 'bg-blue-100 text-blue-800' },
-  { range: 'Q5–10', level: 'A2', pts: 9, count: 6, color: 'bg-blue-100 text-blue-800' },
-  { range: 'Q11–19', level: 'B1', pts: 15, count: 9, color: 'bg-blue-50 text-blue-800' },
-  { range: 'Q20–29', level: 'B2', pts: 21, count: 10, color: 'bg-blue-100 text-blue-800' },
+  { range: 'Q1–4', level: 'A1', pts: 3, count: 4, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
+  { range: 'Q5–10', level: 'A2', pts: 9, count: 6, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
+  { range: 'Q11–19', level: 'B1', pts: 15, count: 9, color: 'bg-[#FDF2E9] text-[#0F3D58]' },
+  { range: 'Q20–29', level: 'B2', pts: 21, count: 10, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
   { range: 'Q30–35', level: 'C1', pts: 26, count: 6, color: 'bg-red-100 text-red-800' },
-  { range: 'Q36–39', level: 'C2', pts: 33, count: 4, color: 'bg-blue-100 text-blue-800' },
+  { range: 'Q36–39', level: 'C2', pts: 33, count: 4, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
 ]
 
 const NCLC_TABLE = [
-  { range: '549–699', nclc: '10+', color: 'bg-emerald-100 text-blue-800' },
-  { range: '499–548', nclc: '9', color: 'bg-blue-100 text-blue-800' },
-  { range: '453–498', nclc: '8', color: 'bg-lime-100 text-blue-800' },
-  { range: '406–452', nclc: '7', color: 'bg-blue-50 text-blue-800' },
-  { range: '375–405', nclc: '6', color: 'bg-blue-50 text-blue-800' },
-  { range: '342–374', nclc: '5', color: 'bg-blue-100 text-blue-800' },
+  { range: '549–699', nclc: '10+', color: 'bg-emerald-100 text-[#0F3D58]' },
+  { range: '499–548', nclc: '9', color: 'bg-[#e8f7f8] text-[#0F3D58]' },
+  { range: '453–498', nclc: '8', color: 'bg-lime-100 text-[#0F3D58]' },
+  { range: '406–452', nclc: '7', color: 'bg-[#FDF2E9] text-[#0F3D58]' },
+  { range: '375–405', nclc: '6', color: 'bg-[#FDF2E9] text-[#0F3D58]' },
+  { range: '342–374', nclc: '5', color: 'bg-[#e8f7f8] text-[#0F3D58]' },
   { range: '226–341', nclc: '4', color: 'bg-red-100 text-red-800' },
   { range: '< 226', nclc: '3', color: 'bg-red-200 text-red-900' },
 ]
@@ -108,7 +108,7 @@ export default function COTipsPage() {
                   <td className="py-3 px-3 text-right text-gray-500">{b.pts * b.count} pts</td>
                 </tr>
               ))}
-              <tr className="bg-blue-50 font-bold">
+              <tr className="bg-[#FDF2E9] font-bold">
                 <td className="py-3 px-3" colSpan={3}>TOTAL MAXIMUM</td>
                 <td className="py-3 px-3 text-right text-[#0F3D58]">699 pts</td>
               </tr>

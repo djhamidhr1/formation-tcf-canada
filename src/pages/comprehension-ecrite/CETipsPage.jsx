@@ -1,12 +1,12 @@
 import { Target, Clock, MapPin, XCircle, BarChart2 } from 'lucide-react'
 
 const BAREME = [
-  { range: 'Q1–4', level: 'A1', pts: 3, color: 'bg-blue-100 text-blue-800' },
-  { range: 'Q5–10', level: 'A2', pts: 9, color: 'bg-blue-100 text-blue-800' },
-  { range: 'Q11–19', level: 'B1', pts: 15, color: 'bg-blue-50 text-blue-800' },
-  { range: 'Q20–29', level: 'B2', pts: 21, color: 'bg-blue-100 text-blue-800' },
+  { range: 'Q1–4', level: 'A1', pts: 3, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
+  { range: 'Q5–10', level: 'A2', pts: 9, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
+  { range: 'Q11–19', level: 'B1', pts: 15, color: 'bg-[#FDF2E9] text-[#0F3D58]' },
+  { range: 'Q20–29', level: 'B2', pts: 21, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
   { range: 'Q30–35', level: 'C1', pts: 26, color: 'bg-red-100 text-red-800' },
-  { range: 'Q36–39', level: 'C2', pts: 33, color: 'bg-blue-100 text-blue-800' },
+  { range: 'Q36–39', level: 'C2', pts: 33, color: 'bg-[#e8f7f8] text-[#0F3D58]' },
 ]
 
 const TIPS = [
@@ -46,7 +46,7 @@ export default function CETipsPage() {
                   <td className="py-3 px-3 text-right text-gray-500">{b.pts * (b.range === 'Q1–4' ? 4 : b.range === 'Q5–10' ? 6 : b.range === 'Q11–19' ? 9 : b.range === 'Q20–29' ? 10 : b.range === 'Q30–35' ? 6 : 4)} pts</td>
                 </tr>
               ))}
-              <tr className="bg-blue-50 font-bold">
+              <tr className="bg-[#FDF2E9] font-bold">
                 <td className="py-3 px-3" colSpan={3}>TOTAL MAXIMUM</td>
                 <td className="py-3 px-3 text-right text-[#0F3D58]">699 pts</td>
               </tr>
@@ -58,8 +58,8 @@ export default function CETipsPage() {
       {/* Conseils */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {TIPS.map(t => (
-          <div key={t.title} className="bg-blue-50 border border-blue-100 rounded-xl p-5">
-            <div className="mb-2 text-blue-700">{t.icon}</div>
+          <div key={t.title} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-5">
+            <div className="mb-2 text-[#3a5a6e]">{t.icon}</div>
             <h3 className="font-bold text-gray-900 mb-2">{t.title}</h3>
             <p className="text-gray-600 text-sm leading-relaxed">{t.desc}</p>
           </div>

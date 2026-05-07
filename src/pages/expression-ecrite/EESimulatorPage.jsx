@@ -250,7 +250,7 @@ export default function EESimulatorPage() {
 
         <div className="grid grid-cols-3 gap-3 mb-6">
           {[['clock', '60 min', 'Durée'], ['filetext', '3 tâches', 'À rédiger'], ['bot', 'Correction IA', 'Résultat']].map(([iconKey, val, label]) => (
-            <div key={label} className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <div key={label} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4">
               <div className="text-2xl mb-1">{iconKey === 'clock' ? <Clock size={24} className="text-[#0F3D58]" /> : iconKey === 'filetext' ? <FileText size={24} className="text-[#0F3D58]" /> : <BarChart2 size={24} className="text-[#0F3D58]" />}</div>
               <div className="text-lg font-extrabold text-gray-900">{val}</div>
               <div className="text-xs text-gray-500 mt-0.5">{label}</div>
@@ -270,7 +270,7 @@ export default function EESimulatorPage() {
           ))}
         </div>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 text-sm text-blue-800 text-left">
+        <div className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-xl p-4 mb-6 text-sm text-[#0F3D58] text-left">
           <AlertTriangle size={16} className="inline mr-1" /> <strong>Attention :</strong> toute tâche laissée vide entraîne une note éliminatoire (0/20) pour cette tâche.
         </div>
 
@@ -365,7 +365,7 @@ export default function EESimulatorPage() {
                 <button key={t.num} onClick={() => setActiveTask(t.num)}
                   className={`w-full text-left p-3 rounded-xl border-2 transition-all ${
                     isActive
-                      ? 'border-[#0F3D58] bg-blue-50'
+                      ? 'border-[#0F3D58] bg-[#FDF2E9]'
                       : 'border-gray-100 hover:border-gray-300 hover:bg-gray-50'
                   }`}>
                   <div className="flex items-center justify-between mb-1">
@@ -394,9 +394,9 @@ export default function EESimulatorPage() {
           </div>
 
           {/* Warning box */}
-          <div className="mt-4 bg-orange-50 border border-blue-200 rounded-xl p-3">
-            <p className="text-xs font-bold text-blue-700 mb-1"><AlertTriangle size={14} className="inline mr-1" /> Rappel important</p>
-            <p className="text-xs text-blue-600 leading-relaxed">
+          <div className="mt-4 bg-[#F98012]/10 border border-[#e8e0d8] rounded-xl p-3">
+            <p className="text-xs font-bold text-[#3a5a6e] mb-1"><AlertTriangle size={14} className="inline mr-1" /> Rappel important</p>
+            <p className="text-xs text-[#6b8a9a] leading-relaxed">
               Toute tâche laissée vide entraîne une note <strong>éliminatoire (0/20)</strong> pour cette partie.
             </p>
           </div>
@@ -424,8 +424,8 @@ export default function EESimulatorPage() {
 
           {/* Subject (collapsible) */}
           {showSubject && (
-            <div className="px-5 py-4 border-b border-gray-100 bg-blue-50/40">
-              <p className="text-xs font-bold text-blue-600 uppercase tracking-wide mb-2">Consigne</p>
+            <div className="px-5 py-4 border-b border-gray-100 bg-[#FDF2E9]/40">
+              <p className="text-xs font-bold text-[#6b8a9a] uppercase tracking-wide mb-2">Consigne</p>
               <div className="text-sm text-gray-800 leading-relaxed whitespace-pre-wrap">
                 {taskSubjects[activeTask] || <span className="text-gray-400 italic">Aucun sujet disponible pour cette tâche.</span>}
               </div>
@@ -530,7 +530,7 @@ export default function EESimulatorPage() {
           <button
             onClick={handleSubmit}
             disabled={submitting}
-            className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-extrabold py-3.5 rounded-xl text-sm transition-colors shadow-md flex items-center justify-center gap-2"
+            className="w-full bg-[#F98012] hover:bg-[#71C9CE] disabled:opacity-60 text-white font-extrabold py-3.5 rounded-xl text-sm transition-colors shadow-md flex items-center justify-center gap-2"
           >
             {submitting ? (
               <>

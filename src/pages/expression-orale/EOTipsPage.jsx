@@ -24,7 +24,7 @@ const taskGuides = [
     id: 't1',
     title: 'Tâche 1 — Entretien dirigé (1–2 min)',
     badge: 'T1 · 3 pts',
-    badgeColor: 'bg-blue-100 text-blue-800',
+    badgeColor: 'bg-[#e8f7f8] text-[#0F3D58]',
     color: 'border-[#71C9CE]',
     strategies: [
       "Préparez une présentation de 90 secondes : nom, ville d'origine, situation familiale, études/métier.",
@@ -44,7 +44,7 @@ const taskGuides = [
     id: 't2',
     title: 'Tâche 2 — Interaction (3 min 30 s)',
     badge: 'T2 · 7 pts',
-    badgeColor: 'bg-blue-100 text-blue-800',
+    badgeColor: 'bg-[#e8f7f8] text-[#0F3D58]',
     color: 'border-[#0F3D58]',
     strategies: [
       "Lisez attentivement le sujet durant la préparation de 2 minutes.",
@@ -151,7 +151,7 @@ function AccordionCard({ item, open, onToggle }) {
                 <ul className="space-y-2">
                   {item.strategies.map((s, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                      <span className="w-5 h-5 rounded-full bg-blue-100 text-[#0F3D58] flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
+                      <span className="w-5 h-5 rounded-full bg-[#e8f7f8] text-[#0F3D58] flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
                       {s}
                     </li>
                   ))}
@@ -161,7 +161,7 @@ function AccordionCard({ item, open, onToggle }) {
                 <h4 className="text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">Formules utiles</h4>
                 <div className="space-y-1.5">
                   {item.formulas.map((f, i) => (
-                    <div key={i} className="bg-blue-50 border border-blue-200 rounded-lg px-3 py-2 text-sm text-blue-900 italic">
+                    <div key={i} className="bg-[#FDF2E9] border border-[#e8e0d8] rounded-lg px-3 py-2 text-sm text-[#0F3D58] italic">
                       « {f} »
                     </div>
                   ))}
@@ -188,7 +188,7 @@ export default function EOTipsPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <BookOpen size={36} className="mx-auto mb-3 opacity-90" />
             <h1 className="text-3xl font-extrabold mb-2">Méthodologie — Expression Orale</h1>
-            <p className="text-blue-200">Stratégies éprouvées pour chaque tâche de l'épreuve</p>
+            <p className="text-[#e8f7f8]">Stratégies éprouvées pour chaque tâche de l'épreuve</p>
           </motion.div>
         </div>
       </div>
@@ -245,7 +245,7 @@ export default function EOTipsPage() {
                   className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-blue-50 rounded-xl">
+                    <div className="p-2 bg-[#FDF2E9] rounded-xl">
                       <Icon size={20} className="text-[#0F3D58]" />
                     </div>
                     <h3 className="font-bold text-gray-800">{tip.title}</h3>
@@ -280,14 +280,14 @@ export default function EOTipsPage() {
               let appreciation = 'Insuffisant'
               let aprColor = 'text-red-500'
               if (nclcNum >= 10) { appreciation = 'Excellent'; aprColor = 'text-green-600' }
-              else if (nclcNum >= 8) { appreciation = 'Très bon'; aprColor = 'text-blue-600' }
+              else if (nclcNum >= 8) { appreciation = 'Très bon'; aprColor = 'text-[#6b8a9a]' }
               else if (nclcNum >= 6) { appreciation = 'Bon'; aprColor = 'text-[#F98012]' }
               else if (nclcNum >= 5) { appreciation = 'Passable'; aprColor = 'text-orange-500' }
               return (
                 <div key={i} className={`grid grid-cols-3 px-6 py-3.5 text-sm border-b border-gray-50 ${i % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'}`}>
                   <span className="font-semibold text-gray-800">{row.score} pts</span>
                   <span className="text-center">
-                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-100 text-blue-800 font-bold text-sm">
+                    <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#e8f7f8] text-[#0F3D58] font-bold text-sm">
                       {row.nclc}
                     </span>
                   </span>

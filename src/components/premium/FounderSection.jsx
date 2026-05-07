@@ -74,7 +74,7 @@ export default function FounderSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="text-blue-200 text-xl mb-10 font-medium"
+            className="text-[#e8f7f8] text-xl mb-10 font-medium"
           >
             Fondateur & Expert TCF Canada depuis 2019
           </motion.p>
@@ -93,7 +93,7 @@ export default function FounderSection() {
                 <div className="text-5xl font-black mb-2 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
                   {stat.value}
                 </div>
-                <div className="text-blue-200 text-sm font-medium">
+                <div className="text-[#e8f7f8] text-sm font-medium">
                   {stat.label}
                 </div>
               </motion.div>
@@ -106,7 +106,7 @@ export default function FounderSection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
-            className="mt-10 text-blue-100 text-lg max-w-2xl mx-auto italic"
+            className="mt-10 text-[#e8f7f8] text-lg max-w-2xl mx-auto italic"
           >
             "Notre mission : démocratiser l'accès à une préparation TCF de qualité pour tous les candidats francophones."
           </motion.p>
