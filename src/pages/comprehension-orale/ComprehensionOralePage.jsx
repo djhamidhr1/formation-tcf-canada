@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Headphones, Zap } from 'lucide-react'
+import { Headphones, Zap, FileText } from 'lucide-react'
 import { supabase } from '../../services/supabase'
+
+const TRANSCRIPTS_URL = 'https://fvhxptpzskvwpdtycklj.supabase.co/storage/v1/object/public/audios-co/transcripts_co.json'
 
 const C = { bg: '#fef0e2', border: '#F98012', btn: '#0F3D58', text: '#0F3D58', light: '#FDF2E9' }
 
@@ -14,10 +16,11 @@ const LEVEL_COLORS = {
   C2: 'bg-[#e8f7f8] text-[#0F3D58]',
 }
 
-function QuestionViewer({ question, idx, total, onPrev, onNext }) {
+function QuestionViewer({ question, idx, total, onPrev, onNext, transcript }) {
   const [chosen, setChosen] = useState(null)
   const [revealed, setRevealed] = useState(false)
-  useEffect(() => { setChosen(null); setRevealed(false) }, [question?.id])
+  const [showTranscript, setShowTranscript] = useState(false)
+  useEffect(() => { setChosen(null); setRevealed(false); setShowTranscript(false) }, [question?.id])
   if (!question) return null
   const options = question.options || []
   const correct = question.correct_answer_index
@@ -41,6 +44,22 @@ function QuestionViewer({ question, idx, total, onPrev, onNext }) {
           <audio controls className="w-full h-9" src={question.audio_url}>
             Votre navigateur ne supporte pas la lecture audio.
           </audio>
+          {transcript && (
+            <div className="mt-3">
+              <button
+                onClick={() => setShowTranscript(!showTranscript)}
+                className="flex items-center gap-1.5 text-xs font-semibold text-[#0F3D58] bg-white border border-[#e8e0d8] rounded-lg px-3 py-1.5 hover:bg-[#0F3D58] hover:text-white transition-colors"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                {showTranscript ? 'Masquer le texte' : 'Voir le texte'}
+              </button>
+              {showTranscript && (
+                <div className="mt-2 bg-white border border-[#e8e0d8] rounded-lg p-3 text-sm text-gray-700 leading-relaxed">
+                  {transcript}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
@@ -123,10 +142,13 @@ export default function ComprehensionOralePage() {
   const [qIdx, setQIdx] = useState(0)
   const [loading, setLoading] = useState(true)
   const [loadingQ, setLoadingQ] = useState(false)
+  const transcriptsRef = useRef(null)
 
   useEffect(() => {
     supabase.from('series_co').select('*').order('order_index')
       .then(({ data }) => { setSeries(data || []); setLoading(false) })
+    // Load transcripts in background
+    fetch(TRANSCRIPTS_URL).then(r => r.json()).then(data => { transcriptsRef.current = data }).catch(() => {})
   }, [])
 
   const handleSelectSeries = useCallback(async (s) => {
@@ -212,6 +234,7 @@ export default function ComprehensionOralePage() {
               total={questions.length}
               onPrev={() => setQIdx(i => Math.max(0, i - 1))}
               onNext={() => setQIdx(i => Math.min(questions.length - 1, i + 1))}
+              transcript={transcriptsRef.current?.[selectedSeries?.id]?.[String(questions[qIdx]?.order_index)]}
             />
           </div>
         )}
